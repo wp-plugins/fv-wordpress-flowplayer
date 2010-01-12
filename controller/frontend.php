@@ -12,6 +12,9 @@ include dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
 add_action('wp_head', 'flowplayer_head');
 add_action('the_content', 'flowplayer_content');
 add_action('wp_footer','flowplayer_display_scripts');
+//	Addition for 0.9.15
+add_action('widget_text','flowplayer_content');
+
 /**
  * END WP Hooks
  */
@@ -93,6 +96,13 @@ function flowplayer_display_scripts() {
 	}
 }
 
+/**
+ * This is the template tag. Use the standard Flowplayer shortcodes
+ */
+
+function flowplayer($shortcode) {
+	echo apply_filters('the_content',$shortcode);
+}
 
 
 

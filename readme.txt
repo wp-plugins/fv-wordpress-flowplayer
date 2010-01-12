@@ -1,9 +1,9 @@
 === FV Wordpress Flowplayer ===
-Contributors: Certicky, FolioVision
+Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 2.8.4
-Stable tag: 0.9.14
+Stable tag: 0.9.15
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -39,6 +39,9 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 3. Configuration menu for administrators.
 
 == Changelog ==
+
+= 0.9.15 =
+* support for widget use and template use
 
 = 0.9.14 =
 * Added a possibility to forbid the popup boxes.
