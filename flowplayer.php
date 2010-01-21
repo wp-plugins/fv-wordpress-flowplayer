@@ -5,7 +5,7 @@ Plugin URI: http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flow
 Description: Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice). 
 Version: 0.9.15.
 Author: Foliovision
-Author URI: http://breakk.no-ip.org/
+Author URI: http://foliovision.com/
 */
 
 
