@@ -29,47 +29,43 @@ $GLOBALS['scripts'] = array();
 function flowplayer_content( $content ) {
 	
 	$content_matches = array();
-	preg_match_all('/\[flowplayer\ [a-z0-9\:\.\-\&\_\/\,\=\ \<\>\"\'\@\;\-\n\(\)\%\!]+\]/i', $content, $content_matches);
+	preg_match_all('/\[flowplayer\ [^\]]+\]/i', $content, $content_matches);
 		
 	// process all found tags
 	foreach ($content_matches[0] as $tag) {
-	
-		// temporarily replace spaces between quotes with "_"
-		$newtag = $tag;
-		$in_quote = false;
-		for ($i = 0; $i<strlen($tag); $i++) {
-			if ($tag[$i] == "'") {
-				if ($in_quote == false) {
-					$in_quote = true;
-				} else {
-					$in_quote = false;
-				}
-			}
-			if ($in_quote == true) {
-				if (($tag[$i] == ' ')) $newtag[$i] = '_';
-				if (($tag[$i] == "\n")) $newtag[$i] = '';
-			}
+		$ntag = str_replace("\'",'&#039;',$tag);
+				
+		//	search for URL
+		preg_match("/src='([^']*?)'/i",$ntag,$tmp);
+		if( $tmp[1] == NULL ) {
+			preg_match_all("/src=([^\s\]]*)/i",$ntag,$tmp);
+			$media = $tmp[1][0];
+		}
+		else
+			$media = $tmp[1];
 			
-		}
+		//	width and heigth
+		preg_match("/width=(\d*)/i",$ntag,$width);
+		preg_match("/height=(\d*)/i",$ntag,$height);
 		
-	
-		// split submitted tag into individual arguments (delimited by spaces and/or commas)
-		$submitted_args = preg_split("/[\n\s,\[\]]+/",$newtag,-1,PREG_SPLIT_NO_EMPTY);
+		if( $width[1] != NULL)
+			$arguments['width'] = $width[1];
+		if( $height[1] != NULL)
+			$arguments['height'] = $height[1];
+			
+		//	search for popup in quotes
+		preg_match("/popup='([^']*?)'/i",$ntag,$tmp);
+		$arguments['popup'] = $tmp[1];
+		
+		//	search for splash image
+		preg_match("/splash='([^']*?)'/i",$ntag,$tmp);
+		if( $tmp[1] == NULL ) {
+			preg_match_all("/splash=([^\s\]]*)/i",$ntag,$tmp);
+			$arguments['splash'] = $tmp[1][0];
+		}
+		else
+			$arguments['splash'] = $tmp[1];
 
-		// decode the arguments (key and value are separated by "=")		
-		$media = '';
-		$arguments = array();
-		foreach ($submitted_args as $a) {
-			$arg = explode("=",$a,2);
-			if (count($arg) == 2) {
-				if ($arg[0] == 'src') {
-					$media = $arg[1];
-				} else {
-					$arguments[$arg[0]] = $arg[1];
-				}
-			}
-		}
-		
 		if (trim($media) != '') {
 			// build new player
 			$fp = new flowplayer_frontend();
@@ -103,12 +99,5 @@ function flowplayer_display_scripts() {
 function flowplayer($shortcode) {
 	echo apply_filters('the_content',$shortcode);
 }
-
-
-
-
-
-
-
 
 ?>

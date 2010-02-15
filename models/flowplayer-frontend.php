@@ -35,7 +35,8 @@ class flowplayer_frontend extends flowplayer
 			if ($this->conf['popupbox'] != 'false') {
 				if (isset($args['popup'])) {
 					$popup = $args['popup'];
-					$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
+					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
+					$popup = html_entity_decode( str_replace('&#039;',"'",$popup ) );
 				} else {
 					$popup = '<div style="margin-top: 10px;">Would you like to replay the video or share the link to it with your friends?</div>';
 				}
