@@ -38,7 +38,7 @@ function flowplayer_content( $content ) {
 		//	search for URL
 		preg_match("/src='([^']*?)'/i",$ntag,$tmp);
 		if( $tmp[1] == NULL ) {
-			preg_match_all("/src=([^\s\]]*)/i",$ntag,$tmp);
+			preg_match_all("/src=([^,\s\]]*)/i",$ntag,$tmp);
 			$media = $tmp[1][0];
 		}
 		else
@@ -60,7 +60,7 @@ function flowplayer_content( $content ) {
 		//	search for splash image
 		preg_match("/splash='([^']*?)'/i",$ntag,$tmp);
 		if( $tmp[1] == NULL ) {
-			preg_match_all("/splash=([^\s\]]*)/i",$ntag,$tmp);
+			preg_match_all("/splash=([^,\s\]]*)/i",$ntag,$tmp);
 			$arguments['splash'] = $tmp[1][0];
 		}
 		else
