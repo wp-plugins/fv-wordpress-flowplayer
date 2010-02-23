@@ -41,7 +41,7 @@ class flowplayer_frontend extends flowplayer
 					$popup = '<div style="margin-top: 10px;">Would you like to replay the video or share the link to it with your friends?</div>';
 				}
 				$popup_controls = '<div class="popup_controls"><a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/replay.png" alt="Replay video" /></a><a title="Share video" href="javascript:fp_share(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/share.png" alt="Share video" /></a></div>';
-				$popup_contents = "\n".'<span id="popup_contents_'.$hash.'" class="popup_contents">'.$popup_controls.'<span id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup">'.$popup.'</span></span>';
+				$popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup">'.$popup.'</div></div>';
 				// replace href attribute by javascript function
 				$popup_contents = str_replace("href=\"","onClick=\"javascript:window.location=this.href\" href=\"",$popup_contents);
 				$popup_code = "
