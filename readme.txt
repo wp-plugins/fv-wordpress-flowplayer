@@ -36,9 +36,13 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 
 1. Post containing modified flowplayer playing a video.
 2. Adding three players with different arguments into a post.
-3. Configuration menu for administrators.
+3. Add new video dialog window in editing mode.
+4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 0.9.18 =
+* added button & dialog window for easy video adding and editing
 
 = 0.9.16 =
 * minor bug fixes
