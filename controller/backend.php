@@ -16,6 +16,7 @@ $fp = new flowplayer_backend();
  */
 add_action('admin_head', 'flowplayer_head');
 add_action('admin_menu', 'flowplayer_admin');
+add_action('media_buttons', 'flowplayer_add_media_button', 30);
 /**
  * END WP Hooks
  */
@@ -84,5 +85,25 @@ function flowplayer_check_errors($fp){
 	}
 }
 
+function flowplayer_add_media_button(){
+	$plugins = get_option('active_plugins');
+	$found = false;
+	
+	foreach ( $plugins AS $plugin ) {
+		if( stripos($plugin,'foliopress-wysiwyg') !== FALSE )
+			$found = true;
+	}
+	if(!$found) {
+		/*global $fmp_jw_url, $fmp_jw_files_dir;
+		$wizard_url = $fmp_jw_url . '/inc/shortcode_wizard.php';
+		$config_dir = $fmp_jw_files_dir . '/configs';
+		$playlist_dir = $fmp_jw_files_dir .'/playlists';
+		$button_src = $fmp_jw_url . '/inc/images/playerbutton.gif';
+		$button_tip = 'Insert a Flash MP3 Player';*/
+		$wizard_url = RELATIVE_PATH.'/wizard.php';
+		$button_src = RELATIVE_PATH.'/images/icon.png';
+		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'?KeepThis=true&TB_iframe=true" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
+	}
+}
 
 ?>

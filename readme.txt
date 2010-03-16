@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 2.9.1
-Stable tag: 0.9.17
+Stable tag: 0.9.18
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -39,9 +39,6 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 3. Configuration menu for administrators.
 
 == Changelog ==
-
-= 0.9.17 =
-* minor bug fixes
 
 = 0.9.16 =
 * minor bug fixes

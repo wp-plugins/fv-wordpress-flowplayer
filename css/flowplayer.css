@@ -44,8 +44,8 @@ img.splash
 {
 	visibility: hidden;
 	position: absolute;
-	top: -9999em;
-	left: -9999em;
+	/*top: -9999em;
+	left: -9999em;*/
 }
 
 .flowplayer_popup
@@ -78,7 +78,7 @@ text-decoration: none;
 .flowplayer_popup a, .flowplayer_popup a img 
 {
 margin: auto !important;
-cursor: pointer;
+cursor: pointer !important;
 background: none !important;
 border: none;
 padding: 0 !important;
