@@ -17,10 +17,19 @@ $fp = new flowplayer_backend();
 add_action('admin_head', 'flowplayer_head');
 add_action('admin_menu', 'flowplayer_admin');
 add_action('media_buttons', 'flowplayer_add_media_button', 30);
+add_action('media_upload_fv-wp-flowplayer', 'flowplayer_wizard');
 /**
  * END WP Hooks
  */
 
+function flowplayer_wizard() {
+	wp_enqueue_style('media');
+	wp_iframe('flowplayer_wizard_function');
+}
+
+function flowplayer_wizard_function() {
+	include dirname( __FILE__ ) . '/../view/wizard.php';
+}
 
 /**
  * Administrator environment function.
@@ -100,9 +109,9 @@ function flowplayer_add_media_button(){
 		$playlist_dir = $fmp_jw_files_dir .'/playlists';
 		$button_src = $fmp_jw_url . '/inc/images/playerbutton.gif';
 		$button_tip = 'Insert a Flash MP3 Player';*/
-		$wizard_url = RELATIVE_PATH.'/wizard.php';
+		$wizard_url = 'media-upload.php?type=fv-wp-flowplayer';
 		$button_src = RELATIVE_PATH.'/images/icon.png';
-		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'?KeepThis=true&TB_iframe=true" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
+		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'&TB_iframe=true&width=500&height=300" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
 	}
 }
 
