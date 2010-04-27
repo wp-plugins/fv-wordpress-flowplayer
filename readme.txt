@@ -34,13 +34,13 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 
 == Frequently Asked Questions ==
 
-= I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or ‘}’ in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
+= I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
 
 You need to use at least PHP 5, your site is probably still running on old PHP 5. 
 
-= I installed the plugin, inserted the video, but it’s not working, only a gray box appears. =
+= I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
-FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the <?php wp_footer(); ?> Wordpress hook. Almost all themes do this out of the box, but if you’ve customised your theme there’s a chance that you might have deleted this call.
+FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the <?php wp_footer(); ?> Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
 
 = You player works just fine, but there are some weird display issues. =
 
