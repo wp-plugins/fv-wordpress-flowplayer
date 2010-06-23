@@ -50,6 +50,10 @@ Please check if these issues also appear when using the default Wordpress templa
 
 Just copy the plugin into wp-content/plugins and then activate it on each blog where you want to use it.
 
+= Is there a way to force pre-buffering to load a chunk of the video before the splash screen appears? =
+
+This option is not available. Splash images are used to save the server load, so the videos are loaded only when user requests to watch them. Loading videos before the splash screen would be very inefficient, and it is something we are trying to avoid.
+
 == Screenshots ==
 
 1. Post containing modified flowplayer playing a video.
