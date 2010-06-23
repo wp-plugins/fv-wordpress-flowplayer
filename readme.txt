@@ -52,7 +52,9 @@ Just copy the plugin into wp-content/plugins and then activate it on each blog w
 
 = Is there a way to force pre-buffering to load a chunk of the video before the splash screen appears? =
 
-This option is not available. Splash images are used to save the server load, so the videos are loaded only when user requests to watch them. Loading videos before the splash screen would be very inefficient, and it is something we are trying to avoid.
+This option is not available. With autobuffer, it means every visitor on every visit to your page will be downloading the video. This means that you use a lot more bandwidth than on demand. I know that I actually watch the video on only about 1/3 of the pages with video that I visit. That saves you money (no bandwidth overages) and means that people who do want to watch the video and other visitors to your site get faster performance.
+If you want to autobuffer, you can turn that on in the options (we turn it off by default and recommend that it stays off).
+
 
 == Screenshots ==
 
