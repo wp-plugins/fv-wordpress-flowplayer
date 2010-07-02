@@ -3,8 +3,10 @@
 /**
  * Needed includes
  */
+
 include dirname( __FILE__ ) . '/../models/flowplayer.php';
 include dirname( __FILE__ ) . '/../models/flowplayer-backend.php';
+//include dirname( __FILE__ ) . '/shortcodes.php';
 
 /**
  * Create the flowplayer_backend object
@@ -14,20 +16,55 @@ $fp = new flowplayer_backend();
 /**
  * WP Hooks
  */
+//add_shortcode('flowplayer','flowplayer_content_handle');
 add_action('admin_head', 'flowplayer_head');
 add_action('admin_menu', 'flowplayer_admin');
 add_action('media_buttons', 'flowplayer_add_media_button', 30);
 add_action('media_upload_fv-wp-flowplayer', 'flowplayer_wizard');
+add_filter('media_send_to_editor','fp_media_send_to_editor', 10, 3);
 /**
  * END WP Hooks
  */
+ 
+ 
+function fp_media_send_to_editor($html, $attachment_id, $attachment){
+  if(isset($_POST['_wp_http_referer'])) {
+    preg_match('/width=([0-9]+)/',$_POST['_wp_http_referer'],$matchesw);
+    preg_match('/height=([0-9]+)/',$_POST['_wp_http_referer'],$matchesh);
+  }
 
+  if ((!empty($matchesw))&&(!empty($matchesh))&&($matchesw[1]==640)&&($matchesh[1]==723)){
+      
+      $video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv');
+      $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
+      if (isset($attachment_id)) 
+      {
+         $attachment_url = wp_get_attachment_url($attachment_id);
+         $path_parts = pathinfo($attachment_url);
+         if (in_array($path_parts['extension'], $splash_types)){
+            setcookie("selected_image",$attachment_url);
+            $selected_attachment = array('url'=>$attachment_url,'id'=>$attachment_id);
+          }
+          else{
+//         if (in_array($path_parts['extension'], $video_types)){
+            setcookie("selected_video",$attachment_url);
+            $selected_attachment = array('url'=>$attachment_url);
+            }
+      }
+      wp_enqueue_style('media');
+      wp_iframe('flowplayer_wizard_function',$selected_attachment);
+      die;
+   }
+}
 function flowplayer_wizard() {
+   setcookie("selected_video",'',time()-3600);
+   setcookie("selected_image",'',time()-3600);
 	wp_enqueue_style('media');
-	wp_iframe('flowplayer_wizard_function');
+	wp_iframe('flowplayer_wizard_function','');
 }
 
-function flowplayer_wizard_function() {
+function flowplayer_wizard_function($selected_attachment) {
+  
 	include dirname( __FILE__ ) . '/../view/wizard.php';
 }
 
@@ -97,7 +134,7 @@ function flowplayer_check_errors($fp){
 function flowplayer_add_media_button(){
 	$plugins = get_option('active_plugins');
 	$found = false;
-	
+//	setcookie("flowlayer_active",'',time()-3600);
 	foreach ( $plugins AS $plugin ) {
 		if( stripos($plugin,'foliopress-wysiwyg') !== FALSE )
 			$found = true;
@@ -111,8 +148,7 @@ function flowplayer_add_media_button(){
 		$button_tip = 'Insert a Flash MP3 Player';*/
 		$wizard_url = 'media-upload.php?type=fv-wp-flowplayer';
 		$button_src = RELATIVE_PATH.'/images/icon.png';
-		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'&TB_iframe=true&width=500&height=300" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
+		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'&post_id='. $_GET['post'] .'&TB_iframe=true&width=500&height=300" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
 	}
 }
-
 ?>

@@ -43,6 +43,30 @@
 
 					</select></td>
 				</tr>
+				<tr>
+					<td>Enable Full-screen Mode:</td>
+					<td><select name="allowfullscreen">
+
+					<?php echo flowplayer_bool_select($fp->conf['allowfullscreen']); ?>
+
+					</select></td>
+				</tr>
+				<tr>
+					<td>Allow User Uploads: </td>
+					<td>
+					 	<select name="allowuploads">
+						<?php echo flowplayer_bool_select($fp->conf['allowuploads']); ?>
+					 	</select>
+					 </td>
+				</tr>
+				<tr>
+					<td>Enable Post Thumbnail: </td>
+					<td>
+					 	<select name="postthumbnail">
+						<?php echo flowplayer_bool_select($fp->conf['postthumbnail']); ?>
+					 	</select>
+					 </td>
+				</tr>
 
 					<?php echo include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 
@@ -60,7 +84,7 @@
 					<ul>
 						<li>FV Wordpress Flowplayer is a completely non-commercial solution for embedding video on Wordpress websites.</li>
 						<li>It contains opensource version of Flowplayer, with removed logo and copyright notice. </li>
-						<li>Supported video formats are <strong>FLV</strong>, <strong>H.264</strong>, and <strong>MP4</strong>. Multiple videos can be displayed in ope post or page.</li>
+						<li>Supported video formats are <strong>FLV</strong>, <strong>H.264</strong>, and <strong>MP4</strong>. Multiple videos can be displayed in one post or page.</li>
 						<li>Default options for all the embedded videos can be set in the menu above.</li>
 					</ul>
 					<h3>Usage:</h3>
@@ -72,16 +96,21 @@
 					<code>src</code> is the only compulsory parameter, specifying the video file. Its value can be either a full URL of the file, 
 					or just a filename, if it is located in the /videos/ directory in the root of the web.
 					</p>
+					<p>When user uploads are allowed, uploading or selecting video from WP Media Library is available. To insert selected video, simply use the 'Insert into Post' button.</p>
 					<h4>Optional parameters:</h4>
 					<ul style="text-align: left;">
-						<li><code>width</code> and <code>height</code> specify the dimensions of played video in pixels. If they are not set, the default size is 320x240.<br/>
-						<i>Example</i>:<br/><code>[flowplayer src=example.flv, width=640, height=480]</code></li>
+						<li><code>width</code> and <code>height</code> specify the dimensions of played video in pixels. If they are not set, the default size is 320x240.<br />
+						<i>Example</i>:<br /><code>[flowplayer src=example.flv, width=640, height=480]</code></li>
 						<li><code>splash</code> parameter can be used to display a custom splash image before the video is started. Just like in case of <code>src</code> 
-						parameter, its value can be either complete URL, or filename of an image located in /videos/ folder.<br/>
-						<i>Example</i>:<br/><code>[flowplayer src=example.flv, splash=image.jpg]</code></li>
+						parameter, its value can be either complete URL, or filename of an image located in /videos/ folder.<br />
+						<i>Example</i>:<br /><code>[flowplayer src=example.flv, splash=image.jpg]</code></li>
+						<li><code>autoplay</code> parameter specify wheter the video should start to play automaticaly after the page is loaded. This parameter overrides the default autoplay setting above. Its value can be either true or false.<br />
+						<i>Example</i>:<br /><code>[flowplayer src=example.flv, autoplay=true]</code></li>
 						<li><code>popup</code> parameter can be used to display any HTML code after the video finishes (ideal for advertisment or links to similar videos). 
 						Content you want to display must be between simgle quotes (<code>''</code>).<br/>
-						<i>Example</i>:<br/><code>[flowplayer src=example.flv, popup='&lt;p&gt;some HTML content&lt;/p&gt;']</code></li>
+						<i>Example</i>:<br /><code>[flowplayer src=example.flv, popup='&lt;p&gt;some HTML content&lt;/p&gt;']</code></li>
+						<li><code>controlbar</code> parameter can be used to show or hide the control bar. Value <code>show</code> will keep the controlbar visible for the whole duration of the video, and value <code>hide</code> will completely hide the control bar. If this parameter is not set, the default autohide is applied.<br />
+						<i>Example</i>:<br /><code>[flowplayer src=example.flv, controlbar='show']</code></li>
 					</ul>
 					</td>
 					<td></td>
@@ -101,34 +130,21 @@
 		$f("player", "<?php echo PLAYER; ?>", {
 				<?php echo (isset($fp->conf['key'])&&strlen($fp->conf['key'])>0?'key:\''.$fp->conf['key'].'\',':''); ?>
 				plugins: {
-  					 controls: {    					
-      					buttonOverColor: '<?php echo $fp->conf['buttonOverColor']; ?>',
-      					sliderColor: '<?php echo $fp->conf['sliderColor']; ?>',
-      					bufferColor: '<?php echo $fp->conf['bufferColor']; ?>',
-      					sliderGradient: 'none',
-      					progressGradient: 'medium',
-      					durationColor: '<?php echo $fp->conf['durationColor']; ?>',
-      					progressColor: '<?php echo $fp->conf['progressColor']; ?>',
-      					backgroundColor: '<?php echo $fp->conf['backgroundColor']; ?>',
-      					timeColor: '<?php echo $fp->conf['timeColor']; ?>',
-      					buttonColor: '<?php echo $fp->conf['buttonColor']; ?>',
-      					backgroundGradient: 'none',
-      					bufferGradient: 'none',
-   						opacity:1.0
-   						}
+				    <?php echo (((empty($fp->conf['showcontrols']))||($fp->conf['showcontrols']=='true'))? 
+                  'controls: { buttonOverColor: \''.$fp->conf['buttonOverColor'].'\', sliderColor: \''. $fp->conf['sliderColor'].'\', bufferColor: \''. $fp->conf['bufferColor'].'\', sliderGradient: \'none\', progressGradient: \'medium\', durationColor: \''. $fp->conf['durationColor'].'\', progressColor: \''. $fp->conf['progressColor'].'\', backgroundColor: \''. $fp->conf['backgroundColor'].'\', timeColor: \''. $fp->conf['timeColor'].'\', buttonColor: \''. $fp->conf['buttonColor'].'\', backgroundGradient: \'none\', bufferGradient: \'none\', opacity:0.9, fullscreen: '.$fp->conf['allowfullscreen'].',autoHide: \'always\',hideDelay: 500} ':'controls:null'); ?> 
 				},
 				clip: {
 					url:'<?php echo RELATIVE_PATH; ?>/flowplayer/example.flv',
-					autoPlay: '<?php if (isset($fp->conf["autoplay"])) { echo $fp->conf["autoplay"]; } else { echo "false"; } ?>',
-	       				autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo $fp->conf["autobuffer"]; } else { echo "false"; } ?>'
+					autoPlay: '<?php if (isset($fp->conf["autoplay"])) { echo $fp->conf["autoplay"]; } else { echo(false); } ?>',
+	       	   autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo $fp->conf["autobuffer"]; } else { echo "false"; } ?>'
 				},
 	
 
-<?php 	
-if($fp->conf['logoenable'] == 'true'){
-	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.$fp->conf['fullscreenonly'].', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
-}
-?>
+            <?php 	
+            if($fp->conf['logoenable'] == 'true'){
+            	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.$fp->conf['fullscreenonly'].', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
+            }
+            ?>
 
 				canvas: {
 					backgroundColor:'<?php echo $fp->conf["canvas"]; ?>'

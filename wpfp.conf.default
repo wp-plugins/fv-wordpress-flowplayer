@@ -1,7 +1,10 @@
 autoplay:false
 key:false
 autobuffer:false
-popupbox:true
+popupbox:false
+allowfullscreen:true
+allowuploads:true
+postthumbnail:false
 tgt:backgroundcolor
 backgroundColor:#1b1b1d
 canvas:#ffffff

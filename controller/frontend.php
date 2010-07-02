@@ -9,8 +9,10 @@ include dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
 /**
  * WP Hooks
  */
+
+
 add_action('wp_head', 'flowplayer_head');
-add_action('the_content', 'flowplayer_content');
+//add_action('the_content', 'flowplayer_content');
 add_action('wp_footer','flowplayer_display_scripts');
 //	Addition for 0.9.15
 add_action('widget_text','flowplayer_content');
@@ -42,8 +44,14 @@ function flowplayer_content( $content ) {
 			$media = $tmp[1][0];
 		}
 		else
-			$media = $tmp[1];
-			
+      $media = $tmp[1];
+
+		//strip the additional /videos/ from the beginning if present	
+		preg_match('/\/videos\/(.*)/',$media,$matches);
+		if ($matches[1] == NULL){}
+		else
+		  $media = $matches[1];
+      	
 		//	width and heigth
 		preg_match("/width=(\d*)/i",$ntag,$width);
 		preg_match("/height=(\d*)/i",$ntag,$height);
@@ -52,7 +60,20 @@ function flowplayer_content( $content ) {
 			$arguments['width'] = $width[1];
 		if( $height[1] != NULL)
 			$arguments['height'] = $height[1];
-			
+		
+    //	search for autoplay
+		preg_match("/[\s]+autoplay([\s]|])+/i",$ntag,$tmp);
+		if (isset($tmp[0])){
+       $arguments['autoplay'] = true;
+      }
+		else
+		{
+         preg_match("/autoplay='([A-Za-z]*)'/i",$ntag,$tmp);
+		   if ( $tmp[1] == NULL )
+		       preg_match("/autoplay=([A-Za-z]*)/i",$ntag,$tmp);
+		   if (isset($tmp[1])) $arguments['autoplay'] = $tmp[1];
+		}
+		
 		//	search for popup in quotes
 		preg_match("/popup='([^']*?)'/i",$ntag,$tmp);
 		$arguments['popup'] = $tmp[1];
@@ -61,10 +82,17 @@ function flowplayer_content( $content ) {
 		preg_match("/splash='([^']*?)'/i",$ntag,$tmp);
 		if( $tmp[1] == NULL ) {
 			preg_match_all("/splash=([^,\s\]]*)/i",$ntag,$tmp);
-			$arguments['splash'] = $tmp[1][0];
+			preg_match('/\/videos\/(.*)/',$tmp[1][0],$matches);
+   		if ($matches[1] == NULL){}
+   		else{
+			   $arguments['splash'] = $matches[1];
+		}}
+		else{
+		    preg_match('/\/videos\/(.*)/',$tmp[1],$matches);
+		    if ($matches[1] == NULL){}
+   		else
+			$arguments['splash'] = $matches[1];
 		}
-		else
-			$arguments['splash'] = $tmp[1];
 
 		if (trim($media) != '') {
 			// build new player
@@ -77,6 +105,7 @@ function flowplayer_content( $content ) {
 	
 	return $content;
 }
+
 
 
 /**

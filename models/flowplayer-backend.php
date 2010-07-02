@@ -1,8 +1,8 @@
 <?php
-
 /**
  * Extension of original flowplayer class intended for administrator backend.
  */
+
 class flowplayer_backend extends flowplayer
 {
 
@@ -13,11 +13,13 @@ class flowplayer_backend extends flowplayer
 	  	/**
 	 	 * Standard JS and CSS same as for frontend
 	 	 */
+
 	 	include dirname( __FILE__ ) . '/../view/frontend-head.php';
 	 	/**
 	 	 * Admin specific CSS and JS
 	 	 */
 	 	include dirname( __FILE__ ) . '/../view/backend-head.php'; 
+
 	}
 
 

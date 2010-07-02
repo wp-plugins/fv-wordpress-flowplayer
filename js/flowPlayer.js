@@ -259,7 +259,7 @@
 	 * Specifies the height to be allocated for the video display. This is the
 	 * maximum height available for the different resizing options.
 	 */
-	videoHeight: 320,
+	videoHeight: 240,
 	
 	/*
 	 * Specifies the width for the control buttons area. Optiona, defaults to the
@@ -291,7 +291,7 @@
 	 * 'hideControls' if set to true, hides all buttons and the progress bar
 	 * leaving only the video showing (optional, defaults to false)
 	 */
-	hideControls: false,
+	hideControls: true,
 
 	/*
 	 * URL that specifies a base URL that points to a folder containing
@@ -439,7 +439,7 @@
 	 * Specifies wether the full screen button should be shown in the player SWF component or not.
 	 * Optional, defaults to true. 
 	 */
-//	showFullScreenButton: false,
+	showFullScreenButton: false,
 
 	/*
 	 * Use the Flash 9 native full screen mode.
