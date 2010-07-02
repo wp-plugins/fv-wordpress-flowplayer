@@ -59,6 +59,10 @@ If you want to autobuffer, you can turn that on in the options (we turn it off b
 
 Currently there is no support for Amazon S3 service, this feature might be added in the future. 
 
+= The spinning circle is off centre when the video is loading. =
+
+This happens when you set width and height of the video other than are native dimensions. We recommend to use native dimensions of the video when placing on a webpage. 
+
 == Screenshots ==
 
 1. Post containing modified flowplayer playing a video.
