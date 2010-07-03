@@ -15,14 +15,14 @@ function flowplayer_content_handle( $atts ) {
       'popup' => '',
       'controlbar' => '',
       ), $atts ) );
-	$arguments['width'] = $width;
-	$arguments['height'] = $height;
-	$arguments['autoplay'] = $autoplay;
+	$arguments['width'] = preg_replace('/\,/', '', $width);
+	$arguments['height'] = preg_replace('/\,/', '', $height);
+	$arguments['autoplay'] = preg_replace('/\,/', '', $autoplay);
 //	$arguments['embed'] = $embed;
-	$arguments['splash'] = $splash;
+	$arguments['splash'] = preg_replace('/\,/', '', $splash);
 	$arguments['popup'] = $popup;
-	$arguments['controlbar'] = $controlbar;
-
+	$arguments['controlbar'] = preg_replace('/\,/', '', $controlbar);
+	$src = preg_replace('/\,/', '', $src);
 	if (trim($src) != '') {
 		// build new player
 		$fp = new flowplayer_frontend();

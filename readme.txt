@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.0
+Stable tag: 0.9.18
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -33,6 +33,7 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
    4. Go into Wordpress plugins setup in Wordpress administration interface and activate FV Wordpress Flowplayer plugin.
    5. Optionally, if you want to embed videos denoted just by their filename, you can create the /videos/ directory located directly in the root of your domain and place your videos there. Otherwise, you would have to type in a complete URL of video files.
 
+   
 == Frequently Asked Questions ==
 
 = I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
@@ -65,6 +66,7 @@ Currently there is no support for Amazon S3 service, this feature might be added
 This happens when you set width and height of the video other than are native dimensions. We recommend to use native dimensions of the video when placing on a webpage. 
 
 
+
 == Screenshots ==
 
 1. Post containing modified flowplayer playing a video.
@@ -73,6 +75,9 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.1 =
+* bug fix for wp shortcodes api to be compatible with commas in shortcodes
 
 = 1.0 =
 * autoplay option for single videos
