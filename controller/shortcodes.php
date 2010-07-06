@@ -13,7 +13,7 @@ function flowplayer_content_handle( $atts ) {
       'autoplay' => '',
       'splash' => '',
       'popup' => '',
-      'controlbar' => '',
+      'controlbar' => ''
       ), $atts ) );
 	$arguments['width'] = preg_replace('/\,/', '', $width);
 	$arguments['height'] = preg_replace('/\,/', '', $height);
@@ -22,6 +22,7 @@ function flowplayer_content_handle( $atts ) {
 	$arguments['splash'] = preg_replace('/\,/', '', $splash);
 	$arguments['popup'] = $popup;
 	$arguments['controlbar'] = preg_replace('/\,/', '', $controlbar);
+
 	$src = preg_replace('/\,/', '', $src);
 	if (trim($src) != '') {
 		// build new player

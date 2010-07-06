@@ -70,13 +70,12 @@ class flowplayer_frontend extends flowplayer
 				$popup_code = "
 				window.flowplayer('wpfp_$hash').onFinish(function() {
       				var fp = document.getElementById('wpfp_$hash');
-   					var popup = document.createElement('div');
-   					var popup_contents = document.getElementById('popup_contents_$hash');
-   					popup.className = 'flowplayer_popup';
-   					popup.id = 'wpfp_".$hash."_popup';
-   					popup.innerHTML = popup_contents.innerHTML;
-   					fp.appendChild(popup);
-					
+     					var popup = document.createElement('div');
+     					var popup_contents = document.getElementById('popup_contents_$hash');
+     					popup.className = 'flowplayer_popup';
+     					popup.id = 'wpfp_".$hash."_popup';
+     					popup.innerHTML = popup_contents.innerHTML;
+     					fp.appendChild(popup);
 					});
 				window.flowplayer('wpfp_$hash').onLoad(function() {
 				   var fp = document.getElementById('wpfp_".$hash."');
@@ -107,7 +106,7 @@ class flowplayer_frontend extends flowplayer
 				} else {
 					$splash_img = $args['splash'];
 				}
-				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px;" />';
+				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px;" />';
 				// overriding the "autoplay" configuration - video should start immediately after click on the splash image
 				$this->conf['autoplay'] = 'true';
 				$autoplay = true;

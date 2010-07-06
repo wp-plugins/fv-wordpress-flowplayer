@@ -3,7 +3,8 @@ if (isset($_COOKIE["selected_video"]))
    $uploaded_video = $_COOKIE["selected_video"];
 if (isset($_COOKIE["selected_image"]))
    $uploaded_image = $_COOKIE["selected_image"];
-   
+  
+
   $post_id = intval($_REQUEST['post_id']);
   //load configuration file:   
   $conf_path = realpath(dirname(__FILE__).'/../wpfp.conf');
@@ -94,7 +95,7 @@ function fillSplashInputs(){
 			echo '<tr>
 			<th></th>
 			<td colspan="2" style="width: 100%" >         
-         Or <a href="media-upload.php?type=video&amp;TB_iframe=true&amp;post_id='.$post_id.'&amp;width=640&amp;height=723">open media library</a> to upload new video.
+         Or <a href="media-upload.php?post_id='.$post_id.'&amp;type=video&amp;TB_iframe=true&amp;width=640&amp;height=723">open media library</a> to upload new video.
 			</td>
 			</tr>';
 			 }; //allow uplads video ?>
