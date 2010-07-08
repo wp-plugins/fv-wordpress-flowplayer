@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -12,7 +12,7 @@ Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of
 FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages.
 
 * Plugin is completely non-commercial. It contains modified opensource version of Flowplayer 3.1.3, with removed FP logo and copyright notice.
-* Supported video formats are FLV, H.264, and MP4. Multiple videos can be displayed in ope post or page.
+* Supported video formats are FLV, H.264, and MP4. Multiple videos can be displayed in one post or page.
 * Default options for all the embedded videos can be set in comprehensive administration menu.
 * It is loosely based on Wordpress Flowplayer plugin. However, there are several improvements:
 
@@ -29,7 +29,7 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 
    1. Download and unpack zip archive containing the plugin.
    2. Upload the fv-wordpress-flowplayer directory into wp-content/plugins/ directory of your wordpress installation.
-   3. Make sure, that configuration file wpfp.conf is writable.
+   3. Make sure, that configuration file wpfp.conf is writable (666 permissions).
    4. Go into Wordpress plugins setup in Wordpress administration interface and activate FV Wordpress Flowplayer plugin.
    5. Optionally, if you want to embed videos denoted just by their filename, you can create the /videos/ directory located directly in the root of your domain and place your videos there. Otherwise, you would have to type in a complete URL of video files.
 
@@ -43,6 +43,10 @@ You need to use at least PHP 5, your site is probably still running on old PHP 5
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
 FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the <?php wp_footer(); ?> Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
+
+= I installed the plugin, inserted the video, but it's not working, the play button does not work.  =
+
+Please make sure, that configuration file wpfp.conf is writable (666 permissions).
 
 = You player works just fine, but there are some weird display issues. =
 
@@ -75,6 +79,11 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.2 =
+* redirect feature added (Thanks for donation from Klaus Eickelpasch)
+* more bug fix for wp shortcodes api to be compatible with commas in shortcodes
+* fixed the absolute paths
 
 = 1.0.1 =
 * bug fix for wp shortcodes api to be compatible with commas in shortcodes

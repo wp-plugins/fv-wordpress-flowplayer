@@ -8,18 +8,18 @@ if (isset($_COOKIE["selected_image"]))
   $post_id = intval($_REQUEST['post_id']);
   //load configuration file:   
   $conf_path = realpath(dirname(__FILE__).'/../wpfp.conf');
-  $allow_uploads=false;
+  $allow_uploads = false;
   if(file_exists($conf_path)){    
 			//open file for reading
 			$fp = fopen($conf_path,'r');
 			//check if failed to open
 			if(!$fp) {
-				$allow_update=false;
+				$allow_update = false;
 			} else {
 				//read data
-				$data = fread($fp,filesize($conf_path));
+				$data = fread($fp, filesize($conf_path));
 				//get each line
-				$tmp = explode("\n",$data);
+				$tmp = explode("\n", $data);
 				//get each var
 				foreach($tmp as $key => $dat) {
 					//split from var:val
@@ -30,38 +30,37 @@ if (isset($_COOKIE["selected_image"]))
 				}
 			}
 			fclose($fp);		
-	}
+   }
 	if (isset($conf["allowuploads"]))
 	  $allow_uploads = $conf["allowuploads"];
-	  
 	if (isset($conf["postthumbnail"]))
 	  $post_thumbnail = $conf["postthumbnail"];
+	  
 	$video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4');
   $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
-  if (isset($selected_attachment['url'])) 
-  {
-      $path_parts = pathinfo($selected_attachment['url']);
-      if (in_array($path_parts['extension'], $video_types))
-         $uploaded_video = $selected_attachment['url'];
-      if (in_array($path_parts['extension'], $splash_types))
-         $uploaded_image = $selected_attachment['url'];
-   }
-   if (isset($uploaded_video)){
-      $serv = $_SERVER['SERVER_NAME'];
-      $pattern = '/'.$serv.'(.*)/';
-      preg_match($pattern, $uploaded_video, $matches);
-      require_once(realpath(dirname(__FILE__).'/getid3/getid3.php'));
-      // Initialize getID3 engine
-      $getID3 = new getID3;
+  if (isset($selected_attachment['url'])) {
+    $path_parts = pathinfo($selected_attachment['url']);
+    if (in_array($path_parts['extension'], $video_types))
+      $uploaded_video = $selected_attachment['url'];
+    if (in_array($path_parts['extension'], $splash_types))
+      $uploaded_image = $selected_attachment['url'];
+  }
+  if (isset($uploaded_video)){
+    $serv = $_SERVER['SERVER_NAME'];
+    $pattern = '/'.$serv.'(.*)/';
+    preg_match($pattern, $uploaded_video, $matches);
+    require_once(realpath(dirname(__FILE__).'/getid3/getid3.php'));
+    // Initialize getID3 engine
+    $getID3 = new getID3;
       
-      $ThisFileInfo = $getID3->analyze(realpath($_SERVER['DOCUMENT_ROOT'] .$matches[1]));
-      if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
-      //getid3_lib::CopyTagsToComments($ThisFileInfo);
-      $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
-      $file_width = $ThisFileInfo['video']['resolution_x'];          
-      $file_height = $ThisFileInfo['video']['resolution_y'];
-      $file_size = $ThisFileInfo['filesize'];           
-      $file_size = round($file_size/(1024*1024),2);                
+    $ThisFileInfo = $getID3->analyze(realpath($_SERVER['DOCUMENT_ROOT'] .$matches[1]));
+    if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
+    //getid3_lib::CopyTagsToComments($ThisFileInfo);
+    $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
+    $file_width = $ThisFileInfo['video']['resolution_x'];          
+    $file_height = $ThisFileInfo['video']['resolution_y'];
+    $file_size = $ThisFileInfo['filesize'];           
+    $file_size = round($file_size/(1024*1024),2);                
    }  	    
    
 

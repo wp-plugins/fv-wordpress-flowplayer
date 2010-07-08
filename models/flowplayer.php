@@ -132,8 +132,13 @@ class flowplayer {
  */
 function flowplayer_head() {
 	// define needed constants
+   preg_match('/.*wp-content\/plugins\/(.*?)\/models.*/',dirname(__FILE__),$matches);
+   if (isset($matches[1]))
+      $strFPdirname = $matches[1];
+   else
+       $strFPdirname = 'fv-wordpress-flowplayer';
 	if (!defined('RELATIVE_PATH')) {
-		define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/fv-wordpress-flowplayer');
+		define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);
 		define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
 		$vid = 'http://'.$_SERVER['SERVER_NAME'];
 		if (dirname($_SERVER['PHP_SELF']) != '/') $vid .= dirname($_SERVER['PHP_SELF']);

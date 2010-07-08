@@ -97,20 +97,23 @@
 					or just a filename, if it is located in the /videos/ directory in the root of the web.
 					</p>
 					<p>When user uploads are allowed, uploading or selecting video from WP Media Library is available. To insert selected video, simply use the 'Insert into Post' button.</p>
+               <p>Don't forget to set the permissions of the <strong>wpfp.conf</strong> file to 666, otherwise the changes on this site won't take effect.
 					<h4>Optional parameters:</h4>
 					<ul style="text-align: left;">
 						<li><code>width</code> and <code>height</code> specify the dimensions of played video in pixels. If they are not set, the default size is 320x240.<br />
-						<i>Example</i>:<br /><code>[flowplayer src=example.flv, width=640, height=480]</code></li>
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' width=640 height=480]</code></li>
 						<li><code>splash</code> parameter can be used to display a custom splash image before the video is started. Just like in case of <code>src</code> 
 						parameter, its value can be either complete URL, or filename of an image located in /videos/ folder.<br />
-						<i>Example</i>:<br /><code>[flowplayer src=example.flv, splash=image.jpg]</code></li>
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' splash=image.jpg]</code></li>
 						<li><code>autoplay</code> parameter specify wheter the video should start to play automaticaly after the page is loaded. This parameter overrides the default autoplay setting above. Its value can be either true or false.<br />
-						<i>Example</i>:<br /><code>[flowplayer src=example.flv, autoplay=true]</code></li>
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' autoplay=true]</code></li>
 						<li><code>popup</code> parameter can be used to display any HTML code after the video finishes (ideal for advertisment or links to similar videos). 
-						Content you want to display must be between simgle quotes (<code>''</code>).<br/>
-						<i>Example</i>:<br /><code>[flowplayer src=example.flv, popup='&lt;p&gt;some HTML content&lt;/p&gt;']</code></li>
+						Content you want to display must be between simgle quotes (<code>''</code>).<br />
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' popup='&lt;p&gt;some HTML content&lt;/p&gt;']</code></li>
 						<li><code>controlbar</code> parameter can be used to show or hide the control bar. Value <code>show</code> will keep the controlbar visible for the whole duration of the video, and value <code>hide</code> will completely hide the control bar. If this parameter is not set, the default autohide is applied.<br />
-						<i>Example</i>:<br /><code>[flowplayer src=example.flv, controlbar='show']</code></li>
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' controlbar='show']</code></li>
+						<li><code>redirect</code> parameter can be used to redirect to another page (in a new tab) after the video stops playing.<br />
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' redirect='http://www.site.com']</code></li>
 					</ul>
 					</td>
 					<td></td>

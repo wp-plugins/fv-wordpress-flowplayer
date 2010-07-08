@@ -31,14 +31,17 @@ class flowplayer_frontend extends flowplayer
 			$popup = '';
 			$autoplay = 'false';
 			$controlbar = 'always';
+         $redirect = '';
+         $args['redirect'];
 			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = $this->conf['autoplay'];
 			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = $args['autoplay'];
 			if (isset($args['width'])&&!empty($args['width'])) $width = $args['width'];
 			if (isset($args['height'])&&!empty($args['height'])) $height = $args['height'];
 			if (isset($args['controlbar'])&&($args['controlbar']=='show')) $controlbar = 'never';
+         if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = $args['redirect'];
 
 			// if allowed by configuration file, set the popup box js code and content
-			if ((($this->conf['popupbox'] != 'false')&&!empty($args['popup']))) {
+			if ((isset($this->conf['popupbox']))&&(($this->conf['popupbox'] != 'false')&&!empty($args['popup']))) {
 				if (isset($args['popup'])) {
 					$popup = $args['popup'];
 					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
@@ -69,6 +72,10 @@ class flowplayer_frontend extends flowplayer
 				$popup_contents = str_replace("href=\"","onClick=\"javascript:window.location=this.href\" href=\"",$popup_contents);
 				$popup_code = "
 				window.flowplayer('wpfp_$hash').onFinish(function() {
+   			   if ('$redirect'){
+                  window.open('$redirect','fv_redirect_to');             
+               }
+               else{
       				var fp = document.getElementById('wpfp_$hash');
      					var popup = document.createElement('div');
      					var popup_contents = document.getElementById('popup_contents_$hash');
@@ -76,7 +83,8 @@ class flowplayer_frontend extends flowplayer
      					popup.id = 'wpfp_".$hash."_popup';
      					popup.innerHTML = popup_contents.innerHTML;
      					fp.appendChild(popup);
-					});
+     				}
+				});
 				window.flowplayer('wpfp_$hash').onLoad(function() {
 				   var fp = document.getElementById('wpfp_".$hash."');
 					var emb = document.getElementById('wpfp_".$hash."').innerHTML;
@@ -106,7 +114,7 @@ class flowplayer_frontend extends flowplayer
 				} else {
 					$splash_img = $args['splash'];
 				}
-				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px;" />';
+				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;" />';
 				// overriding the "autoplay" configuration - video should start immediately after click on the splash image
 				$this->conf['autoplay'] = 'true';
 				$autoplay = true;
@@ -142,7 +150,6 @@ class flowplayer_frontend extends flowplayer
                      ).'
 						},
 						clip: { 
-						  scaling: \'fit\',
 							url: \''.$media.'\', 
 							autoPlay: '.$autoplay.',
 							autoBuffering: '.(isset($this->conf['autobuffer'])?$this->conf['autobuffer']:'false').',

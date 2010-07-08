@@ -7,12 +7,11 @@ include dirname( __FILE__ ) . '/../models/flowplayer.php';
 include dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
 
 /**
- * WP Hooks
+ * WP Hooks 
  */
 
-
+add_action('the_content', 'flowplayer_content_remove_commas');
 add_action('wp_head', 'flowplayer_head');
-//add_action('the_content', 'flowplayer_content');
 add_action('wp_footer','flowplayer_display_scripts');
 //	Addition for 0.9.15
 add_action('widget_text','flowplayer_content');
@@ -22,6 +21,17 @@ add_action('widget_text','flowplayer_content');
  */
  
 $GLOBALS['scripts'] = array();
+
+function flowplayer_content_remove_commas($content){
+
+   preg_match('/.*popup=\'(.*?)\'.*/', $content, $matches);
+   //var_dump($matches);
+   $content_new = preg_replace('/\,/', '',$content);
+   if (isset($matches[1]))
+      $content_new = preg_replace('/popup=\'(.*?)\'/', 'popup=\''.$matches[1].'\'',$content_new);
+//   var_dump($content_new);
+   return $content_new;
+}
 
 /**
  * Replaces the flowplayer tags in post content by players and fills the $GLOBALS['scripts'] array.

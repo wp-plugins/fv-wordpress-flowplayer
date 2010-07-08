@@ -19,7 +19,18 @@ add_action('admin_menu', 'flowplayer_admin');
 add_action('media_buttons', 'flowplayer_add_media_button', 30);
 add_action('media_upload_fv-wp-flowplayer', 'flowplayer_wizard');
 add_filter('media_send_to_editor','fp_media_send_to_editor', 10, 3);
+add_action('the_content', 'flowplayer_content_remove_commas');
 
+function flowplayer_content_remove_commas($content){
+   preg_match('/.*popup=\'(.*?)\'.*/', $content, $matches);
+   //var_dump($matches);
+   $content_new = preg_replace('/\,/', '',$content);
+   if (isset($matches[1]))
+      $content_new = preg_replace('/popup=\'(.*?)\'/', 'popup=\''.$matches[1].'\'',$content_new);
+//   var_dump($content_new);
+   return $content_new;
+
+}
 /**
  * END WP Hooks
  */
@@ -136,7 +147,8 @@ function flowplayer_add_media_button(){
 		if( stripos($plugin,'foliopress-wysiwyg') !== FALSE )
 			$found = true;
 	}
-	if(!$found) {
+	if(!$found) 
+  {
 		/*global $fmp_jw_url, $fmp_jw_files_dir;
 		$wizard_url = $fmp_jw_url . '/inc/shortcode_wizard.php';
 		$config_dir = $fmp_jw_files_dir . '/configs';
