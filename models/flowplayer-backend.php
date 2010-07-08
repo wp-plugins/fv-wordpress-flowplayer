@@ -1,5 +1,5 @@
 <?php
-/**
+/** 
  * Extension of original flowplayer class intended for administrator backend.
  */
 

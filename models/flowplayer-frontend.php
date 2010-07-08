@@ -149,7 +149,7 @@ class flowplayer_frontend extends flowplayer
 	   					}':'controls:null'
                      ).'
 						},
-						clip: { 
+						clip: {  
 							url: \''.$media.'\', 
 							autoPlay: '.$autoplay.',
 							autoBuffering: '.(isset($this->conf['autobuffer'])?$this->conf['autobuffer']:'false').',
