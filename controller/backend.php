@@ -98,6 +98,7 @@ function flowplayer_admin () {
  * @return string HTML code
  */
 function flowplayer_bool_select($current) {
+
 	switch($current) {
 		 		case "true":
 		 			$html = '<option selected="selected" value="true">true</option><option value="false">false</option>';
@@ -128,7 +129,8 @@ function flowplayer_page() {
 function flowplayer_check_errors($fp){
 	$html = '';
 	// config file checks, exists, readable, writeable
-	$conf_file = realpath(dirname(__FILE__)).'/wpfp.conf';
+	$conf_file = realpath(dirname(__FILE__)).'/wpfp.conf';  //Zdenka: I think here should be /../
+
 	if(!file_exists($conf_file)){
 		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' Does not exist please create it</h3>';
 	} elseif(!is_readable($conf_file)){
@@ -136,6 +138,7 @@ function flowplayer_check_errors($fp){
 	} elseif(!is_writable($conf_file)){
 		$html .= '<h3 style="font-weight: bold; color: #ff0000">'.$conf_file.' is not writable please check file permissions</h3>';
 	}
+//	return $html;  //Zdenka : Why is this not here?
 }
 
 function flowplayer_add_media_button(){

@@ -24,7 +24,7 @@
 				<tr style="position: absolute; top: -9999em; left: -9999em;">
 					<td>Commercial License Key: </td>
 					<td>
-						<input type="text" size="20" name="key" id="key" value="<?php echo $fp->conf['key']; ?>" />	
+						<input type="text" size="20" name="key" id="key" value="<?php echo trim($fp->conf['key']); ?>" />	
 					</td>
 				</tr>	
 				<tr>
@@ -46,7 +46,6 @@
 				<tr>
 					<td>Enable Full-screen Mode:</td>
 					<td><select name="allowfullscreen">
-
 					<?php echo flowplayer_bool_select($fp->conf['allowfullscreen']); ?>
 
 					</select></td>
@@ -131,26 +130,26 @@
 
 		//load player
 		$f("player", "<?php echo PLAYER; ?>", {
-				<?php echo (isset($fp->conf['key'])&&strlen($fp->conf['key'])>0?'key:\''.$fp->conf['key'].'\',':''); ?>
+				<?php echo (isset($fp->conf['key'])&&strlen($fp->conf['key'])>0?'key:\''.trim($fp->conf['key']).'\',':''); ?>
 				plugins: {
 				    <?php echo (((empty($fp->conf['showcontrols']))||($fp->conf['showcontrols']=='true'))? 
-                  'controls: { buttonOverColor: \''.$fp->conf['buttonOverColor'].'\', sliderColor: \''. $fp->conf['sliderColor'].'\', bufferColor: \''. $fp->conf['bufferColor'].'\', sliderGradient: \'none\', progressGradient: \'medium\', durationColor: \''. $fp->conf['durationColor'].'\', progressColor: \''. $fp->conf['progressColor'].'\', backgroundColor: \''. $fp->conf['backgroundColor'].'\', timeColor: \''. $fp->conf['timeColor'].'\', buttonColor: \''. $fp->conf['buttonColor'].'\', backgroundGradient: \'none\', bufferGradient: \'none\', opacity:0.9, fullscreen: '.$fp->conf['allowfullscreen'].',autoHide: \'always\',hideDelay: 500} ':'controls:null'); ?> 
+                  'controls: { buttonOverColor: \''.trim($fp->conf['buttonOverColor']).'\', sliderColor: \''. trim($fp->conf['sliderColor']).'\', bufferColor: \''. trim($fp->conf['bufferColor']).'\', sliderGradient: \'none\', progressGradient: \'medium\', durationColor: \''. trim($fp->conf['durationColor']).'\', progressColor: \''. trim($fp->conf['progressColor']).'\', backgroundColor: \''. trim($fp->conf['backgroundColor']).'\', timeColor: \''. trim($fp->conf['timeColor']).'\', buttonColor: \''. trim($fp->conf['buttonColor']).'\', backgroundGradient: \'none\', bufferGradient: \'none\', opacity:0.9, fullscreen: '.trim($fp->conf['allowfullscreen']).',autoHide: \'always\',hideDelay: 500} ':'controls:null'); ?> 
 				},
 				clip: {
 					url:'<?php echo RELATIVE_PATH; ?>/flowplayer/example.flv',
-					autoPlay: '<?php if (isset($fp->conf["autoplay"])) { echo $fp->conf["autoplay"]; } else { echo(false); } ?>',
-	       	   autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo $fp->conf["autobuffer"]; } else { echo "false"; } ?>'
+					autoPlay: '<?php if (isset($fp->conf["autoplay"])) { echo trim($fp->conf["autoplay"]); } else { echo(false); } ?>',
+	       	   autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo trim($fp->conf["autobuffer"]); } else { echo "false"; } ?>'
 				},
 	
 
             <?php 	
             if($fp->conf['logoenable'] == 'true'){
-            	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.$fp->conf['fullscreenonly'].', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
+            	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.trim($fp->conf['fullscreenonly']).', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
             }
             ?>
 
 				canvas: {
-					backgroundColor:'<?php echo $fp->conf["canvas"]; ?>'
+					backgroundColor:'<?php echo trim($fp->conf["canvas"]); ?>'
 				},
 				onLoad: function() {
 					$(":input[name=tgt]").removeAttr("disabled");		

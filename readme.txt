@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -13,6 +13,7 @@ FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for
 
 * Plugin is completely non-commercial. It contains modified opensource version of Flowplayer 3.1.3, with removed FP logo and copyright notice.
 * Supported video formats are FLV, H.264, and MP4. Multiple videos can be displayed in one post or page.
+* Plugin is compatible with Wordpress 3.0
 * Default options for all the embedded videos can be set in comprehensive administration menu.
 * It is loosely based on Wordpress Flowplayer plugin. However, there are several improvements:
 
@@ -46,7 +47,7 @@ Solution 1: FV Flowplayer calls some javascript from the footer. That means your
 
 Solution 2: Try to download the zip file from and install it manually by copying it into your plugins directory. We experienced some problems when upgrading the plugin through Wordpress, when not all files were downloaded correctly.
 
-= I installed the plugin, inserted the video, but it's not working, the play button does not work.  =
+= I tried to change some setting in the admin section, but without effect.  =
 
 Please make sure, that configuration file wpfp.conf is writable (666 permissions).
 
@@ -81,6 +82,9 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.3 =
+* white spaces causing errors on some servers fixed
 
 = 1.0.2 =
 * redirect feature added (Thanks for donation from Klaus Eickelpasch)
