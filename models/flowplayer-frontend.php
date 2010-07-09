@@ -33,17 +33,17 @@ class flowplayer_frontend extends flowplayer
 			$controlbar = 'always';
          $redirect = '';
          $args['redirect'];
-			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = $this->conf['autoplay'];
-			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = $args['autoplay'];
-			if (isset($args['width'])&&!empty($args['width'])) $width = $args['width'];
-			if (isset($args['height'])&&!empty($args['height'])) $height = $args['height'];
+			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
+			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
+			if (isset($args['width'])&&!empty($args['width'])) $width = trim($args['width']);
+			if (isset($args['height'])&&!empty($args['height'])) $height = trim($args['height']);
 			if (isset($args['controlbar'])&&($args['controlbar']=='show')) $controlbar = 'never';
-         if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = $args['redirect'];
+         if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = trim($args['redirect']);
 
 			// if allowed by configuration file, set the popup box js code and content
 			if ((isset($this->conf['popupbox']))&&(($this->conf['popupbox'] != 'false')&&!empty($args['popup']))) {
 				if (isset($args['popup'])) {
-					$popup = $args['popup'];
+					$popup = trim($args['popup']);
 					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
 					$popup = html_entity_decode( str_replace('&#039;',"'",$popup ) );
 				} else {
@@ -110,9 +110,9 @@ class flowplayer_frontend extends flowplayer
 			
 			if (isset($args['splash']) && !empty($args['splash'])) {
 				if(strpos($args['splash'],'http://') === false) {
-					$splash_img = VIDEO_PATH.$args['splash'];
+					$splash_img = VIDEO_PATH.trim($args['splash']);
 				} else {
-					$splash_img = $args['splash'];
+					$splash_img = trim($args['splash']);
 				}
 				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;" />';
 				// overriding the "autoplay" configuration - video should start immediately after click on the splash image
@@ -126,36 +126,36 @@ class flowplayer_frontend extends flowplayer
 			$ret['script'] = '
 				if (document.getElementById(\'wpfp_'.$hash.'\') != null) {
 					flowplayer("wpfp_'.$hash.'", {src: "'.PLAYER.'", wmode: \'opaque\'}, {
-	'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.$this->conf['key'].'\',':'').'
+	'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.trim($this->conf['key']).'\',':'').'
             plugins: {
             '.(((empty($args['controlbar']))||$args['controlbar']=='show')?'
 							controls: {		
      				         hideDelay: 500,
-								autoHide: \''.$controlbar.'\',
-         					buttonOverColor: \''.$this->conf['buttonOverColor'].'\',
-         					sliderColor: \''.$this->conf['sliderColor'].'\',
-         					bufferColor: \''.$this->conf['bufferColor'].'\',
+								autoHide: \''.trim($controlbar).'\',
+         					buttonOverColor: \''.trim($this->conf['buttonOverColor']).'\',
+         					sliderColor: \''.trim($this->conf['sliderColor']).'\',
+         					bufferColor: \''.trim($this->conf['bufferColor']).'\',
          					sliderGradient: \'none\',
          					progressGradient: \'medium\',
-         					durationColor: \''.$this->conf['durationColor'].'\',
-         					progressColor: \''.$this->conf['progressColor'].'\',
-         					backgroundColor: \''.$this->conf['backgroundColor'].'\',
-         					timeColor: \''.$this->conf['timeColor'].'\',
-         					buttonColor: \''.$this->conf['buttonColor'].'\',
+         					durationColor: \''.trim($this->conf['durationColor']).'\',
+         					progressColor: \''.trim($this->conf['progressColor']).'\',
+         					backgroundColor: \''.trim($this->conf['backgroundColor']).'\',
+         					timeColor: \''.trim($this->conf['timeColor']).'\',
+         					buttonColor: \''.trim($this->conf['buttonColor']).'\',
          					backgroundGradient: \'none\',
          					bufferGradient: \'none\',
 	   						opacity:1.0,
-     				         fullscreen: '.(isset($this->conf['allowfullscreen'])?$this->conf['allowfullscreen']:'true').',
+     				         fullscreen: '.(isset($this->conf['allowfullscreen'])?trim($this->conf['allowfullscreen']):'true').',
 	   					}':'controls:null'
                      ).'
 						},
 						clip: {  
-							url: \''.$media.'\', 
-							autoPlay: '.$autoplay.',
-							autoBuffering: '.(isset($this->conf['autobuffer'])?$this->conf['autobuffer']:'false').',
+							url: \''.trim($media).'\', 
+							autoPlay: '.trim($autoplay).',
+							autoBuffering: '.(isset($this->conf['autobuffer'])?trim($this->conf['autobuffer']):'false').',
 						}, 
 						canvas: {
-							backgroundColor:\''.$this->conf['canvas'].'\'
+							backgroundColor:\''.trim($this->conf['canvas']).'\'
 						}
 					});
 				};

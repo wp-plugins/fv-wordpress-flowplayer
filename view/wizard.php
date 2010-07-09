@@ -102,13 +102,13 @@ function fillSplashInputs(){
 			<?php if (!empty($uploaded_video)){?>
 			   <tr><th></th>
          <th valign="top" scope="row" class="label"><span class="alignleft">File info</span></th><td>
-           <? if (!empty($file_width)){?>
+           <?php if (!empty($file_width)){?>
             Video Duration: <?php echo $file_time ?><br />
             File size: <?php echo $file_size ?>MB
-            <? } else echo $file_error;  ?>
+            <?php } else echo $file_error;  ?>
             </td>
          </tr>
-      <? }; //video has been selected ?>
+      <?php }; //video has been selected ?>
 			<tr><th></th>
 				<th valign="top" scope="row" class="label" ><span class="alignleft">Width <small>(px)</small></span><br class='clear' /></th>
 				<td class="field"><input type="text" id="width" name="width" style="width: 100%"  value="<?php echo $file_width ?>"/></td>
@@ -121,7 +121,7 @@ function fillSplashInputs(){
 				<th valign="top" scope="row" class="label"><span class="alignright">Splash Image</span></th>
 				<td class="field" colspan="2"><input type="text" id="splash" name="splash" style="width: 100%"  value="<?php echo $uploaded_image ?>"/></td>
 			</tr>
-			<? if ($allow_uploads=='true') {
+			<?php if ($allow_uploads=='true') {
 			echo '<tr>
   			<th></th>
   			<td colspan="2" class="field" style="width: 100%" >
@@ -129,7 +129,7 @@ function fillSplashInputs(){
         </td>
 			</tr>';
 			 }; //allow uplads splash image ?>
-			<? if (!empty($uploaded_image))
+			<?php if (!empty($uploaded_image))
           if (($post_thumbnail=='true') && current_theme_supports( 'post-thumbnails') && isset($selected_attachment['id'])) 
              update_post_meta( $post_id, '_thumbnail_id', $selected_attachment['id'] );?>
 			<tr>
