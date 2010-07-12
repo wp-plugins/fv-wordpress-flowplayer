@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -23,6 +23,7 @@ FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for
 	4. Allows user to display clickable splash screen at the beginning of video (which not only looks good, but improves the performance significantly).
 	5. Allows user to display popup box after the video ends, with any HTML content (clickable links, images, styling, etc.)
 	6. Allows to upload videos and images through WP Media Library
+	7. Does not use configuration file, but Wordpress Options
 
 == Installation ==
 
@@ -30,9 +31,8 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 
    1. Download and unpack zip archive containing the plugin.
    2. Upload the fv-wordpress-flowplayer directory into wp-content/plugins/ directory of your wordpress installation.
-   3. Make sure, that configuration file wpfp.conf is writable (666 permissions).
-   4. Go into Wordpress plugins setup in Wordpress administration interface and activate FV Wordpress Flowplayer plugin.
-   5. Optionally, if you want to embed videos denoted just by their filename, you can create the /videos/ directory located directly in the root of your domain and place your videos there. Otherwise, you would have to type in a complete URL of video files.
+   3. Go into Wordpress plugins setup in Wordpress administration interface and activate FV Wordpress Flowplayer plugin.
+   4. Optionally, if you want to embed videos denoted just by their filename, you can create the /videos/ directory located directly in the root of your domain and place your videos there. Otherwise, you would have to type in a complete URL of video files.
 
    
 == Frequently Asked Questions ==
@@ -82,6 +82,10 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.4 =
+* compatibility fixes
+* configuration file replaced by WP options
 
 = 1.0.3 =
 * white spaces causing errors on some servers fixed

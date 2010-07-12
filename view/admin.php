@@ -10,7 +10,7 @@
 			<form id="wpfp_options" method="post" action="">
 			<div id="icon-options-general" class="icon32"></div>
 			<h2>FV Wordpress Flowplayer</h2>
-			<?php echo flowplayer_check_errors($fp); ?>
+			<?php //echo flowplayer_check_errors($fp); ?>
 			<h3>Default Flowplayer Options:</h3>
 			<table>
 				<tr>
@@ -66,6 +66,14 @@
 					 	</select>
 					 </td>
 				</tr>
+				<tr>
+					<td>Convert old shortcodes with commas (<abbr title="Older versions of this plugin used commas to sepparate shortcode parameters. This option will make sure it works with current version. Turn this off if you have some problems with display or other plugins which use shortcodes.">?</abbr>): </td>
+					<td>
+					 	<select name="commas">
+						<?php echo flowplayer_bool_select($fp->conf['commas']); ?>
+					 	</select>
+					 </td>
+				</tr>
 
 					<?php echo include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 
@@ -96,7 +104,6 @@
 					or just a filename, if it is located in the /videos/ directory in the root of the web.
 					</p>
 					<p>When user uploads are allowed, uploading or selecting video from WP Media Library is available. To insert selected video, simply use the 'Insert into Post' button.</p>
-               <p>Don't forget to set the permissions of the <strong>wpfp.conf</strong> file to 666, otherwise the changes on this site won't take effect.
 					<h4>Optional parameters:</h4>
 					<ul style="text-align: left;">
 						<li><code>width</code> and <code>height</code> specify the dimensions of played video in pixels. If they are not set, the default size is 320x240.<br />

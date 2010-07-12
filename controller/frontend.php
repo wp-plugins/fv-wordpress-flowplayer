@@ -10,7 +10,7 @@ include dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
  * WP Hooks 
  */
 
-add_action('the_content', 'flowplayer_content_remove_commas');
+//add_action('the_content', 'flowplayer_content_remove_commas');
 add_action('wp_head', 'flowplayer_head');
 add_action('wp_footer','flowplayer_display_scripts');
 //	Addition for 0.9.15

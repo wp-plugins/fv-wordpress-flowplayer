@@ -26,7 +26,7 @@ class flowplayer {
 	 */
 	public function __construct() {
 		//set conf path
-		$this->conf_path = realpath(dirname(__FILE__)).'/../wpfp.conf';
+		///$this->conf_path = realpath(dirname(__FILE__)).'/../wpfp.conf';
 		//load conf data into stack
 		$this->_get_conf();
 	}
@@ -36,84 +36,46 @@ class flowplayer {
 	 * @return bool Returns false on failiure, true on success.
 	 */
 	private function _get_conf() {
-		//check file exists
-		if(file_exists($this->conf_path)) {
-			//open file for reading
-			$fp = fopen($this->conf_path,'r');
-			//check if failed to open
-			if(!$fp) {
-				error_log('Could not open '.$this->conf_path);
-				$return = false;
-			} else {
-				//read data
-				$data = fread($fp,filesize($this->conf_path));
-				//get each line
-				$tmp = explode("\n",$data);
-				//get each var
-				foreach($tmp as $key => $dat) {
-					//split from var:val
-					$data = explode(':', $dat);
-					//build into conf stack
-					$this->conf[$data[0]] = $data[1];
-					$return = true;
-				}
-			}
-			fclose($fp);
-		} else {
-			error_log("File does not exist: $this->conf_path, attempting to create");
-			//attempt to create file
-			if(touch($this->conf_path)) {
-				//everything is ok!
-				error_log($this->conf_path.' Created');
-				//read the data
-				$this->_get_conf();
-			} else {
-				//failed
-				error_log($this->conf_path.' Creation failed');
-				$return = false;
-			}
-		}
-		
-		return $return;
+	  ///  Addition  2010/07/12  mv
+    $conf = get_option( 'fvwpflowplayer' );
+    
+    if( !isset( $conf['autoplay'] ) ) $conf['autoplay'] = 'false';
+    if( !isset( $conf['key'] ) ) $conf['key'] = 'false';
+    if( !isset( $conf['autobuffer'] ) ) $conf['autobuffer'] = 'false';
+    if( !isset( $conf['popupbox'] ) ) $conf['popupbox'] = 'false';
+    if( !isset( $conf['allowfullscreen'] ) ) $conf['allowfullscreen'] = 'true';
+    if( !isset( $conf['allowuploads'] ) ) $conf['allowuploads'] = 'true';
+    if( !isset( $conf['postthumbnail'] ) ) $conf['postthumbnail'] = 'false';
+    if( !isset( $conf['tgt'] ) ) $conf['tgt'] = 'backgroundcolor';
+    if( !isset( $conf['backgroundColor'] ) ) $conf['backgroundColor'] = '#1b1b1d';
+    if( !isset( $conf['canvas'] ) ) $conf['canvas'] = '#ffffff';
+    if( !isset( $conf['sliderColor'] ) ) $conf['sliderColor'] = '#2e2e2e';
+    if( !isset( $conf['buttonColor'] ) ) $conf['buttonColor'] = '#454545';
+    if( !isset( $conf['buttonOverColor'] ) ) $conf['buttonOverColor'] = '#ffffff';
+    if( !isset( $conf['durationColor'] ) ) $conf['durationColor'] = '#ffffff';
+    if( !isset( $conf['timeColor'] ) ) $conf['timeColor'] = '#ededed';
+    if( !isset( $conf['progressColor'] ) ) $conf['progressColor'] = '#707070';
+    if( !isset( $conf['bufferColor'] ) ) $conf['bufferColor'] = '#4d4d4d';
+    if( !isset( $conf['commas'] ) ) $conf['commas'] = 'true';
+    
+    update_option( 'fvwpflowplayer', $conf );
+    $this->conf = $conf;
+    return true;	 
+    /// End of addition
 	}
 	/**
 	 * Writes configuration into file.
 	 */
 	public function _set_conf() {
-		//attempt to open file
-		$fp = fopen($this->conf_path,'w');
-		
-		if(!$fp) {
-			error_log('Could not open '.$this->conf_path.' for writing');
-		} else {
-			//file is opened for editing!
-			$str = ''; //setup holder var
-			//loop post data
-			foreach($_POST as $key => $data) {
-
-				//do not want to record the submit value in the config file
-				if($key != "submit") {
-					// if we have a colour in value, add a #
-					if (strlen($data) == 6) $data = '#'.$data;
-					$str .= $key.':'.strtolower($data)."\n";
-				}
-			}
-			//comit data
-			$len = strlen($str);
-			//check lenght
-			if($len > 0) { 
-				//attempt write
-				$write = fwrite($fp, $str, $len);
-				//report if failed to error_log
-				if(!$write) {
-					error_log('Could not write to '.$this->conf_path);
-				}
-			} else {
-				//report 0 length write attempt
-				error_log('Caught attempt to write 0 length to config file, aborted');
-			}
-			fclose($fp);
-		}
+	  var_dump( $_POST );
+	  foreach( $_POST AS $key => $value ) {
+	    if( strpos( $key, 'Color' ) !== FALSE ) {
+	      $_POST[$key] = '#'.strtolower($value);
+	    }
+	  }
+	  update_option( 'fvwpflowplayer', $_POST );
+	  return;
+	  
 	}
 	/**
 	 * Salt function - returns pseudorandom string hash.

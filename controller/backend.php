@@ -98,7 +98,6 @@ function flowplayer_admin () {
  * @return string HTML code
  */
 function flowplayer_bool_select($current) {
-
 	switch($current) {
 		 		case "true":
 		 			$html = '<option selected="selected" value="true">true</option><option value="false">false</option>';

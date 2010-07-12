@@ -7,30 +7,9 @@ if (isset($_COOKIE["selected_image"]))
 
   $post_id = intval($_REQUEST['post_id']);
   //load configuration file:   
-  $conf_path = realpath(dirname(__FILE__).'/../wpfp.conf');
+  $conf = get_option( 'fvwpflowplayer' );
   $allow_uploads = false;
-  if(file_exists($conf_path)){    
-			//open file for reading
-			$fp = fopen($conf_path,'r');
-			//check if failed to open
-			if(!$fp) {
-				$allow_update = false;
-			} else {
-				//read data
-				$data = fread($fp, filesize($conf_path));
-				//get each line
-				$tmp = explode("\n", $data);
-				//get each var
-				foreach($tmp as $key => $dat) {
-					//split from var:val
-					$data = explode(':', $dat);
-					//build into conf stack
-					$conf[$data[0]] = $data[1];
-					$return = true;
-				}
-			}
-			fclose($fp);		
-   }
+
 	if (isset($conf["allowuploads"]))
 	  $allow_uploads = $conf["allowuploads"];
 	if (isset($conf["postthumbnail"]))
