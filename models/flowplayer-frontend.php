@@ -145,14 +145,14 @@ class flowplayer_frontend extends flowplayer
          					backgroundGradient: \'none\',
          					bufferGradient: \'none\',
 	   						opacity:1.0,
-     				         fullscreen: '.(isset($this->conf['allowfullscreen'])?trim($this->conf['allowfullscreen']):'true').',
+     				         fullscreen: '.(isset($this->conf['allowfullscreen'])?trim($this->conf['allowfullscreen']):'true').'
 	   					}':'controls:null'
                      ).'
 						},
 						clip: {  
 							url: \''.trim($media).'\', 
 							autoPlay: '.trim($autoplay).',
-							autoBuffering: '.(isset($this->conf['autobuffer'])?trim($this->conf['autobuffer']):'false').',
+							autoBuffering: '.(isset($this->conf['autobuffer'])?trim($this->conf['autobuffer']):'false').'
 						}, 
 						canvas: {
 							backgroundColor:\''.trim($this->conf['canvas']).'\'
