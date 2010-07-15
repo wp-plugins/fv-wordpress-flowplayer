@@ -18,7 +18,7 @@ class flowplayer_frontend extends flowplayer
 			// returned array with new player's html and javascript content
 			$ret = array('html' => '', 'script' => '');
 			
-			if(strpos($media,'http://') === false) {
+			if( strpos($media,'http://') === false && strpos($media,'https://') === false ) {
 				$media = VIDEO_PATH.$media;
 			}
 			
@@ -109,7 +109,7 @@ class flowplayer_frontend extends flowplayer
 			}
 			
 			if (isset($args['splash']) && !empty($args['splash'])) {
-				if(strpos($args['splash'],'http://') === false) {
+				if( strpos($args['splash'],'http://') === false && strpos($args['splash'],'https://') === false ) {
 					$splash_img = VIDEO_PATH.trim($args['splash']);
 				} else {
 					$splash_img = trim($args['splash']);

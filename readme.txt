@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -82,6 +82,10 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.5 =
+* compatibility fixes
+* HTTPS support added
 
 = 1.0.4 =
 * compatibility fixes
