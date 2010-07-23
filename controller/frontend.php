@@ -70,7 +70,7 @@ function flowplayer_content( $content ) {
    		else{
 			   $media = $matches[2];
 		  }
-    var_dump($media);
+//    var_dump($media);
      	
 		//	width and heigth
 		preg_match("/width=(\d*)/i",$ntag,$width);
