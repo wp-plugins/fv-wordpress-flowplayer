@@ -3,7 +3,7 @@ Contributors: FolioVision
 Tags: video, flash, flowplayer
 Requires at least: 2.0
 Tested up to: 3.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
 
@@ -49,7 +49,7 @@ Solution 2: Try to download the zip file from and install it manually by copying
 
 = I tried to change some setting in the admin section, but without effect.  =
 
-Please make sure, that configuration file wpfp.conf is writable (666 permissions).
+If you used v1.0.4 or less, please make sure, that configuration file wpfp.conf is writable (666 permissions).
 
 = You player works just fine, but there are some weird display issues. =
 
@@ -72,7 +72,17 @@ Currently there is no support for Amazon S3 service, this feature might be added
 
 This happens when you set width and height of the video other than are native dimensions. We recommend to use native dimensions of the video when placing on a webpage. 
 
+= The splash image and controlbar are not working properly in widgets. =
 
+Please upgrade to version at least 1.0.6.
+
+= I would like to lozalize the play again button. =
+
+Currently there is no support for other languages. Some localizations for Flowplayer exists, but there is no official support from flowplayer.org.
+
+= Where can I change the default directory for videos? =
+
+You can change this manually in the the models/flowplayer.php in the flowplayer_head function. It you use videos in widgets you might need to edit the function flowplayer_content in controller/frontend.php as well. Please be carefull when editing source codes.
 
 == Screenshots ==
 
@@ -82,6 +92,10 @@ This happens when you set width and height of the video other than are native di
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.0.6 =
+* widgets problems with splash image and controlbar fixed
+* cyan background color fixed
 
 = 1.0.5 =
 * compatibility fixes

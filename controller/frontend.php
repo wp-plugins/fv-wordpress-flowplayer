@@ -42,7 +42,7 @@ function flowplayer_content( $content ) {
 	
 	$content_matches = array();
 	preg_match_all('/\[flowplayer\ [^\]]+\]/i', $content, $content_matches);
-		
+
 	// process all found tags
 	foreach ($content_matches[0] as $tag) {
 		$ntag = str_replace("\'",'&#039;',$tag);
@@ -55,13 +55,23 @@ function flowplayer_content( $content ) {
 		}
 		else
       $media = $tmp[1];
-
 		//strip the additional /videos/ from the beginning if present	
-		preg_match('/\/videos\/(.*)/',$media,$matches);
-		if ($matches[1] == NULL){}
+		preg_match('/(.*)\/videos\/(.*)/',$media,$matches);
+/*		if ($matches[0] == NULL)
+      $media = $matches[2];
 		else
-		  $media = $matches[1];
-      	
+		  $media = $matches[0];*/
+		  
+   		if ($matches[0] == NULL)
+   		   $media = $media;
+   		elseif ($matches[1] == NULL){
+          $media = $matches[2];//$tmp[1][0];
+      }
+   		else{
+			   $media = $matches[2];
+		  }
+    var_dump($media);
+     	
 		//	width and heigth
 		preg_match("/width=(\d*)/i",$ntag,$width);
 		preg_match("/height=(\d*)/i",$ntag,$height);
@@ -70,6 +80,14 @@ function flowplayer_content( $content ) {
 			$arguments['width'] = $width[1];
 		if( $height[1] != NULL)
 			$arguments['height'] = $height[1];
+
+		preg_match("/controlbar=\'?([a-zA-Z]*)\'?/i",$ntag,$controlbar);
+		if( $controlbar[1] != NULL)
+			$arguments['controlbar'] = $controlbar[1];
+
+		preg_match("/redirect=\'?([^\s\]]*)\'?/i",$ntag,$redirect);
+		if( $redirect[1] != NULL)
+			$arguments['redirect'] = $redirect[1];
 		
     //	search for autoplay
 		preg_match("/[\s]+autoplay([\s]|])+/i",$ntag,$tmp);
@@ -89,20 +107,30 @@ function flowplayer_content( $content ) {
 		$arguments['popup'] = $tmp[1];
 		
 		//	search for splash image
-		preg_match("/splash='([^']*?)'/i",$ntag,$tmp);
-		if( $tmp[1] == NULL ) {
-			preg_match_all("/splash=([^,\s\]]*)/i",$ntag,$tmp);
-			preg_match('/\/videos\/(.*)/',$tmp[1][0],$matches);
-   		if ($matches[1] == NULL){}
+		preg_match("/splash='([^']*?)'/i",$ntag,$tmp);   //quotes version
+   	if( $tmp[1] == NULL ) {
+			preg_match_all("/splash=([^,\s\]]*)/i",$ntag,$tmp);  //non quotes version
+			preg_match('/(.*)\/videos\/(.*)/i',$tmp[1][0],$matches);
+   		if ($matches[0] == NULL)
+   		   $arguments['splash'] = $tmp[1][0];
+   		elseif ($matches[1] == NULL){
+          $arguments['splash'] = $matches[2];//$tmp[1][0];
+      }
    		else{
-			   $arguments['splash'] = $matches[1];
-		}}
+			   $arguments['splash'] = $matches[2];
+		  }
+    }
 		else{
-		    preg_match('/\/videos\/(.*)/',$tmp[1],$matches);
-		    if ($matches[1] == NULL){}
-   		else
-			$arguments['splash'] = $matches[1];
+		    preg_match('/(.*)\/videos\/(.*)/',$tmp[1],$matches);
+		    if ($matches[0] == NULL)
+          $arguments['splash'] = $tmp[1];
+        elseif ($matches[1] == NULL)
+          $arguments['splash'] = $matches[2];
+   		  else
+			   $arguments['splash'] = $matches[2];//$tmp[1];
 		}
+
+
 
 		if (trim($media) != '') {
 			// build new player
@@ -112,7 +140,7 @@ function flowplayer_content( $content ) {
 			$GLOBALS['scripts'][] = $new_player['script'];
 		}
 	}
-	
+
 	return $content;
 }
 

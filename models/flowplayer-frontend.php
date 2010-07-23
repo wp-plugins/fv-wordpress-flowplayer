@@ -41,7 +41,7 @@ class flowplayer_frontend extends flowplayer
          if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = trim($args['redirect']);
 
 			// if allowed by configuration file, set the popup box js code and content
-			if ((isset($this->conf['popupbox']))&&(($this->conf['popupbox'] != 'false')&&!empty($args['popup']))) {
+			if (((isset($this->conf['popupbox']))&&($this->conf['popupbox'] != 'false')&&!empty($args['popup']))||(!empty($redirect))) {
 				if (isset($args['popup'])) {
 					$popup = trim($args['popup']);
 					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));

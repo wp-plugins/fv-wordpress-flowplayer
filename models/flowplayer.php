@@ -69,7 +69,7 @@ class flowplayer {
 	public function _set_conf() {
 	  var_dump( $_POST );
 	  foreach( $_POST AS $key => $value ) {
-	    if( strpos( $key, 'Color' ) !== FALSE ) {
+	    if( (strpos( $key, 'Color' ) !== FALSE )||(strpos( $key, 'canvas' ) !== FALSE)) {
 	      $_POST[$key] = '#'.strtolower($value);
 	    }
 	  }
