@@ -67,7 +67,7 @@ class flowplayer {
 	 * Writes configuration into file.
 	 */
 	public function _set_conf() {
-	  var_dump( $_POST );
+	  //var_dump( $_POST );
 	  foreach( $_POST AS $key => $value ) {
 	    if( (strpos( $key, 'Color' ) !== FALSE )||(strpos( $key, 'canvas' ) !== FALSE)) {
 	      $_POST[$key] = '#'.strtolower($value);
