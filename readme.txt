@@ -90,7 +90,8 @@ You need to use following code to include the shortcode into a sidebar:
 
 echo apply_filters('the_content', '[flowplayer src=yourvideo.mp4 width=240 height=320]');
 
-the whole line is important, don't forget the echo at the beginning. Fill the Flowplayer shortcode according to your needs.
+Fill the Flowplayer shortcode part according to your needs. The apply filter needs to be called because the flowplayer shortcodes are not parsen outside posts automatically. Also, please do not forget to add the echo at the beginning.
+
 
 == Screenshots ==
 
