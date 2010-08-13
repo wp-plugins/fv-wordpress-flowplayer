@@ -10,7 +10,7 @@ Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version in
 
 == Description ==
 
-FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages.
+FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages. 
 
 * Plugin contains unmodified opensource version of Flowplayer 3.2.3. This version of our FV player plugin does include Flowplayer branding. Last version without branding is 1.0.6.
 * Supported video formats are FLV, H.264, and MP4. Multiple videos can be displayed in one post or page.
