@@ -1,25 +1,26 @@
 === FV Wordpress Flowplayer ===
 Contributors: FolioVision
-Tags: video, flash, flowplayer
+Donate: http://foliovision.com/donate/
+Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
-Tested up to: 3.0
-Stable tag: 1.0.6
+Tested up to: 3.0.1
+Stable tag: 1.1
 
-Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice).
+Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
 == Description ==
 
-FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages. Test changes 2.
+FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages.
 
-* Plugin is completely non-commercial. It contains modified opensource version of Flowplayer 3.1.3, with removed FP logo and copyright notice.
+* Plugin contains unmodified opensource version of Flowplayer 3.2.3. This version of our FV player plugin does include Flowplayer branding. Last version without branding is 1.0.6.
 * Supported video formats are FLV, H.264, and MP4. Multiple videos can be displayed in one post or page.
-* Plugin is compatible with Wordpress 3.0
+* Plugin tested compatible with all Wordpress versions from 2.5 through 3.0.1
 * Default options for all the embedded videos can be set in comprehensive administration menu.
-* It is loosely based on Wordpress Flowplayer plugin. However, there are several improvements:
+* In comparison with Wordpress Flowplayer plugin, there are several improvements:
 
 	1. Doesn't use jQuery, so there will be no future conflicts with other plugins.
 	2. Usage is simpler and forgiving, making the plugin easier to use.
-	3. It will never display any annoying flowplayer logos or copyrights over your videos.
+	3. It will never display any annoying flowplayer logos or copyrights over your videos. (No longer true. Future Foliovision unbranded non-Flowplayer plugin in preparation.)
 	4. Allows user to display clickable splash screen at the beginning of video (which not only looks good, but improves the performance significantly).
 	5. Allows user to display popup box after the video ends, with any HTML content (clickable links, images, styling, etc.)
 	6. Allows to upload videos and images through WP Media Library
@@ -102,6 +103,9 @@ Fill the Flowplayer shortcode part according to your needs. The apply filter nee
 
 == Changelog ==
 
+= 1.1.0 =
+* Flowplayer logos reintroduced at request of Wordpress.org
+
 = 1.0.6 =
 * widgets problems with splash image and controlbar fixed
 * cyan background color fixed
@@ -164,3 +168,7 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
 
+== Upgrade Notice ==
+
+= 1.1 =
+Warning! This version includes Flowplayer logos on canvas and full screen. Do not upgrade if you would prefer an unbranded video player.
