@@ -21,12 +21,6 @@
 					 	</select>
 					 </td>
 				</tr>
-				<tr style="position: absolute; top: -9999em; left: -9999em;">
-					<td>Commercial License Key: </td>
-					<td>
-						<input type="text" size="20" name="key" id="key" value="<?php echo trim($fp->conf['key']); ?>" />	
-					</td>
-				</tr>	
 				<tr>
 					<td>Auto Buffering:</td>
 					<td><select name="autobuffer">
@@ -74,6 +68,12 @@
 					 	</select>
 					 </td>
 				</tr>
+				<tr>
+					<td>Commercial License Key: </td>
+					<td>
+						<input type="text" size="20" name="key" id="key" value="<?php echo trim($fp->conf['key']); ?>" />	
+					</td>
+				</tr>	
 
 					<?php echo include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 

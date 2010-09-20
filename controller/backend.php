@@ -18,7 +18,10 @@ add_action('admin_head', 'flowplayer_head');
 add_action('admin_menu', 'flowplayer_admin');
 add_action('media_buttons', 'flowplayer_add_media_button', 30);
 add_action('media_upload_fv-wp-flowplayer', 'flowplayer_wizard');
-add_filter('media_send_to_editor','fp_media_send_to_editor', 10, 3);
+
+if(isset($_POST['_wp_http_referer']) && (strpos($_POST['_wp_http_referer'],'fvplayer')))
+  add_filter('media_send_to_editor','fp_media_send_to_editor', 10, 3);
+ 
 add_action('the_content', 'flowplayer_content_remove_commas');
 
 function flowplayer_content_remove_commas($content){
@@ -36,14 +39,15 @@ function flowplayer_content_remove_commas($content){
  */
  
 function fp_media_send_to_editor($html, $attachment_id, $attachment){
-  if(isset($_POST['_wp_http_referer'])) {
-    preg_match('/width=([0-9]+)/',$_POST['_wp_http_referer'],$matchesw);
-    preg_match('/height=([0-9]+)/',$_POST['_wp_http_referer'],$matchesh);
-  }
+  if(isset($_POST['_wp_http_referer']) && (strpos($_POST['_wp_http_referer'],'fvplayer'))) {
+    //preg_match('/width=([0-9]+)/',$_POST['_wp_http_referer'],$matchesw);
+    preg_match('/height=([0-9]+([a-z]+))/',$_POST['_wp_http_referer'],$matchesh);
+    //var_dump($_POST['_wp_http_referer']);var_dump($matchesh);die;
+ // }
 
-  if ((!empty($matchesw))&&(!empty($matchesh))&&($matchesw[1]==640)&&($matchesh[1]==723)){
+  //if ((!empty($matchesh))&&($matchesh[2]=='fvplayer')){
       
-      $video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv');
+      $video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4');
       $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
       if (isset($attachment_id)) 
       {

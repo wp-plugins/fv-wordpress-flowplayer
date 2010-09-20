@@ -73,7 +73,7 @@ function fillSplashInputs(){
 			echo '<tr>
 			<th></th>
 			<td colspan="2" style="width: 100%" >         
-         Or <a href="media-upload.php?post_id='.$post_id.'&amp;type=video&amp;TB_iframe=true&amp;width=640&amp;height=723">open media library</a> to upload new video.
+         Or <a href="media-upload.php?post_id='.$post_id.'&amp;type=video&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayer">open media library</a> to upload new video.
 			</td>
 			</tr>';
 			 }; //allow uplads video ?>
@@ -104,7 +104,7 @@ function fillSplashInputs(){
 			echo '<tr>
   			<th></th>
   			<td colspan="2" class="field" style="width: 100%" >
-        Or <a href="media-upload.php?type=image&amp;post_id='.$post_id .'&amp;TB_iframe=true&amp;width=640&amp;height=723">open media library</a> to upload new splash image.
+        Or <a href="media-upload.php?type=image&amp;post_id='.$post_id .'&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayer">open media library</a> to upload new splash image.
         </td>
 			</tr>';
 			 }; //allow uplads splash image ?>

@@ -38,7 +38,6 @@ class flowplayer {
 	private function _get_conf() {
 	  ///  Addition  2010/07/12  mv
     $conf = get_option( 'fvwpflowplayer' );
-    
     if( !isset( $conf['autoplay'] ) ) $conf['autoplay'] = 'false';
     if( !isset( $conf['key'] ) ) $conf['key'] = 'false';
     if( !isset( $conf['autobuffer'] ) ) $conf['autobuffer'] = 'false';
@@ -69,6 +68,7 @@ class flowplayer {
 	public function _set_conf() {
 	  //var_dump( $_POST );
 	  foreach( $_POST AS $key => $value ) {
+	    $_POST[$key] = preg_replace('/[^A-Za-z0-9]/', '', $value);
 	    if( (strpos( $key, 'Color' ) !== FALSE )||(strpos( $key, 'canvas' ) !== FALSE)) {
 	      $_POST[$key] = '#'.strtolower($value);
 	    }
@@ -101,7 +101,13 @@ function flowplayer_head() {
        $strFPdirname = 'fv-wordpress-flowplayer';
 	if (!defined('RELATIVE_PATH')) {
 		define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);
-		define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
+	
+    $conf = get_option( 'fvwpflowplayer' );
+		if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
+      define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
+    else
+      define('PLAYER', RELATIVE_PATH.'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
+    
 		$vid = 'http://'.$_SERVER['SERVER_NAME'];
 		if (dirname($_SERVER['PHP_SELF']) != '/') $vid .= dirname($_SERVER['PHP_SELF']);
 		define('VIDEO_PATH', $vid.'/videos/');

@@ -31,8 +31,8 @@ class flowplayer_frontend extends flowplayer
 			$popup = '';
 			$autoplay = 'false';
 			$controlbar = 'always';
-         $redirect = '';
-         $args['redirect'];
+      $redirect = '';
+      $args['redirect'];
 			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
 			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
 			if (isset($args['width'])&&!empty($args['width'])) $width = trim($args['width']);
@@ -52,8 +52,9 @@ class flowplayer_frontend extends flowplayer
 				preg_match('/(\<a href=.*?\>)(.*?)\<\/a\>/',$popup,$matches);
 			//	var_dump($matches);
 			   $link_button = '';
-				if(!empty($matches[1]));
+				if(!empty($matches[1]))
 				  $link_button = $matches[1] . '<span class=link_button>' . $matches[2] . '</span></a>';
+          
 				$popup_controls = '<div style="position:absolute;top:70%; width:100%;">
                                     <div class="popup_controls" style="border:none;text-align:center;">
                                        <a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');">

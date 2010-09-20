@@ -4,7 +4,7 @@ Donate: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
 Tested up to: 3.0.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -77,7 +77,7 @@ This happens when you set width and height of the video other than are native di
 
 Please upgrade to version at least 1.0.6.
 
-= I would like to lozalize the play again button. =
+= I would like to localize the play again button. =
 
 Currently there is no support for other languages. Some localizations for Flowplayer exists, but there is no official support from flowplayer.org.
 
@@ -102,6 +102,10 @@ Fill the Flowplayer shortcode part according to your needs. The apply filter nee
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.2.0 =
+* Compatibility with the commercial version - possibility to insert licence key and get completely unbranded version
+* Fixed the conflict with media library
 
 = 1.1.0 =
 * Flowplayer logos reintroduced at request of Wordpress.org
@@ -164,6 +168,11 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 * AutoPlay - decides whether the video starts playing automatically, when the page/post is displayed.
 * AutoBuffering - decides whether te video starts buffering automatically, when the page/post is displayed. If AutoPlay is set to true, you can ignore this setting.
 * Popup Box - decides whether a popup box with "replay" and "share" buttons will be displayed when video ends.
+* Enable Full-screen Mode - select false if you do not wish the fullscreen option to be displayed.
+* Allow User Uploads - select true if you like to upload new videos via Media Library.
+* Enable Post Thumbnail - select true if you wish the screen shot appear as post thumbnail. Works only when uploading new splash image via Media Library.
+* Convert old shortcodes with commas - older versions of this plugin used commas to sepparate shortcode parameters. This option will make sure it works with current version.
+* Commercial Licence Key - enter your licence key here to get the completely unbranded version of the player
 * Colors of all the parts of flowplayer instances on page/post (controlbar, canvas, sliders, buttons, mouseover buttons, time and total time, progress and buffer sliders).
 
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
