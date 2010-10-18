@@ -66,16 +66,16 @@ class flowplayer {
 	 * Writes configuration into file.
 	 */
 	public function _set_conf() {
-	  //var_dump( $_POST );
+	  $save_key = $_POST['key'];
 	  foreach( $_POST AS $key => $value ) {
 	    $_POST[$key] = preg_replace('/[^A-Za-z0-9]/', '', $value);
 	    if( (strpos( $key, 'Color' ) !== FALSE )||(strpos( $key, 'canvas' ) !== FALSE)) {
-	      $_POST[$key] = '#'.strtolower($value);
+	      $_POST[$key] = '#'.strtolower($_POST[$key]);
 	    }
 	  }
+	  $_POST['key'] = $save_key;
 	  update_option( 'fvwpflowplayer', $_POST );
-	  return;
-	  
+	  return;	
 	}
 	/**
 	 * Salt function - returns pseudorandom string hash.
@@ -106,7 +106,7 @@ function flowplayer_head() {
 		if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
       define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
     else
-      define('PLAYER', RELATIVE_PATH.'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
+      define('PLAYER', RELATIVE_PATH.'/flowplayer/commercial/flowplayer.swf');
     
 		$vid = 'http://'.$_SERVER['SERVER_NAME'];
 		if (dirname($_SERVER['PHP_SELF']) != '/') $vid .= dirname($_SERVER['PHP_SELF']);

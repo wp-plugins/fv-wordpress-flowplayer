@@ -4,7 +4,7 @@ Donate: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
 Tested up to: 3.0.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -97,6 +97,9 @@ Fill the Flowplayer shortcode part according to your needs. The apply filter nee
 
 The black border is defined in the style sheet, located in the /css/flowplayer.css at line 6
 
+= I do own a license key and I would like to use the latest version Flowplayer provided to me. =
+
+Replace the /flowplayer/commercial/flowplayer.swf with the newest Flowplayer (strip out additional version numbers from the file name). Go to admin section and enter your licence key. Don't forget to click 'Apply changes', and you're ready to use your commercial version. 
 
 == Screenshots ==
 
@@ -106,6 +109,10 @@ The black border is defined in the style sheet, located in the /css/flowplayer.c
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.2.1 =
+* License key entering fixed
+* Color entering fixed
 
 = 1.2.0 =
 * Compatibility with the commercial version - possibility to insert licence key and get completely unbranded version
