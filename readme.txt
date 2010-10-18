@@ -93,6 +93,10 @@ echo apply_filters('the_content', '[flowplayer src=yourvideo.mp4 width=240 heigh
 
 Fill the Flowplayer shortcode part according to your needs. The apply filter needs to be called because the flowplayer shortcodes are not parsen outside posts automatically. Also, please do not forget to add the echo at the beginning.
 
+= How can I remove the black border around the video? =
+
+The black border is defined in the style sheet, located in the /css/flowplayer.css at line 6
+
 
 == Screenshots ==
 
