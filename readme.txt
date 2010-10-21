@@ -85,7 +85,7 @@ Currently there is no support for other languages. Some localizations for Flowpl
 
 You can change this manually in the the models/flowplayer.php in the flowplayer_head function. It you use videos in widgets you might need to edit the function flowplayer_content in controller/frontend.php as well. Please be carefull when editing source codes.
 
-= How do I insert flowpayer object outside the post, for example to a sidebar? =
+= How do I insert flowplayer object outside the post, for example to a sidebar? =
 
 You need to use following code to include the shortcode into a sidebar:
 
