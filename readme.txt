@@ -101,6 +101,15 @@ The black border is defined in the style sheet, located in the /css/flowplayer.c
 
 Replace the /flowplayer/commercial/flowplayer.swf with the newest Flowplayer (strip out additional version numbers from the file name). Go to admin section and enter your licence key. Don't forget to click 'Apply changes', and you're ready to use your commercial version. 
 
+= How do I change the size of the play button? =
+
+The size is defined to be 83x83px, defined in /modules/flowplayer-frontend.php line 118.
+
+= How do I change the position of the play button? =
+
+The position of the play button is defined at two places, first is the css file (.splash_play_button) and in the /modules/flowplayer-frontend.php (line 118, starting with $splash = ...). To modify the vertical position modify top=round($height/2-45) to your custom value. Try for example values like 0 or $height to move the play button up or down.
+
+
 == Screenshots ==
 
 1. Post containing modified flowplayer playing a video.
