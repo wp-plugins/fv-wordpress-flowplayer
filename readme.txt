@@ -109,7 +109,7 @@ The position of the play button is defined at two places, first is the css file 
 
 = When viewing the video in fullscreen mode, it is stretched and looks deformed. =
 
-This happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section. 
+This happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section: 
 
 scaling: \'fit\',
 
