@@ -44,9 +44,7 @@ You need to use at least PHP 5, your site is probably still running on old PHP 5
 
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
-Solution 1: FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the &lt;?php wp_footer(); ?&gt; Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
-
-Solution 2: Try to download the zip file from and install it manually by copying it into your plugins directory. We experienced some problems when upgrading the plugin through Wordpress, when not all files were downloaded correctly.
+FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the &lt;?php wp_footer(); ?&gt; Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
 
 = I tried to change some setting in the admin section, but without effect.  =
 
