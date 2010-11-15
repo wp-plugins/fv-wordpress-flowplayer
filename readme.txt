@@ -107,6 +107,13 @@ The size is defined to be 83x83px, defined in /modules/flowplayer-frontend.php l
 
 The position of the play button is defined at two places, first is the css file (.splash_play_button) and in the /modules/flowplayer-frontend.php (line 118, starting with $splash = ...). To modify the vertical position modify top=round($height/2-45) to your custom value. Try for example values like 0 or $height to move the play button up or down.
 
+= When viewing the video in fullscreen mode, it is stretched and looks deformed. =
+
+This happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section. 
+
+scaling: \'fit\',
+
+Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set. We will make this feature optional in the next release.
 
 == Screenshots ==
 
