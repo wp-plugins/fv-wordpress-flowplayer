@@ -3,7 +3,7 @@
 Plugin Name: FV Wordpress Flowplayer
 Plugin URI: http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer
 Description: Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice). 
-Version: 1.2.1
+Version: 1.2.2
 Author: Foliovision
 Author URI: http://foliovision.com/
 */
@@ -21,7 +21,7 @@ if(is_admin()) {
 	 * If administrator is not logged, loads the controller for frontend.
 	 */
 	include( dirname( __FILE__ ) . '/controller/frontend.php' );
-  include( dirname( __FILE__ ) . '/controller/shortcodes.php');
+  require_once( dirname( __FILE__ ) . '/controller/shortcodes.php');
 }
 
 

@@ -4,7 +4,7 @@ Donate: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
 Tested up to: 3.0.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -44,7 +44,7 @@ You need to use at least PHP 5, your site is probably still running on old PHP 5
 
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
-FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the &lt;?php wp_footer(); ?&gt; Wordpress hook, usually inserted just before &lt;/body&gt; tag. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
+FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the &lt;?php wp_footer(); ?&gt; Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
 
 = I tried to change some setting in the admin section, but without effect.  =
 
@@ -109,11 +109,15 @@ The position of the play button is defined at two places, first is the css file 
 
 = When viewing the video in fullscreen mode, it is stretched and looks deformed. =
 
-This happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section: 
+If you have version 1.2.2 or higher, than go to settings and set Fit scaling to true.
+
+For versions below 1.2.2, this happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section:
 
 scaling: \'fit\',
 
-Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set. We will make this feature optional in the next release.
+Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set.
+
+
 
 == Screenshots ==
 
@@ -123,6 +127,11 @@ Also don't forget comma at the end of the line where appropriate. Be aware that 
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.2.2 =
+* Option for keeping the aspect ratio of videos
+* Class 'flowplayer_frontend' not found bug fixed
+
 
 = 1.2.1 =
 * License key entering fixed

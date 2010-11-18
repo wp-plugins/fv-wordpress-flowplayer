@@ -32,43 +32,36 @@ class flowplayer_frontend extends flowplayer
 			$autoplay = 'false';
 			$controlbar = 'always';
       $redirect = '';
-      $args['redirect'];
 			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
 			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
 			if (isset($args['width'])&&!empty($args['width'])) $width = trim($args['width']);
 			if (isset($args['height'])&&!empty($args['height'])) $height = trim($args['height']);
 			if (isset($args['controlbar'])&&($args['controlbar']=='show')) $controlbar = 'never';
-         if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = trim($args['redirect']);
+      if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = trim($args['redirect']);
+
+ 	    $scaling = "scale";
+			if (isset($this->conf['scaling'])&&($this->conf['scaling']=="true")) $scaling = "fit";
+			else
+			   $scaling = "scale";
+      
 
 			// if allowed by configuration file, set the popup box js code and content
-			if (((isset($this->conf['popupbox']))&&($this->conf['popupbox'] != 'false')&&!empty($args['popup']))||(!empty($redirect))) {
-				if (isset($args['popup'])) {
+			if (((isset($this->conf['popupbox']))&&($this->conf['popupbox']=="true"))||(isset($args['popup'])&&!empty($args['popup']))||(!empty($redirect))) {
+				if (isset($args['popup'])&&!empty($args['popup'])) {
 					$popup = trim($args['popup']);
 					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
 					$popup = html_entity_decode( str_replace('&#039;',"'",$popup ) );
 				} else {
-					$popup = '<div style="margin-top: 10px;">Would you like to replay the video or share the link to it with your friends?</div>';
+					$popup = 'Would you like to replay the video or share the link to it with your friends?';
 				}
 				preg_match('/(\<a href=.*?\>)(.*?)\<\/a\>/',$popup,$matches);
 			//	var_dump($matches);
 			   $link_button = '';
 				if(!empty($matches[1]))
-				  $link_button = $matches[1] . '<span class=link_button>' . $matches[2] . '</span></a>';
+				  $link_button = $matches[1] . '<span class="link_button">' . $matches[2] . '</span></a>';
           
-				$popup_controls = '<div style="position:absolute;top:70%; width:100%;">
-                                    <div class="popup_controls" style="border:none;text-align:center;">
-                                       <a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');">
-                                          <img src="'.RELATIVE_PATH.'/images/replay.png" alt="Replay video" />
-                                       </a>&nbsp;&nbsp;&nbsp;
-                                       <a title="Share video" href="javascript:fp_share(\''.$hash.'\');">
-                                          <img src="'.RELATIVE_PATH.'/images/share.png" alt="Share video" />
-                                       </a>
-                                    </div>
-                              </div>';
-				$popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'
-                                       <div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;">'.$popup.'
-                                       <br /><br />'.$link_button.'</div>
-                                    </div>';
+				$popup_controls = '<div style="position:absolute;top:70%; width:100%;"><div class="popup_controls" style="border:none;text-align:center;"> <a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/replay.png" alt="Replay video" /></a>&nbsp;&nbsp;&nbsp;<a title="Share video" href="javascript:fp_share(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/share.png" alt="Share video" /></a></div></div>';
+				$popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;"><p>'.$popup.'</p><br /><br />'.$link_button.'</div></div>';
 				// replace href attribute by javascript function
 				$popup_contents = str_replace("href=\"","onClick=\"javascript:window.location=this.href\" href=\"",$popup_contents);
 				$popup_code = "
@@ -118,8 +111,9 @@ class flowplayer_frontend extends flowplayer
 				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;" />';
 				// overriding the "autoplay" configuration - video should start immediately after click on the splash image
 				$this->conf['autoplay'] = 'true';
-				$autoplay = true;
+				$autoplay = 'true';
 			}
+		//	var_dump($this->conf['scaling']);
 			
 			
 
@@ -153,6 +147,7 @@ class flowplayer_frontend extends flowplayer
 						clip: {  
 							url: \''.trim($media).'\', 
 							autoPlay: '.trim($autoplay).',
+							scaling: \''.$scaling.'\',
 							autoBuffering: '.(isset($this->conf['autobuffer'])?trim($this->conf['autobuffer']):'false').'
 						}, 
 						canvas: {

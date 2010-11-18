@@ -3,8 +3,8 @@
 /**
  * Needed includes
  */
-include dirname( __FILE__ ) . '/../models/flowplayer.php';
-include dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
+include_once(dirname( __FILE__ ) . '/../models/flowplayer.php');
+include_once(dirname( __FILE__ ) . '/../models/flowplayer-frontend.php');
 
 /**
  * WP Hooks 

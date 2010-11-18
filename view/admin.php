@@ -45,6 +45,13 @@
 					</select></td>
 				</tr>
 				<tr>
+					<td>Fit scaling (<abbr title="If set to true, the original aspect ratio of the video will be used to display the video in fullscreen mode as well as when embedded in the page.">?</abbr>):</td>
+					<td><select name="scaling">
+					<?php echo flowplayer_bool_select($fp->conf['scaling']); ?>
+
+					</select></td>
+				</tr>
+				<tr>
 					<td>Allow User Uploads: </td>
 					<td>
 					 	<select name="allowuploads">
@@ -143,12 +150,10 @@
                   'controls: { buttonOverColor: \''.trim($fp->conf['buttonOverColor']).'\', sliderColor: \''. trim($fp->conf['sliderColor']).'\', bufferColor: \''. trim($fp->conf['bufferColor']).'\', sliderGradient: \'none\', progressGradient: \'medium\', durationColor: \''. trim($fp->conf['durationColor']).'\', progressColor: \''. trim($fp->conf['progressColor']).'\', backgroundColor: \''. trim($fp->conf['backgroundColor']).'\', timeColor: \''. trim($fp->conf['timeColor']).'\', buttonColor: \''. trim($fp->conf['buttonColor']).'\', backgroundGradient: \'none\', bufferGradient: \'none\', opacity:0.9, fullscreen: '.trim($fp->conf['allowfullscreen']).',autoHide: \'always\',hideDelay: 500} ':'controls:null'); ?> 
 				},
 				clip: {
-					url:'<?php echo RELATIVE_PATH; ?>/flowplayer/example.flv',
+					url:'http://foliovision.com/videos/example.flv',
 					autoPlay: '<?php if (isset($fp->conf["autoplay"])) { echo trim($fp->conf["autoplay"]); } else { echo(false); } ?>',
-	       	   autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo trim($fp->conf["autobuffer"]); } else { echo "false"; } ?>'
+	       	autoBuffering: '<?php if (isset($fp->conf["autobuffer"])) { echo trim($fp->conf["autobuffer"]); } else { echo "false"; } ?>'
 				},
-	
-
             <?php 	
             if($fp->conf['logoenable'] == 'true'){
             	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.trim($fp->conf['fullscreenonly']).', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
@@ -172,11 +177,14 @@
 
 <?php 
 	if(isset($_POST['submit'])) {
+//					url:'<?php echo RELATIVE_PATH; ? >/flowplayer/example.flv',
+
 		/**
 		 *  Write the configuration into file, if the form was submitted.
 		 */
 		$fp->_set_conf();
-		/**
+		
+    /**
 		 *  Refresh the page.
 		 */
 		?>

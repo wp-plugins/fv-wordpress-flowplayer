@@ -280,7 +280,7 @@
 	 *         the dimensions in metadata.
 	 * 
 	 */
-	initialScale: 'fit',
+	initialScale: 'orig',
 	
 	/*
 	 * Specifies if the menu containing the size options should be shown or not.

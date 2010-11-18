@@ -1,7 +1,7 @@
 <?php
 require_once dirname( __FILE__ ) . '/../models/flowplayer.php';
-//require_once dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
-
+if (!class_exists('flowplayer_frontend')) 
+  require_once dirname( __FILE__ ) . '/../models/flowplayer-frontend.php';
 
 add_shortcode('flowplayer','flowplayer_content_handle');
 

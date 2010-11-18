@@ -41,6 +41,7 @@ class flowplayer {
     if( !isset( $conf['autoplay'] ) ) $conf['autoplay'] = 'false';
     if( !isset( $conf['key'] ) ) $conf['key'] = 'false';
     if( !isset( $conf['autobuffer'] ) ) $conf['autobuffer'] = 'false';
+    if( !isset( $conf['scaling'] ) ) $conf['scaling'] = 'false';
     if( !isset( $conf['popupbox'] ) ) $conf['popupbox'] = 'false';
     if( !isset( $conf['allowfullscreen'] ) ) $conf['allowfullscreen'] = 'true';
     if( !isset( $conf['allowuploads'] ) ) $conf['allowuploads'] = 'true';

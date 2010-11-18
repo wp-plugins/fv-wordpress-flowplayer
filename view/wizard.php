@@ -15,7 +15,7 @@ if (isset($_COOKIE["selected_image"]))
 	if (isset($conf["postthumbnail"]))
 	  $post_thumbnail = $conf["postthumbnail"];
 	  
-	$video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4');
+	$video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4','mp3');
   $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
   if (isset($selected_attachment['url'])) {
     $path_parts = pathinfo($selected_attachment['url']);

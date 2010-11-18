@@ -3,8 +3,8 @@
 /**
  * Needed includes
  */
-include dirname( __FILE__ ) . '/../models/flowplayer.php';
-include dirname( __FILE__ ) . '/../models/flowplayer-backend.php';
+include_once(dirname( __FILE__ ) . '/../models/flowplayer.php');
+include_once(dirname( __FILE__ ) . '/../models/flowplayer-backend.php');
 
 /**
  * Create the flowplayer_backend object
@@ -69,6 +69,9 @@ function fp_media_send_to_editor($html, $attachment_id, $attachment){
    }
 }
 function flowplayer_wizard() {
+
+  //do the magic here
+
    setcookie("selected_video",'',time()-3600);
    setcookie("selected_image",'',time()-3600);
 	wp_enqueue_style('media');
@@ -159,8 +162,8 @@ function flowplayer_add_media_button(){
 		$wizard_url = $fmp_jw_url . '/inc/shortcode_wizard.php';
 		$config_dir = $fmp_jw_files_dir . '/configs';
 		$playlist_dir = $fmp_jw_files_dir .'/playlists';
-		$button_src = $fmp_jw_url . '/inc/images/playerbutton.gif';
-		$button_tip = 'Insert a Flash MP3 Player';*/
+		$button_src = $fmp_jw_url . '/inc/images/playerbutton.gif';*/
+		$button_tip = 'Insert a Flash Video Player';
 		$wizard_url = 'media-upload.php?post_id='.$post->ID.'&type=fv-wp-flowplayer';
 		$button_src = RELATIVE_PATH.'/images/icon.png';
 		echo '<a title="Add FV WP Flowplayer" href="'.$wizard_url.'&TB_iframe=true&width=500&height=300" class="thickbox" ><img src="' . $button_src . '" alt="' . $button_tip . '" /></a>';
