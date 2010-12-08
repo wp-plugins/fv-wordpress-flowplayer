@@ -66,10 +66,6 @@ class flowplayer_frontend extends flowplayer
 				$popup_contents = str_replace("href=\"","onClick=\"javascript:window.location=this.href\" href=\"",$popup_contents);
 				$popup_code = "
 				window.flowplayer('wpfp_$hash').onFinish(function() {
-   			   if ('$redirect'){
-                  window.open('$redirect','fv_redirect_to');             
-               }
-               else{
       				var fp = document.getElementById('wpfp_$hash');
      					var popup = document.createElement('div');
      					var popup_contents = document.getElementById('popup_contents_$hash');
@@ -77,7 +73,9 @@ class flowplayer_frontend extends flowplayer
      					popup.id = 'wpfp_".$hash."_popup';
      					popup.innerHTML = popup_contents.innerHTML;
      					fp.appendChild(popup);
-     				}
+               if ('$redirect'){
+                  window.open('$redirect','fv_redirect_to');             
+               }
 				});
 				window.flowplayer('wpfp_$hash').onLoad(function() {
 				   var fp = document.getElementById('wpfp_".$hash."');
