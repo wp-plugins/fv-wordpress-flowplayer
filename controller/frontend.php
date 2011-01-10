@@ -151,11 +151,11 @@ function flowplayer_content( $content ) {
  */
 function flowplayer_display_scripts() {
 	if (!empty($GLOBALS['scripts'])) {
-		echo "\n<script defer=\"defer\" type=\"text/javascript\">\n<!--\n\n";
+		echo "\n<script type=\"text/javascript\">\n\n\n";
 		foreach ($GLOBALS['scripts'] as $scr) {
 			echo $scr;
 		}
-		echo "\n\n//-->\n</script>\n";
+		echo "\n\n//\n</script>\n";
 	}
 }
 

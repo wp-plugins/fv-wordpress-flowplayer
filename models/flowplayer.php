@@ -103,16 +103,16 @@ function flowplayer_head() {
 	if (!defined('RELATIVE_PATH')) {
 		define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);
 	
-    $conf = get_option( 'fvwpflowplayer' );
-		if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
+   $conf = get_option( 'fvwpflowplayer' );
+	if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
       define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
     else
       define('PLAYER', RELATIVE_PATH.'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
     
 		$vid = 'http://'.$_SERVER['SERVER_NAME'];
 		if (dirname($_SERVER['PHP_SELF']) != '/') $vid .= dirname($_SERVER['PHP_SELF']);
-		define('VIDEO_PATH', $vid.'/videos/');
-	}
+      define('VIDEO_DIR', '/videos/');
+		define('VIDEO_PATH', $vid.VIDEO_DIR);	}
 	// call the right function for displaying CSS and JS links
 	if (class_exists('flowplayer_frontend')) {
 		flowplayer_frontend::flowplayer_head();

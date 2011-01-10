@@ -28,11 +28,14 @@ if (isset($_COOKIE["selected_image"]))
     $serv = $_SERVER['SERVER_NAME'];
     $pattern = '/'.$serv.'(.*)/';
     preg_match($pattern, $uploaded_video, $matches);
+    if($matches[1]) $strUpVideo = $matches[1];
+    else $strUpVideo = $uploaded_video;
     require_once(realpath(dirname(__FILE__).'/getid3/getid3.php'));
+    
     // Initialize getID3 engine
     $getID3 = new getID3;
       
-    $ThisFileInfo = $getID3->analyze(realpath($_SERVER['DOCUMENT_ROOT'] .$matches[1]));
+    $ThisFileInfo = $getID3->analyze(realpath($_SERVER['DOCUMENT_ROOT'] .$strUpVideo));
     if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
     //getid3_lib::CopyTagsToComments($ThisFileInfo);
     $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
@@ -129,7 +132,6 @@ function fillSplashInputs(){
 </form>
 
 <script type="text/javascript">
-	console.log( document );
 	//window.parent.send_to_editor( '<span id="FCKFVWPFlowplayerPlaceholder"></span>' );
 
 	var re = /\[flowplayer[^\[]*?<span>FCKFVWPFlowplayerPlaceholder<\/span>[^\[]*?\]/mi;

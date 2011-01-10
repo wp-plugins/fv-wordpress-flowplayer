@@ -16,34 +16,54 @@ class flowplayer_frontend extends flowplayer
 	function build_min_player($media,$args = array()) {
 			
 			// returned array with new player's html and javascript content
-			$ret = array('html' => '', 'script' => '');
-			
-			if( strpos($media,'http://') === false && strpos($media,'https://') === false ) {
-				$media = VIDEO_PATH.$media;
-			}
-			
-			// unique coe for this player
-			$hash = md5($media.$this->_salt());
-			
-			// setting argument values
-			$width = 320;
-			$height = 240;
-			$popup = '';
-			$autoplay = 'false';
-			$controlbar = 'always';
+		$ret = array('html' => '', 'script' => '');
+		
+		if( strpos($media,'http://') === false && strpos($media,'https://') === false ) {
+			// strip the first / from $media
+         if($media[0]=='/') $media = substr($media, 1);
+         if((dirname($_SERVER['PHP_SELF'])!='/')&&(file_exists($_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$media))){  //if the site does not live in the document root
+            $media = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$media;
+            }
+         elseif(file_exists($_SERVER['DOCUMENT_ROOT'].VIDEO_DIR.$media)){ // if the videos folder is in the root
+            $media = 'http://'.$_SERVER['SERVER_NAME'].VIDEO_DIR.$media;//VIDEO_PATH.$media;
+         }
+         else{ // if the videos are not in the videos directory but they are adressed relatively
+          $media_path = str_replace('//','/',$_SERVER['SERVER_NAME'].'/'.$media);
+          $media = 'http://'.$media_path;
+         }
+		}
+		
+		// unique coe for this player
+		$hash = md5($media.$this->_salt());
+		
+		// setting argument values
+		$width = 320;
+		$height = 240;
+		$popup = '';
+		$autoplay = 'false';
+		$controlbar = 'always';
+		
+		//check user agents
+      $aUserAgents =array('iphone', 'ipod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'dream', 'cupcake', 'froyo', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi');
+      $mobileUserAgent = false;
+      foreach($aUserAgents as $userAgent){
+         if(stripos($_SERVER['HTTP_USER_AGENT'],$userAgent))
+            $mobileUserAgent = true;
+      }
+
       $redirect = '';
-			if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
-			if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
-			if (isset($args['width'])&&!empty($args['width'])) $width = trim($args['width']);
-			if (isset($args['height'])&&!empty($args['height'])) $height = trim($args['height']);
-			if (isset($args['controlbar'])&&($args['controlbar']=='show')) $controlbar = 'never';
+		if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
+		if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
+		if (isset($args['width'])&&!empty($args['width'])) $width = trim($args['width']);
+		if (isset($args['height'])&&!empty($args['height'])) $height = trim($args['height']);
+		if (isset($args['controlbar'])&&($args['controlbar']=='show')) $controlbar = 'never';
       if (isset($args['redirect'])&&!empty($args['redirect'])) $redirect = trim($args['redirect']);
 
- 	    $scaling = "scale";
-			if (isset($this->conf['scaling'])&&($this->conf['scaling']=="true")) $scaling = "fit";
-			else
-			   $scaling = "scale";
-      
+ 	   $scaling = "scale";
+		if (isset($this->conf['scaling'])&&($this->conf['scaling']=="true")) $scaling = "fit";
+		else
+		   $scaling = "scale";
+   
 
 			// if allowed by configuration file, set the popup box js code and content
 			if (((isset($this->conf['popupbox']))&&($this->conf['popupbox']=="true"))||(isset($args['popup'])&&!empty($args['popup']))||(!empty($redirect))) {
@@ -66,15 +86,16 @@ class flowplayer_frontend extends flowplayer
 				$popup_contents = str_replace("href=\"","onClick=\"javascript:window.location=this.href\" href=\"",$popup_contents);
 				$popup_code = "
 				window.flowplayer('wpfp_$hash').onFinish(function() {
-      				var fp = document.getElementById('wpfp_$hash');
+      			if ('$redirect'){
+                  window.open('$redirect','fv_redirect_to');             
+               }else{
+               	var fp = document.getElementById('wpfp_$hash');
      					var popup = document.createElement('div');
      					var popup_contents = document.getElementById('popup_contents_$hash');
      					popup.className = 'flowplayer_popup';
      					popup.id = 'wpfp_".$hash."_popup';
      					popup.innerHTML = popup_contents.innerHTML;
      					fp.appendChild(popup);
-               if ('$redirect'){
-                  window.open('$redirect','fv_redirect_to');             
                }
 				});
 				window.flowplayer('wpfp_$hash').onLoad(function() {
@@ -101,8 +122,20 @@ class flowplayer_frontend extends flowplayer
 			}
 			
 			if (isset($args['splash']) && !empty($args['splash'])) {
-				if( strpos($args['splash'],'http://') === false && strpos($args['splash'],'https://') === false ) {
-					$splash_img = VIDEO_PATH.trim($args['splash']);
+				$splash_img = $args['splash'];
+				if( strpos($splash_img,'http://') === false && strpos($splash_img,'https://') === false ) {
+				//	$splash_img = VIDEO_PATH.trim($args['splash']);
+					if($splash_img[0]=='/') $splash_img = substr($splash_img, 1);
+               if((dirname($_SERVER['PHP_SELF'])!='/')&&(file_exists($_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$splash_img))){  //if the site does not live in the document root
+                  $splash_img = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$splash_img;
+                  }
+               elseif(file_exists($_SERVER['DOCUMENT_ROOT'].VIDEO_DIR.$splash_img)){ // if the videos folder is in the root
+                  $splash_img = 'http://'.$_SERVER['SERVER_NAME'].VIDEO_DIR.$splash_img;//VIDEO_PATH.$media;
+               }
+               else{ // if the videos are not in the videos directory but they are adressed relatively
+                $splash_img_path = str_replace('//','/',$_SERVER['SERVER_NAME'].'/'.$splash_img);
+                $splash_img = 'http://'.$splash_img_path;
+               }
 				} else {
 					$splash_img = trim($args['splash']);
 				}
@@ -111,13 +144,19 @@ class flowplayer_frontend extends flowplayer
 				$this->conf['autoplay'] = 'true';
 				$autoplay = 'true';
 			}
+			else 
+            if($mobileUserAgent==true) 
+               $splash = '<img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;"/>';
+
 		//	var_dump($this->conf['scaling']);
 			
 			
 
 			 // set the output JavaScript (which will be added to document head)
+			 if($mobileUserAgent==false) 
 			$ret['script'] = '
 				if (document.getElementById(\'wpfp_'.$hash.'\') != null) {
+				'.(($mobileUserAgent==true)?'jQuery(function() {':'').'
 					flowplayer("wpfp_'.$hash.'", {src: "'.PLAYER.'", wmode: \'opaque\'}, {
 	'.(isset($this->conf['key'])&&strlen($this->conf['key'])>0?'key:\''.trim($this->conf['key']).'\',':'').'
             plugins: {
@@ -152,12 +191,22 @@ class flowplayer_frontend extends flowplayer
 							backgroundColor:\''.trim($this->conf['canvas']).'\'
 						}
 					});
+					'.(($mobileUserAgent==true)?'flowplayer("wpfp_'.$hash.'").html5({html5_force:true, h264_baseurl:"http://diveintohtml5.org/i"});':'').'
+					'.(($mobileUserAgent==true)?'});':'').'
 				};
-			'.$popup_code;
+			';//.$popup_code;
+         if($mobileUserAgent==false) $ret['script'] .= $popup_code;
 
 			 // set the output HTML (which will be printed into document body)
-			$ret['html'] .= '<a id="wpfp_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer_container">'.$splash.'</a>'.$popup_contents;
-		
+		//	$ret['html'] .= '<a id="wpfp_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer_container">'.$splash.'</a>'.$popup_contents;
+		 $ret['html'] .= '<a id="wpfp_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer_container player plain">'.$splash.'</a>';//.$popup_contents;
+		   if($mobileUserAgent==false) $ret['html'] .= $popup_contents;
+		    
+         if($mobileUserAgent==true) 
+         $ret['html'] = '<video width="'.$width.'" height="'.$height.'"  controls >
+         	<!-- MP4 must be first for iPad! -->
+         	<source src="'.trim($media).'"  type="video/mp4"  /><!-- WebKit video    -->
+         </video>';
 		// return new player's html and script
 		return $ret;
 	}
