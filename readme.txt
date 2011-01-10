@@ -128,6 +128,10 @@ Also don't forget comma at the end of the line where appropriate. Be aware that 
 
 == Changelog ==
 
+= 1.2.3 =
+* HTML 5 suport for mobile browsers
+* incorrect paths fixed
+
 = 1.2.2 =
 * Option for keeping the aspect ratio of videos
 * Class 'flowplayer_frontend' not found bug fixed
