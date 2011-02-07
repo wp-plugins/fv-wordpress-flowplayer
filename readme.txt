@@ -4,7 +4,7 @@ Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
 Tested up to: 3.0.1
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -128,6 +128,10 @@ Also don't forget comma at the end of the line where appropriate. Be aware that 
 
 == Changelog ==
 
+= 1.2.4 =
+* Wizard fixes
+* Added option for showing splash image at the end
+
 = 1.2.3 =
 * HTML 5 suport for mobile browsers
 * incorrect paths fixed
@@ -135,7 +139,6 @@ Also don't forget comma at the end of the line where appropriate. Be aware that 
 = 1.2.2 =
 * Option for keeping the aspect ratio of videos
 * Class 'flowplayer_frontend' not found bug fixed
-
 
 = 1.2.1 =
 * License key entering fixed

@@ -57,7 +57,8 @@ function flowplayer_content_handle( $atts ) {
       'splash' => '',
       'popup' => '',
       'controlbar' => '',
-      'redirect' => ''
+      'redirect' => '',
+      'splashend' => ''
       ), $atts ) );
   
 	$arguments['width'] = preg_replace('/\,/', '', $width);
@@ -65,6 +66,7 @@ function flowplayer_content_handle( $atts ) {
 	$arguments['autoplay'] = preg_replace('/\,/', '', $autoplay);
 //	$arguments['embed'] = $embed;
 	$arguments['splash'] = preg_replace('/\,/', '', $splash);
+	$arguments['splashend'] = preg_replace('/\,/', '', $splashend);
 	$arguments['popup'] = $popup;
 	$arguments['controlbar'] = preg_replace('/\,/', '', $controlbar);
 	$arguments['redirect'] = preg_replace('/\,/', '', $redirect);

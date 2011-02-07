@@ -127,6 +127,8 @@
 						<i>Example</i>:<br /><code>[flowplayer src='example.flv' controlbar='show']</code></li>
 						<li><code>redirect</code> parameter can be used to redirect to another page (in a new tab) after the video stops playing.<br />
 						<i>Example</i>:<br /><code>[flowplayer src='example.flv' redirect='http://www.site.com']</code></li>
+						<li><code>splashend</code> set to show if you want to show the splash image also at the end of the video. The image has to have exactly the same dimensions as the video, there is no stretching applied.<br />
+						<i>Example</i>:<br /><code>[flowplayer src='example.flv' splash=image.jpg splashend=show]</code></li>
 					</ul>
 					</td>
 					<td></td>

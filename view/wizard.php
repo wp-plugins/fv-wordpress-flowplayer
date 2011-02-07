@@ -91,13 +91,13 @@ function fillSplashInputs(){
             </td>
          </tr>
       <?php }; //video has been selected ?>
-			<tr><th></th>
-				<th valign="top" scope="row" class="label" ><span class="alignleft">Width <small>(px)</small></span><br class='clear' /></th>
-				<td class="field"><input type="text" id="width" name="width" style="width: 100%"  value="<?php echo $file_width ?>"/></td>
+			<tr><!--th></th-->
+				<th valign="top" scope="row" class="label" ><span class="alignright">Width <small>(px)</small></span><br class='clear' /></th>
+				<td  colspan="2" class="field"><input type="text" id="width" name="width" style="width: 100%"  value="<?php echo $file_width ?>"/></td>
 			</tr>
-			<tr><th></th>
-				<th valign="top" scope="row" class="label" style="width: 10%"><span class="alignleft">Height <small>(px)</small></span></th>
-				<td class="field"><input type="text" id="height" name="height" style="width: 100%" value="<?php echo $file_height ?>"/></td>
+			<tr><!--th></th-->
+				<th valign="top" scope="row" class="label" style="width: 10%"><span class="alignright">Height <small>(px)</small></span></th>
+				<td  colspan="2" class="field"><input type="text" id="height" name="height" style="width: 100%" value="<?php echo $file_height ?>"/></td>
 			</tr>
 			<tr>
 				<th valign="top" scope="row" class="label"><span class="alignright">Splash Image</span></th>
@@ -114,91 +114,157 @@ function fillSplashInputs(){
 			<?php if (!empty($uploaded_image))
           if (($post_thumbnail=='true') && current_theme_supports( 'post-thumbnails') && isset($selected_attachment['id'])) 
              update_post_meta( $post_id, '_thumbnail_id', $selected_attachment['id'] );?>
+			<tr><th colspan=3 style="text-align:left; padding-left:50px">&nbsp;</th></tr>
+			<tr><th colspan=3 style="text-align:left; padding-left:30px">Additional features:</th></tr>
 			<tr>
-				<th valign="top" scope="row" class="label"><span class="alignright">HTML Popup</span></th>
+				<td valign="top" scope="row" class="label"><span class="alignright">HTML Popup</span></td>
 				<td colspan="2"><textarea type="text" id="popup" name="popup" style="width: 100%"></textarea></td>
 			</tr>
 			<tr>
-				<th valign="top" scope="row" class="label"><span class="alignright">Autoplay</span></th>
-				<td colspan="2" class="field"><input type="checkbox" id="autoplay" name="autoplay" /></td>
+				<td valign="top" scope="row" class="label"><span class="alignright">Redirect to</span></td>
+				<td class="field" colspan="2"><input type="text" id="redirect" name="redirect" style="width: 100%"  value=""/></td>
+			</tr>
+
+			<tr>
+				<td valign="top" scope="row" class="label"><span class="alignright">Autoplay</span></td>
+				<td colspan="2" class="field">
+               <select id="autoplay" name="autoplay">
+                  <option>Default&nbsp;</option><option>On</option><option>Off</option>
+               </select><!--input type="checkbox" id="autoplay" name="autoplay" /--> 
+        </td>
 			</tr>
 			<tr>
-				<th valign="top" scope="row" class="label">
-					<input type="button" value="Insert" name="insert" id="insert-button" class="button-primary" onclick="clickOK();" />
+				<td valign="top" scope="row" class="label"><span class="alignright">Controlbar</span></td>
+				<td colspan="2" class="field"><!--input type="checkbox" id="controlbar" name="controlbar" /-->
+               <select id="controlbar" name="controlbar">
+                  <option>Default</option><option>Always show</option><option>Always hide</option>
+               </select>
+            </td>
+			</tr>
+			<tr>
+				<!--th valign="top" scope="row" class="label"><span class="alignright"></span></th-->
+				<td colspan="3" class="field" style="padding-left:40px"> 
+        Show splash image at the end&nbsp;<input type="checkbox" id="splashend" name="splashend" />
+        <span style="font-size:70%; width:300px;">(The splash image has to have the same dimensions as the video)</span>
+        </td>
+			</tr>
+			
+
+			<tr>
+				<th valign="top" scope="row" class="label"  style="test-align:right">
+					<input type="button" value="Insert" name="insert" id="insert-button" class="button-primary" onclick="clickOK();" style="float:right"/>
 				</th>
 			</tr>
 		</tbody>
 	</table>
 </form>
-
 <script type="text/javascript">
-	//window.parent.send_to_editor( '<span id="FCKFVWPFlowplayerPlaceholder"></span>' );
+   var shortcode;
+   if(window.parent.tinyMCE.activeEditor){
+      var re = /\[flowplayer[^\[]*?<span>FCKFVWPFlowplayerPlaceholder<\/span>[^\[]*?\]/mi;
+	    var re2 = /<span>FCKFVWPFlowplayerPlaceholder<\/span>/gi;
+      var hTinyMCE = window.parent.tinyMCE.activeEditor;
 
-	var re = /\[flowplayer[^\[]*?<span>FCKFVWPFlowplayerPlaceholder<\/span>[^\[]*?\]/mi;
-	var re2 = /<span>FCKFVWPFlowplayerPlaceholder<\/span>/gi;
-	var hTinyMCE = window.parent.tinyMCE.getInstanceById('content');
-	//console.log(window.parent.tinyMCE.activeEditor.isHidden() );
-	if( hTinyMCE == undefined || window.parent.tinyMCE.activeEditor.isHidden() ) {
-		//console.log( 'not in wysiwyg' );
-	}
-	else {
-		hTinyMCE.selection.setContent('<span>FCKFVWPFlowplayerPlaceholder</span>');
-		
-		content_original = hTinyMCE.getContent();
-		content = content_original.replace(/\n/g,'\uffff');
-	     
-		var shortcode = content.match( re );
-		
-		
-		hTinyMCE.setContent( hTinyMCE.getContent().replace( re2,'' ) );
-		
-		if( shortcode != null ) {
-			shortcode = shortcode.join('');
-			shortcode = shortcode.replace( re2,'' );
-			
-			shortcode = shortcode.replace( /\\'/g,'&#039;' );
-			
-			//alert(shortcode);
-			srcurl = shortcode.match( /src='([^']*)'/ );
-			if( srcurl == null )
-				srcurl = shortcode.match( /src=([^,\]\s]*)/ );
-			
-			iheight = shortcode.match( /height=(\d*)/ );
-			
-			iwidth = shortcode.match( /width=(\d*)/ );
-			sautoplay = shortcode.match( /autoplay=([^\s]+)/ );
-			ssplash = shortcode.match( /splash='([^']*)'/ );
-			if( ssplash == null )
-				ssplash = shortcode.match( /splash=([^,\]\s]*)/ );
-			
-			spopup = shortcode.match( /popup='([^']*)'/ );
-	
-			//alert( srcurl[1] + '\n' + iheight[1] + '\n' + iwidth[1] + '\n' + splash[1] + '\n' + popup[1] );
+      if(hTinyMCE){
+        hTinyMCE.selection.setContent('<span>FCKFVWPFlowplayerPlaceholder</span>');
+        content_original = hTinyMCE.getContent();
+        content = content_original.replace(/\n/g,'\uffff');
+    		shortcode = content.match( re );
+    		hTinyMCE.setContent( hTinyMCE.getContent().replace( re2,'' ) );
+		  }
+	 }
 
-			if( srcurl != null && srcurl[1] != null )
-				document.getElementById("src").value = srcurl[1];
-			if( iheight != null && iheight[1] != null )
-				document.getElementById("height").value = iheight[1];
-			if( iwidth != null && iwidth[1] != null )
-				document.getElementById("width").value = iwidth[1];
-			if( sautoplay != null && sautoplay[1] != null )
-				document.getElementById("autoplay").value = sautoplay[1];
-			if( ssplash != null && ssplash[1] != null )
-				document.getElementById("splash").value = ssplash[1];
-			if( spopup != null && spopup[1] != null ) {
-				spopup = spopup[1].replace(/&#039;/g,'\'').replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
-				spopup = spopup.replace(/&amp;/g,'&');
-				document.getElementById("popup").value = spopup;
-			}
-			
-			document.getElementById("insert-button").value = "Update";
+	if(window.parent.FCKeditorAPI){
+   	var oEditor = window.parent.FCKeditorAPI.GetInstance('content') ;
+   	if (typeof oEditor != 'undefined')
+   	{
+   		oEditor.InsertHtml('<span>FCKFVWPFlowplayerPlaceholder</span>');
+   	}
+   	var re = /\[flowplayer[^\[]*?<span>FCKFVWPFlowplayerPlaceholder<\/span>[^\[]*?\]/mi;
+   	var re2 = /<span>FCKFVWPFlowplayerPlaceholder<\/span>/gi;
+   	if( (oEditor == undefined) || window.parent.tinyMCE.activeEditor.isHidden() ) {
+   	}
+   	else {
+   		content_original = oEditor.GetHTML();
+   		content = content_original.replace(/\n/g,'\uffff');
+   		shortcode = content.match( re );
+   		var orig = oEditor.GetHTML().replace( re2,'' );
+   		oEditor.SetData( orig );
+      }
+   }	
+   if( shortcode != null ) {
+		shortcode = shortcode.join('');
+		shortcode = shortcode.replace( re2,'' );
+		shortcode = shortcode.replace( /\\'/g,'&#039;' );
+		
+		srcurl = shortcode.match( /src='([^']*)'/ );
+		if( srcurl == null ) srcurl = shortcode.match( /src=([^,\]\s]*)/ );
+		
+		ssplash = shortcode.match( /splash='([^']*)'/ );
+		if( ssplash == null ) ssplash = shortcode.match( /splash=\"([^\"]*)\"/ );
+		if( ssplash == null ) ssplash = shortcode.match( /splash=([^,\]\s]*)/ );
+
+		iheight = shortcode.match( /height=(\d*)/ );			
+		iwidth = shortcode.match( /width=(\d*)/ );
+		if( iheight == null ) iheight = shortcode.match( /height='(\d*)'/ );
+		if( iwidth == null ) iwidth = shortcode.match( /width='(\d*)'/ );
+		
+		spopup = shortcode.match( /popup='([^']*)'/ );
+		if( spopup == null ) spopup = shortcode.match( /popup=\"([^\"]*)\"/ );
+      sredirect = shortcode.match( /redirect='([^']*)'/ );
+      if(sredirect == null ) sredirect = shortcode.match( /redirect=\"([^\"]*)\"/ );
+      			
+		sautoplay = shortcode.match( /autoplay='([^\s\]]+)'/ );
+		if(sautoplay == null )sautoplay = shortcode.match( /autoplay=([^\s]+)/ );
+		
+      controlbar = shortcode.match( /controlbar='([^\s\]]+)'/ );
+	   if( controlbar == null ) controlbar = shortcode.match( /controlbar=([^\s]+)/ );
+
+		ssplashend = shortcode.match( /splashend='([^\s\]]+)'/ );
+		if(ssplashend == null )ssplashend = shortcode.match( /splashend=([^\s]+)/ );
+
+		//alert( srcurl[1] + '\n' + iheight[1] + '\n' + iwidth[1] + '\n' + splash[1] + '\n' + popup[1] );
+
+		if( srcurl != null && srcurl[1] != null )
+			document.getElementById("src").value = srcurl[1];
+		if( iheight != null && iheight[1] != null )
+			document.getElementById("height").value = iheight[1];
+		if( iwidth != null && iwidth[1] != null )
+			document.getElementById("width").value = iwidth[1];
+		if( ssplash != null && ssplash[1] != null )
+			document.getElementById("splash").value = ssplash[1];
+		if( spopup != null && spopup[1] != null ) {
+			spopup = spopup[1].replace(/&#039;/g,'\'').replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+			spopup = spopup.replace(/&amp;/g,'&');
+			document.getElementById("popup").value = spopup;
 		}
-		//document.getElementById("src").focus();
-		window.parent.blur();
-		//window.parent.document.getElementById( 'content_ifr' ).contentWindow.document.getElementById("src").focus();
-		//alert( window.parent.document.getElementById( 'content_ifr' ).contentWindow.document.body.innerHTML );
-		//document.getElementById("src").focus();
+		if( sredirect != null && sredirect[1] != null )
+			document.getElementById("redirect").value = sredirect[1];
+
+		/*if( sautoplay != null && sautoplay[1] != null )
+			document.getElementById("autoplay").checked = true;//sautoplay[1];
+*/
+		if( autoplay != null && autoplay[1] != null ){
+		   if (autoplay[1] == 'true')
+  				document.getElementById("autoplay").selectedIndex = 1;//sautoplay[1];
+		   else if (autoplay[1] == 'false')
+  				document.getElementById("autoplay").selectedIndex = 2;//sautoplay[1];
+ 				else document.getElementById("autoplay").selectedIndex = 0;
+		}
+
+		if( ssplashend != null && ssplashend[1] != null )
+			document.getElementById("splashend").checked = true;//sautoplay[1];
+
+		if( controlbar != null && controlbar[1] != null ){
+		   if (controlbar[1] == 'show')
+  				document.getElementById("controlbar").selectedIndex = 1;//sautoplay[1];
+		   else if (controlbar[1] == 'hide')
+  				document.getElementById("controlbar").selectedIndex = 2;//sautoplay[1];
+ 				else document.getElementById("controlbar").selectedIndex = 0;
+		}
+		document.getElementById("insert-button").value = "Update";
 	}
+//	document.getElementById("src").focus();
 
 
 function clickOK() {
@@ -226,11 +292,14 @@ function clickOK() {
 	if( document.getElementById("height").value != '' )
 		shortcode += ' height=' + document.getElementById("height").value;
 	
-  if( document.getElementById("autoplay").checked )
+   if( document.getElementById("autoplay").checked )
 		shortcode += ' autoplay=true';
 		
 	if( document.getElementById("splash").value != '' )
 		shortcode += ' splash=\'' + document.getElementById("splash").value + '\'';
+
+	if( document.getElementById("redirect").value != '' )
+		shortcode += ' redirect=\'' + document.getElementById("redirect").value + '\'';
 	
 	if( document.getElementById("popup").value != '' ) {
 			var popup = document.getElementById("popup").value;
@@ -242,6 +311,16 @@ function clickOK() {
 			shortcode += ' popup=\'' + popup +'\'';
 	}
 	
+	if( document.getElementById("controlbar").selectedIndex == 1 )
+	  shortcode += ' controlbar=show';
+	if( document.getElementById("controlbar").selectedIndex == 2 )
+	  shortcode += ' controlbar=hide';
+
+	if( document.getElementById("autoplay").selectedIndex == 1 )
+	  shortcode += ' autoplay=true';
+	if( document.getElementById("autoplay").selectedIndex == 2 )
+	  shortcode += ' autoplay=false';
+      	
 	shortcode += ']';
 	document.cookie = "selected_video='';expires=Thu, 01-Jan-1970 00:00:01 GMT;";
 	document.cookie = "selected_image='';expires=Thu, 01-Jan-1970 00:00:01 GMT;";

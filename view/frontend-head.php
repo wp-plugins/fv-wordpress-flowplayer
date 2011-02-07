@@ -5,7 +5,7 @@
 
 ?>
 <?php    
-   $aUserAgents =	array('iphone', 'iPod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'dream', 'cupcake', 'froyo', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi');
+   $aUserAgents = array('iphone', 'ipod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'dream', 'cupcake', 'froyo', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi', 'htc_touch_pro');
    $mobileUserAgent = false;
    foreach($aUserAgents as $userAgent){
       if(stripos($_SERVER['HTTP_USER_AGENT'],$userAgent))
@@ -14,11 +14,11 @@
 
       
 ?>
-<?php if($mobileUserAgent==false){ ?>
+<?php if( $mobileUserAgent == false ){ ?>
 <script type="text/javascript" src="<?php echo RELATIVE_PATH; ?>/flowplayer/flowplayer.min.js"></script>
 <?php }  ?>
 <link rel="stylesheet" href="<?php echo RELATIVE_PATH; ?>/css/flowplayer.css" type="text/css" media="screen" />
-<?php if($mobileUserAgent==false){ ?>
+<?php if( $mobileUserAgent == false ){   ?>
 <!--[if lt IE 7.]>
 <script defer type="text/javascript" src="<?php echo RELATIVE_PATH; ?>/js/pngfix.js"></script>
 <![endif]-->
