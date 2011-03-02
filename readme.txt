@@ -117,6 +117,9 @@ scaling: \'fit\',
 
 Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set.
 
+= How can I style the popup? =
+
+Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS.
 
 
 == Screenshots ==
