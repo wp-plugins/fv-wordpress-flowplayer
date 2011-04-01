@@ -51,8 +51,15 @@ function flowplayer_content_handle( $atts ) {
   
   extract( shortcode_atts( array(
       'src' => '',
+      'src_mobile' => '',
+      'src_webm' => '',
+      'src_3gp' => '',
+      'src_low' => '',
+      'src_mobile' => '',
       'width' => '',
       'height' => '',
+      'width_mobile' => '',
+      'height_mobile' => '',
       'autoplay' => '',
       'splash' => '',
       'popup' => '',
@@ -61,8 +68,16 @@ function flowplayer_content_handle( $atts ) {
       'splashend' => ''
       ), $atts ) );
   
+   $sources['normal'] = $src;
+   $sources['low'] = $src_low;
+   $sources['mobile'] = $src_mobile;
+   $sources['webm'] = $src_webm;
+   $sources['3gp'] = $src_3gp;
+  
 	$arguments['width'] = preg_replace('/\,/', '', $width);
 	$arguments['height'] = preg_replace('/\,/', '', $height);
+	$arguments['width_mobile'] = preg_replace('/\,/', '', $width_mobile);
+	$arguments['height_mobile'] = preg_replace('/\,/', '', $height_mobile);
 	$arguments['autoplay'] = preg_replace('/\,/', '', $autoplay);
 //	$arguments['embed'] = $embed;
 	$arguments['splash'] = preg_replace('/\,/', '', $splash);
@@ -75,11 +90,9 @@ function flowplayer_content_handle( $atts ) {
 	if (trim($src) != '') {
 		// build new player
 	  //$fp = new flowplayer_frontend();
-    $new_player = $fp->build_min_player($src,$arguments);
-    //  var_dump($new_player['html']); 
+    $new_player = $fp->build_min_player($src,$sources,$arguments);
 		$content = str_replace($src, $new_player['html'],$atts);
 		$GLOBALS['scripts'][] = $new_player['script'];
-    // var_dump($content); 
 	}
     return $new_player['html'];
 //	return $content;

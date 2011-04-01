@@ -4,7 +4,7 @@ Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
 Requires at least: 2.0
 Tested up to: 3.0.1
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -121,6 +121,13 @@ Also don't forget comma at the end of the line where appropriate. Be aware that 
 
 Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
 
+= How can I style the popup? =
+
+<<<<<<< .mine
+Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
+
+=======
+>>>>>>> .r367828
 
 == Screenshots ==
 
@@ -130,6 +137,9 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.2.5 =
+* Support functions for future extensions added
 
 = 1.2.4 =
 * Wizard fixes

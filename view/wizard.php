@@ -1,10 +1,17 @@
 <?
 if (isset($_COOKIE["selected_video"]))
-   $uploaded_video = $_COOKIE["selected_video"];
+   $uploaded['normal'] = $_COOKIE["selected_video"];
+if (isset($_COOKIE["selected_video_low"]))
+   $uploaded['low'] = $_COOKIE["selected_video_low"];
+if (isset($_COOKIE["selected_video_mobile"]))
+   $uploaded['mobile'] = $_COOKIE["selected_video_mobile"];
+if (isset($_COOKIE["selected_video_webm"]))
+   $uploaded['webm'] = $_COOKIE["selected_video_webm"];
+if (isset($_COOKIE["selected_video_3gp"]))
+   $uploaded['3gp'] = $_COOKIE["selected_video_3gp"];
 if (isset($_COOKIE["selected_image"]))
-   $uploaded_image = $_COOKIE["selected_image"];
-  
-
+   $uploaded['splash'] =  $_COOKIE["selected_image"];
+ 
   $post_id = intval($_REQUEST['post_id']);
   //load configuration file:   
   $conf = get_option( 'fvwpflowplayer' );
@@ -15,7 +22,31 @@ if (isset($_COOKIE["selected_image"]))
 	if (isset($conf["postthumbnail"]))
 	  $post_thumbnail = $conf["postthumbnail"];
 	  
-	$video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4','mp3');
+	$uploadtype = '';  
+	if (isset($selected_attachment['url'])) {
+	  switch ($selected_attachment['type']){
+      case 'splash': $uploaded['splash'] = $selected_attachment['url']; //$uploaded_image = $selected_attachment['url'];
+                     $uploadtype = 'splash';
+         break;
+      case 'normal': $uploaded['normal'] = $selected_attachment['url']; //$uploaded_video = $selected_attachment['url'];
+                     $uploadtype = 'normal';
+         break;
+      case 'low': $uploaded['low'] = $selected_attachment['url']; //$uploaded_video = $selected_attachment['url'];
+                     $uploadtype = 'low';
+         break;
+      case 'mobile': $uploaded['mobile'] = $selected_attachment['url']; //$uploaded_video_mobile = $selected_attachment['url'];
+                     $uploadtype = 'mobile';
+         break;
+      case 'webm': $uploaded['webm'] = $selected_attachment['url']; //$uploaded_video_mobile = $selected_attachment['url'];
+                     $uploadtype = 'webm';
+         break;
+      case '3gp': $uploaded['3gp'] = $selected_attachment['url']; //$uploaded_video_mobile = $selected_attachment['url'];
+                     $uploadtype = '3gp';
+         break;
+     }
+   }
+   
+/*	$video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4','mp3');
   $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
   if (isset($selected_attachment['url'])) {
     $path_parts = pathinfo($selected_attachment['url']);
@@ -23,31 +54,31 @@ if (isset($_COOKIE["selected_image"]))
       $uploaded_video = $selected_attachment['url'];
     if (in_array($path_parts['extension'], $splash_types))
       $uploaded_image = $selected_attachment['url'];
-  }
-  if (isset($uploaded_video)){
+  }*/
+ if ( ( $uploadtype == 'normal' ) || ( $uploadtype == 'mobile' ) || ( $uploadtype == 'webm' ) || ( $uploadtype == '3gp' )){
     $serv = $_SERVER['SERVER_NAME'];
     $pattern = '/'.$serv.'(.*)/';
-    preg_match($pattern, $uploaded_video, $matches);
+    preg_match($pattern, $uploaded[$uploadtype], $matches);
     if($matches[1]) $strUpVideo = $matches[1];
-    else $strUpVideo = $uploaded_video;
+    else $strUpVideo = $uploaded[$uploadtype];
     require_once(realpath(dirname(__FILE__).'/getid3/getid3.php'));
     
     // Initialize getID3 engine
     $getID3 = new getID3;
       
     $ThisFileInfo = $getID3->analyze(realpath($_SERVER['DOCUMENT_ROOT'] .$strUpVideo));
-    if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
+    if (isset($ThisFileInfo['error'])) $file_error[$uploadtype] = "Could not read video details, please fill the width and height manually.";
     //getid3_lib::CopyTagsToComments($ThisFileInfo);
-    $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
-    $file_width = $ThisFileInfo['video']['resolution_x'];          
-    $file_height = $ThisFileInfo['video']['resolution_y'];
-    $file_size = $ThisFileInfo['filesize'];           
-    $file_size = round($file_size/(1024*1024),2);                
+    $file_time[$uploadtype] = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
+    $file_width[$uploadtype] = $ThisFileInfo['video']['resolution_x'];          
+    $file_height[$uploadtype] = $ThisFileInfo['video']['resolution_y'];
+    $file_size[$uploadtype] = $ThisFileInfo['filesize'];           
+    $file_size[$uploadtype] = round($file_size[$uploadtype]/(1024*1024),2);                
    }  	    
    
 
 ?>
-<script type="text/javascript">
+<!--script type="text/javascript">
 function fillVideoInputs(){
    var vid_list = document.getElementById("files_video");
    var item = vid_list.options[vid_list.selectedIndex].title;
@@ -63,55 +94,55 @@ function fillSplashInputs(){
    document.getElementById("hidden_splash").value = item;
    document.cookie = "selected_image="+item+";";
 }
-</script>
+</script-->
 <form>
 	<table class="slidetoggle describe">
 		<tbody>
 			<tr>
 				<th valign="top" scope="row" class="label"><span class="alignright">Video</span></th>
-				<td colspan="2" class="field" style="width: 75%"><input type="text" class="text" id="src" name="src" style="width: 100%" value="<?php echo $uploaded_video ?>"/></td>
+				<td colspan="2" class="field" style="width: 75%"><input type="text" class="text" id="src" name="src" style="width: 100%" value="<?php echo $uploaded['normal'] ?>"/></td>
 			</tr>
 			<?php 
          if ($allow_uploads=="true") { 
 			echo '<tr>
 			<th></th>
 			<td colspan="2" style="width: 100%" >         
-         Or <a href="media-upload.php?post_id='.$post_id.'&amp;type=video&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayer">open media library</a> to upload new video.
+         Or <a href="media-upload.php?post_id='.$post_id.'&amp;type=video&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayernormal">open media library</a> to upload new video.
 			</td>
 			</tr>';
 			 }; //allow uplads video ?>
 
-			<?php if (!empty($uploaded_video)){?>
+			<?php if (!empty($uploaded['normal'])){?>
 			   <tr><th></th>
          <th valign="top" scope="row" class="label"><span class="alignleft">File info</span></th><td>
-           <?php if (!empty($file_width)){?>
-            Video Duration: <?php echo $file_time ?><br />
-            File size: <?php echo $file_size ?>MB
-            <?php } else echo $file_error;  ?>
+           <?php if (!empty($file_width['normal'])){?>
+            Video Duration: <?php echo $file_time['normal'] ?><br />
+            File size: <?php echo $file_size['normal'] ?>MB
+            <?php } else echo $file_error['normal'];  ?>
             </td>
          </tr>
       <?php }; //video has been selected ?>
 			<tr><!--th></th-->
 				<th valign="top" scope="row" class="label" ><span class="alignright">Width <small>(px)</small></span><br class='clear' /></th>
-				<td  colspan="2" class="field"><input type="text" id="width" name="width" style="width: 100%"  value="<?php echo $file_width ?>"/></td>
+				<td  colspan="2" class="field"><input type="text" id="width" name="width" style="width: 100%"  value="<?php echo $file_width['normal'] ?>"/></td>
 			</tr>
 			<tr><!--th></th-->
 				<th valign="top" scope="row" class="label" style="width: 10%"><span class="alignright">Height <small>(px)</small></span></th>
-				<td  colspan="2" class="field"><input type="text" id="height" name="height" style="width: 100%" value="<?php echo $file_height ?>"/></td>
+				<td  colspan="2" class="field"><input type="text" id="height" name="height" style="width: 100%" value="<?php echo $file_height['normal'] ?>"/></td>
 			</tr>
 			<tr>
 				<th valign="top" scope="row" class="label"><span class="alignright">Splash Image</span></th>
-				<td class="field" colspan="2"><input type="text" id="splash" name="splash" style="width: 100%"  value="<?php echo $uploaded_image ?>"/></td>
+				<td class="field" colspan="2"><input type="text" id="splash" name="splash" style="width: 100%"  value="<?php echo $uploaded['splash'] ?>"/></td>
 			</tr>
 			<?php if ($allow_uploads=='true') {
 			echo '<tr>
   			<th></th>
   			<td colspan="2" class="field" style="width: 100%" >
-        Or <a href="media-upload.php?type=image&amp;post_id='.$post_id .'&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayer">open media library</a> to upload new splash image.
+        Or <a href="media-upload.php?type=image&amp;post_id='.$post_id .'&amp;TB_iframe=true&amp;width=640&amp;height=723fvplayersplash">open media library</a> to upload new splash image.
         </td>
 			</tr>';
 			 }; //allow uplads splash image ?>
-			<?php if (!empty($uploaded_image))
+			<?php if (!empty($uploaded['splash']))
           if (($post_thumbnail=='true') && current_theme_supports( 'post-thumbnails') && isset($selected_attachment['id'])) 
              update_post_meta( $post_id, '_thumbnail_id', $selected_attachment['id'] );?>
 			<tr><th colspan=3 style="text-align:left; padding-left:50px">&nbsp;</th></tr>

@@ -120,5 +120,43 @@ function flowplayer_head() {
 		flowplayer_backend::flowplayer_head();
 	}
 }
+function fvp_ajax_action_checkvideo(){
+
+   $pattern = '/' . $_SERVER['SERVER_NAME'] . '(.*)/';
+   preg_match($pattern, $_POST['source'], $matches);
+   if ($matches[1]) $strUpVideo = realpath($_SERVER['DOCUMENT_ROOT'] . $matches[1]);
+   else $strUpVideo = $_POST['source'];
+   //var_dump(dirname(__FILE__).'/getid3/getid3.php');
+   require_once(dirname(__FILE__).'/../view/getid3/getid3.php');
+   
+   // Initialize getID3 engine
+   $getID3 = new getID3;
+   $ThisFileInfo = $getID3->analyze($strUpVideo);
+   if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
+   //getid3_lib::CopyTagsToComments($ThisFileInfo);
+   $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
+   $file_width = $ThisFileInfo['video']['resolution_x'];          
+   $file_height = $ThisFileInfo['video']['resolution_y'];
+   $file_size = $ThisFileInfo['filesize'];           
+   $file_size = round($file_size/(1024*1024),2);  
+   
+   $output = '<tr id="video_' . $_POST['id'] . '">
+               <th></th>
+               <td><span>Width <small>(px)</small></span><input type="text" id="width_' . $_POST['id'] . '" name="width_' . $_POST['id'] . '" style="width: 25%"  value="' . $file_width . '"/><br />
+                <span>Height <small>(px)</small></span><input type="text" id="height_' . $_POST['id'] . '" name="height_' . $_POST['id'] . '" style="width: 25%" value="' . $file_height . '"/></td>
+               <td>';
+   if (isset($file_error))
+     $output .= 'Video header could not be read, please fill the width and height manually.';
+   else
+      $output .= 'Video Duration: ' . $file_time . ' min<br />
+                  File size: ' . $file_size . ' MB';
+   $output .= '</td>
+               <td><a href="javascript:void(0);" onclick="FVFPCheckVideo(\'' . $_POST['id'] . '\',true) ">Check</a></td>
+               <td></td>
+         </tr>';
+   echo $output;
+   die;
+         
+}
 
 ?>

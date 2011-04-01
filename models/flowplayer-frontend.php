@@ -13,7 +13,7 @@ class flowplayer_frontend extends flowplayer
 	 * @param array $args Array of arguments (name => value).
 	 * @return Returns array with 2 elements - 'html' => html code displayed anywhere on page/post, 'script' => javascript code displayed before </body> tag
 	 */
-	function build_min_player($media,$args = array()) {
+	function build_min_player($media,$sources,$args = array()) {
 			
 			// returned array with new player's html and javascript content
 		$ret = array('html' => '', 'script' => '');

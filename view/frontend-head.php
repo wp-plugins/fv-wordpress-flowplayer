@@ -5,18 +5,30 @@
 
 ?>
 <?php    
-   $aUserAgents = array('iphone', 'ipod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'dream', 'cupcake', 'froyo', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi', 'htc_touch_pro');
+   $aUserAgents = array('iphone', 'ipod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'Android', 'dream', 'cupcake', 'froyo','blackberry', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi', 'htc_touch_pro');
    $mobileUserAgent = false;
    foreach($aUserAgents as $userAgent){
       if(stripos($_SERVER['HTTP_USER_AGENT'],$userAgent))
          $mobileUserAgent = true;
    }
-
+   function ffilesize($file){
+    $ch = curl_init($file);
+    curl_setopt($ch, CURLOPT_NOBODY, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    if ($data === false)
+      return false;
+    if (preg_match('/Content-Length: (\d+)/', $data, $matches))
+      return (float)$matches[1];
+}
       
 ?>
-<?php if( $mobileUserAgent == false ){ ?>
+<?php if(( $mobileUserAgent == false )||(stripos($_SERVER['HTTP_USER_AGENT'],'ipad'))){ ?>
 <script type="text/javascript" src="<?php echo RELATIVE_PATH; ?>/flowplayer/flowplayer.min.js"></script>
-<?php }  ?>
+<?php  }  ?>
+<script type="text/javascript" src="<?php echo RELATIVE_PATH; ?>/js/checkvideo.js"></script>
 <link rel="stylesheet" href="<?php echo RELATIVE_PATH; ?>/css/flowplayer.css" type="text/css" media="screen" />
 <?php if( $mobileUserAgent == false ){   ?>
 <!--[if lt IE 7.]>
@@ -38,3 +50,5 @@
 	/*]]>*/
 </script>
 <?php } ?>
+
+

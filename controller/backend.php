@@ -18,19 +18,27 @@ add_action('admin_head', 'flowplayer_head');
 add_action('admin_menu', 'flowplayer_admin');
 add_action('media_buttons', 'flowplayer_add_media_button', 30);
 add_action('media_upload_fv-wp-flowplayer', 'flowplayer_wizard');
+add_action('admin_init', 'fv_flowplayer_init');
 
 if(isset($_POST['_wp_http_referer']) && (strpos($_POST['_wp_http_referer'],'fvplayer')))
   add_filter('media_send_to_editor','fp_media_send_to_editor', 10, 3);
  
 add_action('the_content', 'flowplayer_content_remove_commas');
 
+ function fv_flowplayer_init()
+{
+  add_action( 'wp_ajax_fvp_ajax_action_checkvideo', 'fvp_ajax_action_checkvideo' );
+  
+  global $wp_rewrite;
+  $wp_rewrite->flush_rules();
+}
+
+
 function flowplayer_content_remove_commas($content){
    preg_match('/.*popup=\'(.*?)\'.*/', $content, $matches);
-   //var_dump($matches);
    $content_new = preg_replace('/\,/', '',$content);
    if (isset($matches[1]))
       $content_new = preg_replace('/popup=\'(.*?)\'/', 'popup=\''.$matches[1].'\'',$content_new);
-//   var_dump($content_new);
    return $content_new;
 
 }
@@ -40,28 +48,40 @@ function flowplayer_content_remove_commas($content){
  
 function fp_media_send_to_editor($html, $attachment_id, $attachment){
   if(isset($_POST['_wp_http_referer']) && (strpos($_POST['_wp_http_referer'],'fvplayer'))) {
-    //preg_match('/width=([0-9]+)/',$_POST['_wp_http_referer'],$matchesw);
     preg_match('/height=([0-9]+([a-z]+))/',$_POST['_wp_http_referer'],$matchesh);
-    //var_dump($_POST['_wp_http_referer']);var_dump($matchesh);die;
- // }
-
-  //if ((!empty($matchesh))&&($matchesh[2]=='fvplayer')){
-      
-      $video_types = array('flv','mov','avi','mpeg','mpg','asf','qt','wmv','mp4');
-      $splash_types = array('jpg','jpeg','gif','png', 'bmp','jpe');
+    $video_flag = substr($matchesh[2],8);
+    
       if (isset($attachment_id)) 
       {
          $attachment_url = wp_get_attachment_url($attachment_id);
          $path_parts = pathinfo($attachment_url);
-         if (in_array($path_parts['extension'], $splash_types)){
-            setcookie("selected_image",$attachment_url);
-            $selected_attachment = array('url'=>$attachment_url,'id'=>$attachment_id);
-          }
-          else{
-//         if (in_array($path_parts['extension'], $video_types)){
-            setcookie("selected_video",$attachment_url);
-            $selected_attachment = array('url'=>$attachment_url);
-            }
+         
+         switch ($video_flag){
+            case 'splash': setcookie("selected_image",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'id'=>$attachment_id,'type'=>'splash');
+                           $uploaded_image = $attachment_url;
+               break; 
+            case 'normal': setcookie("selected_video",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'type'=>'normal');
+                           $uploaded_video = $attachment_url;
+               break;
+            case 'low': setcookie("selected_video_low",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'type'=>'low');
+                           $uploaded_video_mobile = $attachment_url;
+               break;
+            case 'mobile': setcookie("selected_video_mobile",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'type'=>'mobile');
+                           $uploaded_video_mobile = $attachment_url;
+               break;
+            case 'webm': setcookie("selected_video_webm",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'type'=>'webm');
+                           $uploaded_video_mobile = $attachment_url;
+               break;
+            case 'trigp': setcookie("selected_video_3gp",$attachment_url);
+                           $selected_attachment = array('url'=>$attachment_url,'type'=>'3gp');
+                           $uploaded_video_mobile = $attachment_url;
+               break;
+         }
       }
       wp_enqueue_style('media');
       wp_iframe('flowplayer_wizard_function',$selected_attachment);
@@ -71,7 +91,6 @@ function fp_media_send_to_editor($html, $attachment_id, $attachment){
 function flowplayer_wizard() {
 
   //do the magic here
-
    setcookie("selected_video",'',time()-3600);
    setcookie("selected_image",'',time()-3600);
 	wp_enqueue_style('media');
@@ -158,11 +177,6 @@ function flowplayer_add_media_button(){
 	}
 	if(!$found) 
   {
-		/*global $fmp_jw_url, $fmp_jw_files_dir;
-		$wizard_url = $fmp_jw_url . '/inc/shortcode_wizard.php';
-		$config_dir = $fmp_jw_files_dir . '/configs';
-		$playlist_dir = $fmp_jw_files_dir .'/playlists';
-		$button_src = $fmp_jw_url . '/inc/images/playerbutton.gif';*/
 		$button_tip = 'Insert a Flash Video Player';
 		$wizard_url = 'media-upload.php?post_id='.$post->ID.'&type=fv-wp-flowplayer';
 		$button_src = RELATIVE_PATH.'/images/icon.png';
