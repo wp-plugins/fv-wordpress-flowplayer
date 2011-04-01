@@ -123,11 +123,9 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 
 = How can I style the popup? =
 
-<<<<<<< .mine
 Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
 
 =======
->>>>>>> .r367828
 
 == Screenshots ==
 
