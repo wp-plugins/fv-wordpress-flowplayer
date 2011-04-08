@@ -98,7 +98,10 @@ function flowplayer_wizard() {
 }
 
 function flowplayer_wizard_function($selected_attachment) {
-	include dirname( __FILE__ ) . '/../view/wizard.php';
+   if(get_option('wp_mobile_video_active')=='enabled')
+     	include dirname( __FILE__ ) . '/../../wp-mobile-video-player/view/wizard.php'; /// use the extended wizard
+   else  
+   	include dirname( __FILE__ ) . '/../view/wizard.php';
 }
 
 /**

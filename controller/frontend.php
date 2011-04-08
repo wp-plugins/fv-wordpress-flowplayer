@@ -4,7 +4,10 @@
  * Needed includes
  */
 include_once(dirname( __FILE__ ) . '/../models/flowplayer.php');
-include_once(dirname( __FILE__ ) . '/../models/flowplayer-frontend.php');
+if(get_option('wp_mobile_video_active')=='enabled')
+   include_once(dirname( __FILE__ ) . '/../../wp-mobile-video-player/models/flowplayer-frontend.php');
+else
+   include_once(dirname( __FILE__ ) . '/../models/flowplayer-frontend.php');
 
 /**
  * WP Hooks 

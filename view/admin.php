@@ -3,6 +3,7 @@
  * Displays administrator backend.
  */
 ?>
+
 <div class="wrap">
 <table>
 	<tr>
@@ -82,7 +83,7 @@
 					</td>
 				</tr>	
 
-					<?php echo include dirname( __FILE__ ) . '/../view/colours.php'; ?>
+					<?php include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 
 				<tr>
 					<td>
@@ -166,10 +167,10 @@
 					backgroundColor:'<?php echo trim($fp->conf["canvas"]); ?>'
 				},
 				onLoad: function() {
-					$(":input[name=tgt]").removeAttr("disabled");		
+					jQuery(":input[name=tgt]").removeAttr("disabled");		
 				},
 				onUnload: function() {
-					$(":input[name=tgt]").attr("disabled", true);		
+					jQuery(":input[name=tgt]").attr("disabled", true);		
 				}
 			});
 
@@ -200,4 +201,9 @@
 ?>
 
 
-
+<?php
+if (get_option('wp_mobile_video_active') == 'enabled')
+  if (function_exists('wpvideo_check_domain')){
+    wpvideo_check_domain();
+  }
+?>
