@@ -17,8 +17,8 @@ else
 add_action('wp_head', 'flowplayer_head');
 add_action('wp_footer','flowplayer_display_scripts');
 //	Addition for 0.9.15
-add_action('widget_text','flowplayer_content');
-
+//add_action('widget_text','flowplayer_content');
+add_filter('widget_text','do_shortcode');
 /**
  * END WP Hooks
  */
