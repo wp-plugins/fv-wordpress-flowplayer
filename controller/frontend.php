@@ -138,7 +138,7 @@ function flowplayer_content( $content ) {
 		if (trim($media) != '') {
 			// build new player
 			$fp = new flowplayer_frontend();
-         		$new_player = $fp->build_min_player($media,$arguments);
+         		$new_player = $fp->build_min_player($media,NULL,$arguments);
 			$content = str_replace($tag, $new_player['html'],$content);
 			$GLOBALS['scripts'][] = $new_player['script'];
 		}
