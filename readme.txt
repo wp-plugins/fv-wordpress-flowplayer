@@ -26,6 +26,15 @@ FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for
 	6. Allows to upload videos and images through WP Media Library
 	7. Does not use configuration file, but Wordpress Options
 
+**[Download now!](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer)**
+
+[Support](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer) |
+[Change Log](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/changelog) |
+[Installation](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/installation)|
+[Usage](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/user-guide) | 
+[FAQ](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/faq)
+
+
 == Installation ==
 
 There aren't any special requirements for FV Wordpress Flowplayer to work, and you don't need to install any additional plugins.
@@ -150,7 +159,7 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 * Added option for showing splash image at the end
 
 = 1.2.3 =
-* HTML 5 suport for mobile browsers (Thanks for donation from <a href="http://enterpriseit.com/">enterpriseIT</a>)
+* HTML 5 suport for mobile browsers (Thanks for donation from [enterpriseIT](http://enterpriseit.com/))
 * incorrect paths fixed
 
 = 1.2.2 =
