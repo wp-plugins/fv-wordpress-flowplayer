@@ -150,7 +150,7 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 * Added option for showing splash image at the end
 
 = 1.2.3 =
-* HTML 5 suport for mobile browsers
+* HTML 5 suport for mobile browsers (Thanks for donation from <a href="http://enterpriseit.com/">enterpriseIT</a>)
 * incorrect paths fixed
 
 = 1.2.2 =
