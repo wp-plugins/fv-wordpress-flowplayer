@@ -134,6 +134,11 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 
 Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
 
+= My videos are taking long time to load. =
+
+1. Check your hosting for download speed.
+2. Try to use different settings when encoding the videos, try to turn on the cache when encoding with [Quick Time](http://drop.foliovision.com/webwork/it/quick-time-pro-cache-hint.png)
+
 =======
 
 == Screenshots ==
