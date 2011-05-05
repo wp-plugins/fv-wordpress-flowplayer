@@ -1,8 +1,6 @@
 <?php
- 
 class flowplayer {
 	private $count = 0;
-	
 	/**
 	 * Relative URL path
 	 */
@@ -15,12 +13,10 @@ class flowplayer {
 	 * Where the config file should be
 	 */
 	private $conf_path = '';
-	
 	/**
 	 * Configuration variables array
 	 */
 	public $conf = array();
-	
 	/**
 	 * Class constructor
 	 */
@@ -57,7 +53,8 @@ class flowplayer {
     if( !isset( $conf['progressColor'] ) ) $conf['progressColor'] = '#707070';
     if( !isset( $conf['bufferColor'] ) ) $conf['bufferColor'] = '#4d4d4d';
     if( !isset( $conf['commas'] ) ) $conf['commas'] = 'true';
-    
+    if( !isset( $conf['width'] ) ) $conf['width'] = '320';
+    if( !isset( $conf['height'] ) ) $conf['height'] = '240';
     update_option( 'fvwpflowplayer', $conf );
     $this->conf = $conf;
     return true;	 
@@ -86,33 +83,30 @@ class flowplayer {
         $salt = substr(md5(uniqid(rand(), true)), 0, 10);    
         return $salt;
 	}
-
-	
 }
-
 /**
  * Defines some needed constants and loads the right flowplayer_head() function.
  */
 function flowplayer_head() {
 	// define needed constants
-   preg_match('/.*wp-content\/plugins\/(.*?)\/models.*/',dirname(__FILE__),$matches);
-   if (isset($matches[1]))
-      $strFPdirname = $matches[1];
-   else
-       $strFPdirname = 'fv-wordpress-flowplayer';
+  preg_match('/.*wp-content\/plugins\/(.*?)\/models.*/',dirname(__FILE__),$matches);
+  if (isset($matches[1]))
+    $strFPdirname = $matches[1];
+  else
+    $strFPdirname = 'fv-wordpress-flowplayer';
 	if (!defined('RELATIVE_PATH')) {
 		define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);
-	
-   $conf = get_option( 'fvwpflowplayer' );
+    $conf = get_option( 'fvwpflowplayer' );
 	if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
       define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
-    else
+   else
       define('PLAYER', RELATIVE_PATH.'/flowplayer/commercial/flowplayer.commercial-3.1.5.swf');
-    
-		$vid = 'http://'.$_SERVER['SERVER_NAME'];
-		if (dirname($_SERVER['PHP_SELF']) != '/') $vid .= dirname($_SERVER['PHP_SELF']);
-      define('VIDEO_DIR', '/videos/');
-		define('VIDEO_PATH', $vid.VIDEO_DIR);	}
+   define('AUDIOPLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.audio-3.2.2.swf');
+	$vid = 'http://'.$_SERVER['SERVER_NAME'];
+	if (dirname($_SERVER['PHP_SELF']) != '/') 
+      $vid .= dirname($_SERVER['PHP_SELF']);
+   define('VIDEO_DIR', '/videos/');
+   define('VIDEO_PATH', $vid.VIDEO_DIR);	}
 	// call the right function for displaying CSS and JS links
 	if (class_exists('flowplayer_frontend')) {
 		flowplayer_frontend::flowplayer_head();
@@ -120,26 +114,22 @@ function flowplayer_head() {
 		flowplayer_backend::flowplayer_head();
 	}
 }
-function fvp_ajax_action_checkvideo(){
 
+function fvp_ajax_action_checkvideo(){
    $pattern = '/' . $_SERVER['SERVER_NAME'] . '(.*)/';
    preg_match($pattern, $_POST['source'], $matches);
    if ($matches[1]) $strUpVideo = realpath($_SERVER['DOCUMENT_ROOT'] . $matches[1]);
    else $strUpVideo = $_POST['source'];
-   //var_dump(dirname(__FILE__).'/getid3/getid3.php');
    require_once(dirname(__FILE__).'/../view/getid3/getid3.php');
-   
    // Initialize getID3 engine
    $getID3 = new getID3;
    $ThisFileInfo = $getID3->analyze($strUpVideo);
    if (isset($ThisFileInfo['error'])) $file_error = "Could not read video details, please fill the width and height manually.";
-   //getid3_lib::CopyTagsToComments($ThisFileInfo);
    $file_time = $ThisFileInfo['playtime_string'];            // playtime in minutes:seconds, formatted string
    $file_width = $ThisFileInfo['video']['resolution_x'];          
    $file_height = $ThisFileInfo['video']['resolution_y'];
    $file_size = $ThisFileInfo['filesize'];           
    $file_size = round($file_size/(1024*1024),2);  
-   
    $output = '<tr id="video_' . $_POST['id'] . '">
                <th></th>
                <td><span>Width <small>(px)</small></span><input type="text" id="width_' . $_POST['id'] . '" name="width_' . $_POST['id'] . '" style="width: 25%"  value="' . $file_width . '"/><br />
@@ -156,7 +146,5 @@ function fvp_ajax_action_checkvideo(){
          </tr>';
    echo $output;
    die;
-         
 }
-
 ?>

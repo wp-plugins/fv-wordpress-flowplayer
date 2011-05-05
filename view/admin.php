@@ -3,7 +3,6 @@
  * Displays administrator backend.
  */
 ?>
-
 <div class="wrap">
 <table>
 	<tr>
@@ -25,31 +24,25 @@
 				<tr>
 					<td>Auto Buffering:</td>
 					<td><select name="autobuffer">
-
 					<?php echo flowplayer_bool_select($fp->conf['autobuffer']); ?>
-
 					</select></td>
 				</tr>
 				<tr>
 					<td>Popup Box:</td>
 					<td><select name="popupbox">
-
 					<?php echo flowplayer_bool_select($fp->conf['popupbox']); ?>
-
 					</select></td>
 				</tr>
 				<tr>
 					<td>Enable Full-screen Mode:</td>
 					<td><select name="allowfullscreen">
 					<?php echo flowplayer_bool_select($fp->conf['allowfullscreen']); ?>
-
 					</select></td>
 				</tr>
 				<tr>
 					<td>Fit scaling (<abbr title="If set to true, the original aspect ratio of the video will be used to display the video in fullscreen mode as well as when embedded in the page.">?</abbr>):</td>
 					<td><select name="scaling">
 					<?php echo flowplayer_bool_select($fp->conf['scaling']); ?>
-
 					</select></td>
 				</tr>
 				<tr>
@@ -77,14 +70,19 @@
 					 </td>
 				</tr>
 				<tr>
+					<td>Default video size [px]: </td>
+					<td>
+					 	W: <input type="text" size="4" name="width" id="width" value="<?php echo trim($fp->conf['width']); ?>" />  
+					 	H: <input type="text" size="4" name="height" id="height" value="<?php echo trim($fp->conf['height']); ?>" />	
+					 </td>
+				</tr>
+				<tr>
 					<td>Commercial License Key: </td>
 					<td>
 						<input type="text" size="20" name="key" id="key" value="<?php echo trim($fp->conf['key']); ?>" />	
 					</td>
 				</tr>	
-
 					<?php include dirname( __FILE__ ) . '/../view/colours.php'; ?>
-
 				<tr>
 					<td>
 					</td>
@@ -92,7 +90,6 @@
 						<input type="submit" name="submit" class="button-primary" value="Apply Changes" style="margin-top: 2ex;"/>
 					</td>
 				</tr>
-
 				<tr>
 					<td colspan="2" style="text-align: justify;">
 					<h3>Description:</h3>
@@ -142,9 +139,7 @@
 		</td>
 	</tr>
 </table>
-
 <script defer="defer" language="Javascript" type="text/javascript">
-
 		//load player
 		$f("player", "<?php echo PLAYER; ?>", {
 				<?php echo (isset($fp->conf['key'])&&strlen($fp->conf['key'])>0?'key:\''.trim($fp->conf['key']).'\',':''); ?>
@@ -162,7 +157,6 @@
             	echo 'logo: {url: \'http://'.$fp->conf['logo'].'\', fullscreenOnly: '.trim($fp->conf['fullscreenonly']).', displayTime: 0, linkUrl: \'http://'.$fp->conf['logolink'].'\'},';
             }
             ?>
-
 				canvas: {
 					backgroundColor:'<?php echo trim($fp->conf["canvas"]); ?>'
 				},
@@ -173,20 +167,15 @@
 					jQuery(":input[name=tgt]").attr("disabled", true);		
 				}
 			});
-
 </script>
-
 </div>
-
 <?php 
 	if(isset($_POST['submit'])) {
 //					url:'<?php echo RELATIVE_PATH; ? >/flowplayer/example.flv',
-
 		/**
 		 *  Write the configuration into file, if the form was submitted.
 		 */
 		$fp->_set_conf();
-		
     /**
 		 *  Refresh the page.
 		 */
@@ -199,8 +188,6 @@
 		<?php
 	}
 ?>
-
-
 <?php
 if (get_option('wp_mobile_video_active') == 'enabled')
   if (function_exists('wpvideo_check_domain')){

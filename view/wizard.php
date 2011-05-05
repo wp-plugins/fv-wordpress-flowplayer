@@ -252,10 +252,8 @@ function fillSplashInputs(){
 	   if( controlbar == null ) controlbar = shortcode.match( /controlbar=([^\s]+)/ );
 
 		ssplashend = shortcode.match( /splashend='([^\s\]]+)'/ );
-		if(ssplashend == null )ssplashend = shortcode.match( /splashend=([^\s]+)/ );
-
+		if(ssplashend[1] == null || !ssplashend[1] )ssplashend = shortcode.match( /splashend=([^\s]+)/ );
 		//alert( srcurl[1] + '\n' + iheight[1] + '\n' + iwidth[1] + '\n' + splash[1] + '\n' + popup[1] );
-
 		if( srcurl != null && srcurl[1] != null )
 			document.getElementById("src").value = srcurl[1];
 		if( iheight != null && iheight[1] != null )
@@ -271,21 +269,10 @@ function fillSplashInputs(){
 		}
 		if( sredirect != null && sredirect[1] != null )
 			document.getElementById("redirect").value = sredirect[1];
-
-		/*if( sautoplay != null && sautoplay[1] != null )
-			document.getElementById("autoplay").checked = true;//sautoplay[1];
-*/
-		if( autoplay != null && autoplay[1] != null ){
-		   if (autoplay[1] == 'true')
-  				document.getElementById("autoplay").selectedIndex = 1;//sautoplay[1];
-		   else if (autoplay[1] == 'false')
-  				document.getElementById("autoplay").selectedIndex = 2;//sautoplay[1];
- 				else document.getElementById("autoplay").selectedIndex = 0;
-		}
-
-		if( ssplashend != null && ssplashend[1] != null )
-			document.getElementById("splashend").checked = true;//sautoplay[1];
-
+	
+		if( (ssplashend != null) && (ssplashend[1] != null) ){
+      	document.getElementById("splashend").checked = true;//sautoplay[1];
+      }
 		if( controlbar != null && controlbar[1] != null ){
 		   if (controlbar[1] == 'show')
   				document.getElementById("controlbar").selectedIndex = 1;//sautoplay[1];
@@ -293,6 +280,19 @@ function fillSplashInputs(){
   				document.getElementById("controlbar").selectedIndex = 2;//sautoplay[1];
  				else document.getElementById("controlbar").selectedIndex = 0;
 		}
+
+		/*if( sautoplay != null && sautoplay[1] != null )
+			document.getElementById("autoplay").checked = true;//sautoplay[1];
+*/
+		if( (sautoplay != null) && (sautoplay[1] != null) ){
+		   if (sautoplay[1] == 'true')
+  				document.getElementById("autoplay").selectedIndex = 1;//sautoplay[1];
+		   else if (sautoplay[1] == 'false')
+  				document.getElementById("autoplay").selectedIndex = 2;//sautoplay[1];
+ 				else document.getElementById("autoplay").selectedIndex = 0;
+		}
+
+	 
 		document.getElementById("insert-button").value = "Update";
 	}
 //	document.getElementById("src").focus();
@@ -325,6 +325,9 @@ function clickOK() {
 	
    if( document.getElementById("autoplay").checked )
 		shortcode += ' autoplay=true';
+
+   if( document.getElementById("splashend").checked )
+		shortcode += ' splashend=show';
 		
 	if( document.getElementById("splash").value != '' )
 		shortcode += ' splash=\'' + document.getElementById("splash").value + '\'';

@@ -17,7 +17,7 @@ class flowplayer_frontend extends flowplayer
 			
 			// returned array with new player's html and javascript content
 		$ret = array('html' => '', 'script' => '');
-		
+		$extension = substr($media, -3);
 		if( strpos($media,'http://') === false && strpos($media,'https://') === false ) {
 			// strip the first / from $media
          if($media[0]=='/') $media = substr($media, 1);
@@ -37,8 +37,8 @@ class flowplayer_frontend extends flowplayer
 		$hash = md5($media.$this->_salt());
 		
 		// setting argument values
-		$width = 320;
-		$height = 240;
+		$width =  ( isset($this->conf['width']) && (!empty($this->conf['width'])) ) ? $this->conf['width'] : 320;
+		$height = ( isset($this->conf['height']) && (!empty($this->conf['height'])) ) ? $this->conf['height'] : 240;
 		$popup = '';
 		$autoplay = 'false';
 		$controlbar = 'always';
@@ -92,7 +92,7 @@ class flowplayer_frontend extends flowplayer
 
 
 			// if allowed by configuration file, set the popup box js code and content
-			if ((( isset($this->conf['popupbox'] )) && ( $this->conf['popupbox']=="true" )) || (isset($args['popup']) && !empty($args['popup'])) || (!empty($redirect))) {
+			if ((( isset($this->conf['popupbox'] )) && ( $this->conf['popupbox']=="true" )) || (isset($args['popup']) && !empty($args['popup'])) || (!empty($redirect))|| (!empty($splashend))) {
 				if ( isset($args['popup'] ) && !empty($args['popup']) ) {
 					$popup = trim($args['popup']);
 					//$popup = html_entity_decode(str_replace("_"," ",substr($popup,1,strlen($popup)-2)));
@@ -207,7 +207,10 @@ class flowplayer_frontend extends flowplayer
 	   						opacity:1.0,
      				         fullscreen: '.(isset($this->conf['allowfullscreen'])?trim($this->conf['allowfullscreen']):'true').'
 	   					}':'controls:null'
-                     ).'
+                     ).',
+                     audio: {
+               			url: \''.AUDIOPLAYER.'\'
+               		}
 						},
 						clip: {  
 							url: \''.trim($media).'\', 

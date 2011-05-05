@@ -8,12 +8,10 @@
 	padding: 0 !important;
 	text-align: center !important;
 }
-
 .flowplayer_container:hover
 {
 	text-decoration: none;
 }
-
 /* SPLASH IMAGE */
 img.splash
 {
@@ -28,7 +26,6 @@ img.splash
 	margin: 0 !important;
 	padding: 0 !important;
 }
-
 .splash_play_button
 {
 	position: relative;
@@ -38,7 +35,6 @@ img.splash
 	border: none;
 	padding: 0 !important;
 }
-
 /* POPUP */
 .popup_contents
 {
@@ -47,7 +43,6 @@ img.splash
 	/*top: -9999em;
 	left: -9999em;*/
 }
-
 .flowplayer_popup
 {
 	position: absolute;
@@ -62,21 +57,17 @@ img.splash
 	padding: 0%;
 	z-index: 999;
 }
-
 .wpfp_custom_popup
 {
    margin: 0;
    padding: 0;
       font-family: Arial, serif;
-
 }
-   
 .wpfp_custom_popup a, .wpfp_custom_popup a:hover, .wpfp_custom_popup a:visited, .wpfp_custom_popup a:active
 {
    color: white;
    text-decoration: none;
 }
-
 .flowplayer_popup a, .flowplayer_popup a img 
 {
    margin: auto !important;
@@ -85,19 +76,16 @@ img.splash
    border: none;
    padding: 0 !important;
 }
-
 .wpfp_custom_popup input
 {
    width: 80%;
    margin: 5px;
 }
-
 .popup_controls
 {
    text-align: center;
    font-size: 100%;
 }
-
 .link_button{
 	background: #0D0D0D url('../images/button-bg.png') repeat-x;
 	padding: 5px 20px;
@@ -106,7 +94,6 @@ img.splash
   font-family: Arial, serif;
   font-size:11pt;
   z-index: 999;
-
 }
 .link_button a, .link_button a:visited, .link_button a:active{
    color:#fff;
@@ -116,4 +103,6 @@ img.splash
    font-size: 70%;
    color: #aaa;
 }
-
+.html5video{
+   text-align:center;
+}
