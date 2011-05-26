@@ -151,7 +151,7 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 == Changelog ==
 
 = 1.2.9 =
-* flush_rules fixed
+* Bug with flush rules fixed
 
 = 1.2.8 =
 * added options for default video size
