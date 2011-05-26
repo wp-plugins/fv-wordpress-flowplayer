@@ -30,7 +30,7 @@ add_action('the_content', 'flowplayer_content_remove_commas');
   add_action( 'wp_ajax_fvp_ajax_action_checkvideo', 'fvp_ajax_action_checkvideo' );
   
   global $wp_rewrite;
-  $wp_rewrite->flush_rules();
+  $wp_rewrite->flush_rules(false);
 }
 
 
