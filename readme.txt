@@ -139,6 +139,10 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 1. Check your hosting for download speed.
 2. Try to use different settings when encoding the videos, try to turn on the cache when encoding with [Quick Time](http://drop.foliovision.com/webwork/it/quick-time-pro-cache-hint.png)
 
+= Is it possible to loop the video? =
+
+No at the moment we do not support looping.
+
 =======
 
 == Screenshots ==
