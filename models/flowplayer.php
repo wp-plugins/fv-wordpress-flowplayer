@@ -95,7 +95,7 @@ function flowplayer_head() {
   else
     $strFPdirname = 'fv-wordpress-flowplayer';
 	if (!defined('RELATIVE_PATH')) {
-		//define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);
+		//define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);   // following bugfix by scott@scottelkin.com
       
       $siteurl = get_option('siteurl');
       if($_SERVER['HTTPS'])
