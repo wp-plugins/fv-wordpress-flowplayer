@@ -143,6 +143,10 @@ Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/c
 
 No at the moment we do not support looping.
 
+= How do I insert videos in playlist? =
+
+Playlist feature is not supported right now.
+
 =======
 
 == Screenshots ==
