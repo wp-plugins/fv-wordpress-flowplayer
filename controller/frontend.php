@@ -170,4 +170,13 @@ function flowplayer($shortcode) {
 	echo apply_filters('the_content',$shortcode);
 }
 
+add_filter( "the_content_feed", "strip_flowplayer_from_feed" ) ;
+
+function strip_flowplayer_from_feed($content)
+{
+   preg_match('/(<img src[\s\S]*?class=\"splash\" \/>)/',$content,$matches);
+   $content = preg_replace('/<p><a id=\"wpfp[\S\s]*?p>/',$matches[1],$content);
+   return $content;
+}
+
 ?>

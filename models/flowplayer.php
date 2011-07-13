@@ -98,7 +98,7 @@ function flowplayer_head() {
 		//define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);   // following bugfix by scott@scottelkin.com
       
       $siteurl = get_option('siteurl');
-      if($_SERVER['HTTPS'])
+      if((!empty($_SERVER['HTTPS'])) && ('off'!==$_SERVER['HTTPS']))   // this line changes by carlo@artilibere.com
          $siteurl = preg_replace('/^http:(.*)$/', "https:$1", $siteurl);
       define('RELATIVE_PATH', $siteurl.'/wp-content/plugins/'.$strFPdirname);
    
