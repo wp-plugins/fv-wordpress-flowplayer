@@ -159,7 +159,7 @@ Playlist feature is not supported right now.
 == Changelog ==
 
 = 1.2.11 =
-* remove flowplayer from rss feed
+* FV Flowplayer removed from RSS feeds
 
 = 1.2.10 =
 * fix for HTTPS, thanks to Scott Elkin
