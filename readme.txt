@@ -2,9 +2,9 @@
 Contributors: FolioVision
 Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer
-Requires at least: 2.0
-Tested up to: 3.0.1
-Stable tag: 1.2.12
+Requires at least: 2.9
+Tested up to: 3.2.1
+Stable tag: 1.2.13
 
 Embed videos (FLV, H.264, and MP4) into posts or pages. Warning: this version includes Flowplayer logos on full screen video and on canvas.
 
@@ -157,6 +157,9 @@ Playlist feature is not supported right now.
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 1.2.13 =
+* Loading javascripts only when video is present on the page - optional, see settings page
 
 = 1.2.12 =
 * XSS fix

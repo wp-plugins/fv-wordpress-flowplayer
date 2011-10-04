@@ -53,6 +53,7 @@ class flowplayer {
     if( !isset( $conf['progressColor'] ) ) $conf['progressColor'] = '#707070';
     if( !isset( $conf['bufferColor'] ) ) $conf['bufferColor'] = '#4d4d4d';
     if( !isset( $conf['commas'] ) ) $conf['commas'] = 'true';
+    if( !isset( $conf['optimizejs'] ) ) $conf['optimizejs'] = 'false';
     if( !isset( $conf['width'] ) ) $conf['width'] = '320';
     if( !isset( $conf['height'] ) ) $conf['height'] = '240';
     update_option( 'fvwpflowplayer', $conf );
@@ -96,12 +97,10 @@ function flowplayer_head() {
     $strFPdirname = 'fv-wordpress-flowplayer';
 	if (!defined('RELATIVE_PATH')) {
 		//define('RELATIVE_PATH', get_option('siteurl').'/wp-content/plugins/'.$strFPdirname);   // following bugfix by scott@scottelkin.com
-      
       $siteurl = get_option('siteurl');
       if((!empty($_SERVER['HTTPS'])) && ('off'!==$_SERVER['HTTPS']))   // this line changes by carlo@artilibere.com
          $siteurl = preg_replace('/^http:(.*)$/', "https:$1", $siteurl);
       define('RELATIVE_PATH', $siteurl.'/wp-content/plugins/'.$strFPdirname);
-   
       $conf = get_option( 'fvwpflowplayer' );
    	if( !isset( $conf['key'] )||(!$conf['key'])||($conf['key']=='false') )
          define('PLAYER', RELATIVE_PATH.'/flowplayer/flowplayer.swf');
@@ -121,7 +120,6 @@ function flowplayer_head() {
 		flowplayer_backend::flowplayer_head();
 	}
 }
-
 function fvp_ajax_action_checkvideo(){
    $pattern = '/' . $_SERVER['SERVER_NAME'] . '(.*)/';
    preg_match($pattern, $_POST['source'], $matches);

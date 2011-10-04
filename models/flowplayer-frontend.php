@@ -1,12 +1,9 @@
 <?php
-
 /**
  * Extension of original flowplayer class intended for frontend.
  */
-
 class flowplayer_frontend extends flowplayer
 {
-
 	/**
 	 * Builds the HTML and JS code of single flowplayer instance on a page/post.
 	 * @param string $media URL or filename (in case it is in the /videos/ directory) of video file to be played.
@@ -14,7 +11,6 @@ class flowplayer_frontend extends flowplayer
 	 * @return Returns array with 2 elements - 'html' => html code displayed anywhere on page/post, 'script' => javascript code displayed before </body> tag
 	 */
 	function build_min_player($media,$sources,$args = array()) {
-			
 			// returned array with new player's html and javascript content
 		$ret = array('html' => '', 'script' => '');
 		$extension = substr($media, -3);
@@ -32,17 +28,14 @@ class flowplayer_frontend extends flowplayer
           $media = 'http://'.$media_path;
          }
 		}
-		
 		// unique coe for this player
 		$hash = md5($media.$this->_salt());
-		
 		// setting argument values
 		$width =  ( isset($this->conf['width']) && (!empty($this->conf['width'])) ) ? $this->conf['width'] : 320;
 		$height = ( isset($this->conf['height']) && (!empty($this->conf['height'])) ) ? $this->conf['height'] : 240;
 		$popup = '';
 		$autoplay = 'false';
 		$controlbar = 'always';
-		
 		//check user agents
       $aUserAgents = array('iphone', 'ipod', 'iPad', 'aspen', 'incognito', 'webmate', 'android', 'Android', 'dream', 'cupcake', 'froyo', 'blackberry9500', 'blackberry9520', 'blackberry9530', 'blackberry9550', 'blackberry9800', 'Palm', 'webos', 's8000', 'bada', 'Opera Mini', 'Opera Mobi', 'htc_touch_pro');
       $mobileUserAgent = false;
@@ -50,7 +43,6 @@ class flowplayer_frontend extends flowplayer
          if(stripos($_SERVER['HTTP_USER_AGENT'],$userAgent))
             $mobileUserAgent = true;
       }
-
       $redirect = '';
 		if (isset($this->conf['autoplay'])&&!empty($this->conf['autoplay'])) $autoplay = trim($this->conf['autoplay']);
 		if (isset($args['autoplay'])&&!empty($args['autoplay'])) $autoplay = trim($args['autoplay']);
@@ -62,7 +54,6 @@ class flowplayer_frontend extends flowplayer
     else $splashend = '';
 		if (isset($this->conf['scaling'])&&($this->conf['scaling']=="true")) $scaling = "fit";
 		else $scaling = "scale";
-   
     if (isset($args['splash']) && !empty($args['splash'])) {
 			$splash_img = $args['splash'];
 			if( strpos($splash_img,'http://') === false && strpos($splash_img,'https://') === false ) {
@@ -89,8 +80,6 @@ class flowplayer_frontend extends flowplayer
 		else 
       if( $mobileUserAgent == true ) 
         $splash = '<img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;"/>';
-
-
 			// if allowed by configuration file, set the popup box js code and content
 			if ((( isset($this->conf['popupbox'] )) && ( $this->conf['popupbox']=="true" )) || (isset($args['popup']) && !empty($args['popup'])) || (!empty($redirect))|| (!empty($splashend))) {
 				if ( isset($args['popup'] ) && !empty($args['popup']) ) {
@@ -107,7 +96,6 @@ class flowplayer_frontend extends flowplayer
 			   $link_button = '';
 				if(!empty($matches[1]))
 				  $link_button = $matches[1] . '<span class="link_button">' . $matches[2] . '</span></a>';
-          
 				$popup_controls = '<div style="position:absolute;top:70%; width:100%;"><div class="popup_controls" style="border:none;text-align:center;"> <a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/replay.png" alt="Replay video" /></a>&nbsp;&nbsp;&nbsp;<a title="Share video" href="javascript:fp_share(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/share.png" alt="Share video" /></a></div></div>';
 				$popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;"><p>'.$popup.'</p><br /><br />'.$link_button.'</div></div>';
 				//if ( $splashend =='true' ) $popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;"><p></p><br /><br /></div></div>';
@@ -151,35 +139,6 @@ class flowplayer_frontend extends flowplayer
 				});
 				";
 			}
-/*			
-			if ( isset($args['splash'] ) && !empty($args['splash']) ) {
-				$splash_img = $args['splash'];
-				if( strpos($splash_img,'http://') === false && strpos($splash_img,'https://') === false ) {
-				//	$splash_img = VIDEO_PATH.trim($args['splash']);
-					if($splash_img[0]=='/') $splash_img = substr($splash_img, 1);
-               if((dirname($_SERVER['PHP_SELF'])!='/')&&(file_exists($_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$splash_img))){  //if the site does not live in the document root
-                  $splash_img = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['PHP_SELF']).VIDEO_DIR.$splash_img;
-                  }
-               elseif(file_exists($_SERVER['DOCUMENT_ROOT'].VIDEO_DIR.$splash_img)){ // if the videos folder is in the root
-                  $splash_img = 'http://'.$_SERVER['SERVER_NAME'].VIDEO_DIR.$splash_img;//VIDEO_PATH.$media;
-               }
-               else{ // if the videos are not in the videos directory but they are adressed relatively
-                $splash_img_path = str_replace('//','/',$_SERVER['SERVER_NAME'].'/'.$splash_img);
-                $splash_img = 'http://'.$splash_img_path;
-               }
-				} else {
-					$splash_img = trim($args['splash']);
-				}
-				$splash = '<img src="'.$splash_img.'" alt="" class="splash" /><img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;" />';
-				// overriding the "autoplay" configuration - video should start immediately after click on the splash image
-				$this->conf['autoplay'] = 'true';
-				$autoplay = 'true';
-			}
-			else 
-            if( $mobileUserAgent == true ) 
-               $splash = '<img width="83" height="83" border="0" src="'.RELATIVE_PATH.'/images/play.png" alt="" class="splash_play_button" style="top: '.round($height/2-45).'px; border:0;"/>';
-*/			
-
 			 // set the output JavaScript (which will be added to document head)
 			if( $mobileUserAgent == false ) 
 			  $ret['script'] = '
@@ -227,12 +186,10 @@ class flowplayer_frontend extends flowplayer
 				};
 			';//.$popup_code;
          if($mobileUserAgent==false) $ret['script'] .= $popup_code;
-
 			 // set the output HTML (which will be printed into document body)
 		//	$ret['html'] .= '<a id="wpfp_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer_container">'.$splash.'</a>'.$popup_contents;
 		 $ret['html'] .= '<a id="wpfp_'.$hash.'" style="width:'.$width.'px; height:'.$height.'px;" class="flowplayer_container player plain">'.$splash.'</a>';//.$popup_contents;
 		   if($mobileUserAgent==false) $ret['html'] .= $popup_contents;
-		    
          if($mobileUserAgent==true) 
          $ret['html'] = '<video  poster="'.$splash_img.'" width="'.$width.'" height="'.$height.'"  controls >
          	<source src="'.trim($media).'"  type="video/mp4" />
@@ -240,15 +197,11 @@ class flowplayer_frontend extends flowplayer
 		// return new player's html and script
 		return $ret;
 	}
-
 	/**
 	 * Displays the elements that need to be added to frontend.
 	 */
 	function flowplayer_head() {
 		include dirname( __FILE__ ) . '/../view/frontend-head.php';
 	}
-
-
 }
-
 ?>
