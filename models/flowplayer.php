@@ -39,6 +39,7 @@ class flowplayer {
     if( !isset( $conf['autobuffer'] ) ) $conf['autobuffer'] = 'false';
     if( !isset( $conf['scaling'] ) ) $conf['scaling'] = 'false';
     if( !isset( $conf['popupbox'] ) ) $conf['popupbox'] = 'false';
+    if( !isset( $conf['linkhighlight'] ) ) $conf['linkhighlight'] = 'false';
     if( !isset( $conf['allowfullscreen'] ) ) $conf['allowfullscreen'] = 'true';
     if( !isset( $conf['allowuploads'] ) ) $conf['allowuploads'] = 'true';
     if( !isset( $conf['postthumbnail'] ) ) $conf['postthumbnail'] = 'false';
@@ -56,6 +57,7 @@ class flowplayer {
     if( !isset( $conf['optimizejs'] ) ) $conf['optimizejs'] = 'false';
     if( !isset( $conf['width'] ) ) $conf['width'] = '320';
     if( !isset( $conf['height'] ) ) $conf['height'] = '240';
+
     update_option( 'fvwpflowplayer', $conf );
     $this->conf = $conf;
     return true;	 

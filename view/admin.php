@@ -57,6 +57,12 @@
 					</select></td>
 				</tr>
 				<tr>
+					<td>Highlight Link in Popup:</td>
+					<td style="text-align:right"><select name="linkhighlight">
+					<?php echo flowplayer_bool_select($fp->conf['linkhighlight']); ?>
+					</select></td>
+				</tr>
+				<tr>
 					<td>Enable Full-screen Mode:</td>
 					<td style="text-align:right"><select name="allowfullscreen">
 					<?php echo flowplayer_bool_select($fp->conf['allowfullscreen']); ?>

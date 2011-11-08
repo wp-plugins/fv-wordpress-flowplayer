@@ -92,10 +92,11 @@ class flowplayer_frontend extends flowplayer
    				else 
    				   $popup = '';
     			}
-				preg_match('/(\<a href=.*?\>)(.*?)\<\/a\>/',$popup,$matches);
-			   $link_button = '';
-				if(!empty($matches[1]))
-				  $link_button = $matches[1] . '<span class="link_button">' . $matches[2] . '</span></a>';
+				$link_button = '';
+				if ($this->conf['linkhighlight']=="true"){
+          preg_match('/(\<a href=.*?\>)(.*?)\<\/a\>/',$popup,$matches);
+			    if(!empty($matches[1])) $link_button = $matches[1] . '<span class="link_button">' . $matches[2] . '</span></a>';
+			  }
 				$popup_controls = '<div style="position:absolute;top:70%; width:100%;"><div class="popup_controls" style="border:none;text-align:center;"> <a title="Replay video" href="javascript:fp_replay(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/replay.png" alt="Replay video" /></a>&nbsp;&nbsp;&nbsp;<a title="Share video" href="javascript:fp_share(\''.$hash.'\');"><img src="'.RELATIVE_PATH.'/images/share.png" alt="Share video" /></a></div></div>';
 				$popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;"><p>'.$popup.'</p><br /><br />'.$link_button.'</div></div>';
 				//if ( $splashend =='true' ) $popup_contents = "\n".'<div id="popup_contents_'.$hash.'" class="popup_contents" style="border:none;">'.$popup_controls.'<div id="wpfp_'.$hash.'_custom_popup" class="wpfp_custom_popup" style="border:none;margin:5%;text-align:center;"><p></p><br /><br /></div></div>';
