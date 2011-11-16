@@ -146,7 +146,7 @@ function flowplayer_display_scripts() {
       		}
       		function fp_share(hash) {
       			var cp = document.getElementById('wpfp_'+hash+'_custom_popup');
-      			cp.innerHTML = '<div style=\"margin-top: 10px; text-align: center;\"><label for=\"permalink\" style=\"color: white;\">Permalink to this page:</label><input onclick=\"this.select();\" id=\"permalink\" name=\"permalink\" type=\"text\" value=\"http://".$_SERVER['SERVER_NAME'].urlencode($_SERVER['REQUEST_URI'])."\" /></div>';
+      			cp.innerHTML = '<div style=\"margin-top: 10px; text-align: center;\"><label for=\"permalink\" style=\"color: white;\">Permalink to this page:</label><input onclick=\"this.select();\" id=\"permalink\" name=\"permalink\" type=\"text\" value=\"http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."\" /></div>';
       		}
       	/*]]>*/
       </script>";
