@@ -158,6 +158,9 @@ Playlist feature is not supported right now.
 
 == Changelog ==
 
+= 1.2.16 =
+* Flowplayer shortcodes and placeholders removed from feed
+
 = 1.2.14 =
 * Fixed Sharing permalink
  

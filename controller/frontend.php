@@ -16,6 +16,15 @@ add_action('wp_footer','flowplayer_display_scripts');
 //	Addition for 0.9.15
 //add_action('widget_text','flowplayer_content');
 add_filter('widget_text','do_shortcode');
+function fvfp_remove_shortcode_feed($content) {
+	if(is_feed()) {
+		$content = preg_replace('/\[flowplayer.*?\]/','',$content);
+		$content = preg_replace('/<a id="wpfp_.*\/a>/','',$content);
+	}
+	return $content;
+}
+add_filter('the_excerpt_rss', 'fvfp_remove_shortcode_feed');
+add_filter('the_content_feed', 'fvfp_remove_shortcode_feed');
 /**
  * END WP Hooks
  */
