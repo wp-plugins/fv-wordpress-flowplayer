@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_COOKIE["selected_video"]))
    $uploaded['normal'] = $_COOKIE["selected_video"];
 if (isset($_COOKIE["selected_video_low"]))
