@@ -5,7 +5,9 @@ if (!class_exists('flowplayer_frontend'))
 
 add_shortcode('flowplayer','flowplayer_content_handle');
 
-function flowplayer_content_handle( $atts ) {
+add_shortcode('fvplayer','flowplayer_content_handle');
+
+function flowplayer_content_handle( $atts, $content = null, $tag ) {
   /// Addition  2010/07/12  mv 
   $fp = new flowplayer_frontend();
   if( $fp->conf['commas'] == 'true' ) {
@@ -28,7 +30,7 @@ function flowplayer_content_handle( $atts ) {
         }
       }
     }
-  
+    
     //  the popup should really be a content of the shortcode, not an attribute
     //  this part will fix the popup if there is any single quote in it.
     if( !isset( $atts['popup'] ) ) {
@@ -47,54 +49,43 @@ function flowplayer_content_handle( $atts ) {
     }
     
   }
-  /// End of addition
+  /// End of addition                                  
   
   extract( shortcode_atts( array(
-      'src' => '',
-      'src_mobile' => '',
-      'src_webm' => '',
-      'src_3gp' => '',
-      'src_low' => '',
-      'src_mobile' => '',
-      'width' => '',
-      'height' => '',
-      'width_mobile' => '',
-      'height_mobile' => '',
-      'autoplay' => '',
-      'splash' => '',
-      'popup' => '',
-      'controlbar' => '',
-      'redirect' => '',
-      'splashend' => ''
-      ), $atts ) );
-  
-   $sources['normal'] = $src;
-   $sources['low'] = $src_low;
-   $sources['mobile'] = $src_mobile;
-   $sources['webm'] = $src_webm;
-   $sources['3gp'] = $src_3gp;
+    'src' => '',
+    'src1' => '',
+    'src2' => '',
+    'width' => '',
+    'height' => '',
+    'autoplay' => '',
+    'splash' => '',
+    'splashend' => '',
+    'popup' => '',
+    'controlbar' => '',
+    'redirect' => '',
+    'loop' => ''
+  ), $atts ) );
   
 	$arguments['width'] = preg_replace('/\,/', '', $width);
 	$arguments['height'] = preg_replace('/\,/', '', $height);
-	$arguments['width_mobile'] = preg_replace('/\,/', '', $width_mobile);
-	$arguments['height_mobile'] = preg_replace('/\,/', '', $height_mobile);
 	$arguments['autoplay'] = preg_replace('/\,/', '', $autoplay);
-//	$arguments['embed'] = $embed;
 	$arguments['splash'] = preg_replace('/\,/', '', $splash);
-	$arguments['splashend'] = preg_replace('/\,/', '', $splashend);
-	$arguments['popup'] = $popup;
+  $arguments['src1'] = preg_replace('/\,/', '', $src1);
+  $arguments['src2'] = preg_replace('/\,/', '', $src2);
+  $arguments['splashend'] = preg_replace('/\,/', '', $splashend);
+  $arguments['popup'] = $popup;
 	$arguments['controlbar'] = preg_replace('/\,/', '', $controlbar);
 	$arguments['redirect'] = preg_replace('/\,/', '', $redirect);
-
+  $arguments['loop'] = preg_replace('/\,/', '', $loop);
+    
 	$src = preg_replace('/\,/', '', $src);
 	if (trim($src) != '') {
 		// build new player
-	  //$fp = new flowplayer_frontend();
-    $new_player = $fp->build_min_player($src,$sources,$arguments);
-		$content = str_replace($src, $new_player['html'],$atts);
-		$GLOBALS['scripts'][] = $new_player['script'];
+    $new_player = $fp->build_min_player($src,$arguments);		
+    if (!empty($new_player['script'])) {
+      $GLOBALS['scripts'][] = $new_player['script'];
+    }
 	}
-    return $new_player['html'];
-//	return $content;
+  return $new_player['html'];
 }
 ?>

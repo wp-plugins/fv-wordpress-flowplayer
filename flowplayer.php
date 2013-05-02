@@ -2,19 +2,21 @@
 /*
 Plugin Name: FV Wordpress Flowplayer
 Plugin URI: http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer
-Description: Embed videos (FLV, H.264, and MP4) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice). 
-Version: 1.2.17
+Description: Embed videos (MP4, WEBM, OGV, FLV) into posts or pages. Uses modified version of flowplayer (with removed FP logo and copyright notice). 
+Version: 2.1
 Author: Foliovision
 Author URI: http://foliovision.com/
 */
 
-if(is_admin()) {
+if( is_admin() ) {
 	/**
 	 * If administrator is logged, loads the controller for backend.
 	 */
 
 	include( dirname( __FILE__ ) . '/controller/backend.php' );
   require_once(dirname( __FILE__ ) . '/controller/shortcodes.php');
+  
+  //register_activation_hook( __FILE__, 'flowplayer_activate' );
 
 } else {
 	/**
