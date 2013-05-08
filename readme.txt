@@ -4,13 +4,15 @@ Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer, mobile, mobile video
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 2.1
+Stable tag: 2.1.1
 
 Embed videos (FLV, H.264, and MP4) into posts or pages.
 
 == Description ==
 
-FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages. With MP4 videos, FV Wordpress Flowplayer offers 98% coverage even on mobile devices.
+Custom HTML 5 video on your own site with Flash fallback for legacy browsers is here.
+
+FV Wordpress Flowplayer WordPress plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages. With MP4 videos, FV Wordpress Flowplayer offers 98% coverage even on mobile devices.
 
 * FV Flowplayer 5 is the only completely responsive WordPress video player.
 * Custom start and end screens are built right in. You can use your own custom design before and after the video.
@@ -24,7 +26,7 @@ FV Wordpress Flowplayer plugin is a free, easy-to-use, and complete solution for
 
 To remove our branding and add your own branding and get access to additional pro support, [you can buy your own license here](://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/buy).
 
-Licenses are on a May Day half price launch sale for May 2013. Don't miss out.
+Licenses are on a May Day half price launch sale for May 2013. Don't miss out!
 
 **Additional Technical information**
 
@@ -40,13 +42,13 @@ Licenses are on a May Day half price launch sale for May 2013. Don't miss out.
 	5. Allows to upload videos and images through WP Media Library
 	6. Does not use configuration file, but Wordpress Options
 
-**[Download now!](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer)**
+**[Download now!](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer)**
 
 [Support](http://foliovision.com/support/fv-wordpress-flowplayer/) |
-[Change Log](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/changelog) |
-[Installation](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/installation)|
-[Usage](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/user-guide) | 
-[FAQ](http://foliovision.com/seo-tools/wordpress/plugins/fv-wordpress-flowplayer/faq)
+[Change Log](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/changelog) |
+[Installation](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/installation)|
+[Usage](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/user-guide) | 
+[FAQ](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/faq)
 
 
 == Installation ==
@@ -60,6 +62,17 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
 
    
 == Frequently Asked Questions ==
+
+= What if the FV Flowplayer 5 doesn't work for me? =
+
+No worries.
+
+1. You can always downgrade to version the Flash version. You do lose a lot of mobile and iOS capability but you didn't have it in the first place.
+1. Contact us via [support](http://foliovision.com/support). We are actively investigating and fixing people's sites now during the initial release period. We will help you to get FV Flowplayer 5 working in your environment.
+
+FV Flowplayer 5 Pro comes with a money back guarantee so you can even try the commercial no-branding version risk free. Or make it work first with the free versions.
+
+Thank you for being part of the HMTL 5 mobile video revolution!
 
 = I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
 
@@ -88,15 +101,7 @@ If you want to autobuffer, you can turn that on in the options (we turn it off b
 
 = My videos are hosted with Amazon S3 service. How can I fill the details into shortcode? =
 
-Currently there is no support for Amazon S3 service, this feature might be added in the future. 
-
-= The spinning circle is off centre when the video is loading. =
-
-This happens when you set width and height of the video other than are native dimensions. We recommend to use native dimensions of the video when placing on a webpage. 
-
-= The splash image and controlbar are not working properly in widgets. =
-
-Please upgrade to version at least 1.0.6.
+Just enter the URL of your video hosted on Amazon S3 as the video source.
 
 = I would like to localize the play again button. =
 
@@ -118,18 +123,6 @@ Fill the Flowplayer shortcode part according to your needs. The apply filter nee
 
 The black border is defined in the style sheet, located in the /css/flowplayer.css at line 6
 
-= I do own a license key and I would like to use the latest version Flowplayer provided to me. =
-
-Replace the /flowplayer/commercial/flowplayer.swf with the newest Flowplayer (strip out additional version numbers from the file name). Go to admin section and enter your licence key. Don't forget to click 'Apply changes', and you're ready to use your commercial version. 
-
-= How do I change the size of the play button? =
-
-The size is defined to be 83x83px, defined in /modules/flowplayer-frontend.php line 118.
-
-= How do I change the position of the play button? =
-
-The position of the play button is defined at two places, first is the css file (.splash_play_button) and in the /modules/flowplayer-frontend.php (line 118, starting with $splash = ...). To modify the vertical position modify top=round($height/2-45) to your custom value. Try for example values like 0 or $height to move the play button up or down.
-
 = When viewing the video in fullscreen mode, it is stretched and looks deformed. =
 
 If you have version 1.2.2 or higher, than go to settings and set Fit scaling to true.
@@ -139,10 +132,6 @@ For versions below 1.2.2, this happens because the scaling is set by default to 
 scaling: \'fit\',
 
 Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set.
-
-= How can I style the popup? =
-
-Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
 
 = How can I style the popup? =
 
@@ -172,11 +161,19 @@ Playlist feature is not supported right now.
 
 == Changelog ==
 
+= 2.1.1 =
+* fix for browser caching
+* upgrade to latest core Flowplayer (5.4.1)
+* additional fixes for smooth install (more compatible default settings)
+* lightening of branding
+* apologies to anyone who faced difficulties with the initial 2.1 version: FV Flowplayer 5 should work for you now
+
 = 2.1 =
 * small interface changes
 
 = 2.0 =
 * upgrade to Flowplayer 5
+* fixes in the shortcode editor
 
 = 1.2.17 =
 * bugfix for wp-content paths
