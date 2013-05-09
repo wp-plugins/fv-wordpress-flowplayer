@@ -92,7 +92,7 @@ You need to look at "Content-Type:" in the "HTTP Response Header" section. It sh
 
 = I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
 
-You need to use at least PHP 5, your site is probably still running on old PHP 5. 
+You need to use at least PHP 5, your site is probably still running on old PHP 4. 
 
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
