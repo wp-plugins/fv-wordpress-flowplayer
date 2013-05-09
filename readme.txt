@@ -90,6 +90,8 @@ You should also check if your server is serving your video file with the proper 
 
 You need to look at "Content-Type:" in the "HTTP Response Header" section. It should not be "video/mpeg" if your video is MP4.
 
+It seems HTML5 is more picky about what video it can play. You can also try to downgrade to FV Wordpress Flowplayer 1.2.17 which used Flash version of Flowplayer, here's how: http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/downgrading
+
 = I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
 
 You need to use at least PHP 5, your site is probably still running on old PHP 4. 
