@@ -63,17 +63,6 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
    
 == Frequently Asked Questions ==
 
-= What if the FV Flowplayer 5 doesn't work for me? =
-
-No worries.
-
-1. You can always downgrade to version the Flash version. You do lose a lot of mobile and iOS capability but you didn't have it in the first place.
-1. Contact us via [support](http://foliovision.com/support). We are actively investigating and fixing people's sites now during the initial release period. We will help you to get FV Flowplayer 5 working in your environment.
-
-FV Flowplayer 5 Pro comes with a money back guarantee so you can even try the commercial no-branding version risk free. Or make it work first with the free versions.
-
-Thank you for being part of the HMTL 5 mobile video revolution!
-
 = My video doesn't play in some browsers. =
 
 This should be related to your video format or mime type issues.
@@ -90,7 +79,7 @@ You should also check if your server is serving your video file with the proper 
 
 You need to look at "Content-Type:" in the "HTTP Response Header" section. It should not be "video/mpeg" if your video is MP4.
 
-It seems HTML5 is more picky about what video it can play. You can also try to downgrade to FV Wordpress Flowplayer 1.2.17 which used Flash version of Flowplayer, here's how: http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/downgrading
+It seems HTML5 is more picky about what video it can play.
 
 = I get an error message like this when activating the plugin: Parse error: parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in /wp-content/plugins/fv-wordpress-flowplayer/models/flowplayer.php on line 4 =
 
@@ -99,10 +88,6 @@ You need to use at least PHP 5, your site is probably still running on old PHP 4
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
 FV Flowplayer calls some javascript from the footer. That means your footer.php file must contain the &lt;?php wp_footer(); ?&gt; Wordpress hook. Almost all themes do this out of the box, but if you've customised your theme there's a chance that you might have deleted this call.
-
-= I tried to change some setting in the admin section, but without effect.  =
-
-If you used v1.0.4 or less, please make sure, that configuration file wpfp.conf is writable (666 permissions).
 
 = You player works just fine, but there are some weird display issues. =
 
@@ -137,23 +122,9 @@ echo apply_filters('the_content', '[flowplayer src=yourvideo.mp4 width=240 heigh
 
 Fill the Flowplayer shortcode part according to your needs. The apply filter needs to be called because the flowplayer shortcodes are not parsen outside posts automatically. Also, please do not forget to add the echo at the beginning.
 
-= How can I remove the black border around the video? =
-
-The black border is defined in the style sheet, located in the /css/flowplayer.css at line 6
-
-= When viewing the video in fullscreen mode, it is stretched and looks deformed. =
-
-If you have version 1.2.2 or higher, than go to settings and set Fit scaling to true.
-
-For versions below 1.2.2, this happens because the scaling is set by default to fill. If you wish the video show up with correct aspect ratio, you need to add following piece of code into flowplayer-frontend.php, around the line 155 into the clip section:
-
-scaling: \'fit\',
-
-Also don't forget comma at the end of the line where appropriate. Be aware that this scaling will affect also non-fullscreen mode, which might result into borders around your video if the dimensions are not properly set.
-
 = How can I style the popup? =
 
-Check out .flowplayer_popup and .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
+Check out .wpfp_custom_popup in /fv-wordpress-flowplayer/css/flowplayer.css. You might want to move your changes to your template CSS - make sure you use ID of container element, so your declarations will work even when the flowplayer.css is loaded later in the head section of your webpage.
 
 = My videos are taking long time to load. =
 
@@ -167,6 +138,17 @@ No at the moment we do not support looping.
 = How do I insert videos in playlist? =
 
 Playlist feature is not supported right now.
+
+= What if the FV Flowplayer 5 doesn't work for me? =
+
+No worries.
+
+1. You can always downgrade to version the Flash version ([here's how](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer/downgrading)). You do lose a lot of mobile and iOS capability but you didn't have it in the first place.
+1. Contact us via [support](http://foliovision.com/support). We are actively investigating and fixing people's sites now during the initial release period. We will help you to get FV Flowplayer 5 working in your environment.
+
+FV Flowplayer 5 Pro comes with a money back guarantee so you can even try the commercial no-branding version risk free. Or make it work first with the free versions.
+
+Thank you for being part of the HMTL 5 mobile video revolution!
 
 =======
 
