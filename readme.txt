@@ -76,6 +76,8 @@ It seems HTML5 is more picky about what video it can play.
 
 = My video doesn't play in Internet Explorer 9 and 10 =
 
+**Update**: In version 2.1.3 we force IE9 and IE10 to use Flash by default, so videos should play just fine. You can still switch to full HTML5 if you are sure your mime type is correct.
+
 Please first read the first question to learn more about video formats and codecs.
 
 For Internet Explorer, it's not recommended to use MPEG-4 Visual or MPEG-4 Part 2 video stream codecs.
