@@ -35,12 +35,11 @@ Licenses are on a May Day half price launch sale for May 2013. Don't miss out!
 * Default options for all the embedded videos can be set in comprehensive administration menu.
 * In comparison with Wordpress Flowplayer plugin, there are several improvements:
 
-	1. Doesn't use jQuery, so there will be no future conflicts with other plugins.
-	2. Usage is simpler and forgiving, making the plugin easier to use.
-	3. Allows user to display clickable splash screen at the beginning of video (which not only looks good, but improves the performance significantly).
-	4. Allows user to display popup box after the video ends, with any HTML content (clickable links, images, styling, etc.)
-	5. Allows to upload videos and images through WP Media Library
-	6. Does not use configuration file, but Wordpress Options
+	1. Usage is simpler and forgiving, making the plugin easier to use.
+	2. Allows user to display clickable splash screen at the beginning of video (which not only looks good, but improves the performance significantly).
+	3. Allows user to display popup box after the video ends, with any HTML content (clickable links, images, styling, etc.)
+	4. Allows to upload videos and images through WP Media Library
+	5. Does not use configuration file, but Wordpress Options
 
 **[Download now!](http://foliovision.com/wordpress/plugins/fv-wordpress-flowplayer)**
 
@@ -85,7 +84,7 @@ You should also check if your server is serving your video file with the proper 
 
 You need to look at "Content-Type:" in the "HTTP Response Header" section. For MP4 file it should be "video/mp4". Some servers use "video/mpeg" and that is causing problems in Internet Explorer.
 
-Refer to Flowplayer Documentation for fix: flowplayer.org/docs/index.html#mime-types
+Refer to Flowplayer Documentation for fix: http://flowplayer.org/docs/index.html#mime-types
 
 **If you host videos on Amazon AWS:**
 
@@ -194,21 +193,31 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 
 == Changelog ==
 
-= 2.1.2 =
+= 2.1.3 - 2013/05/15 =
+* Flowplayer now by default uses Flash (for better compatibility)
+* shortcode editor fixes
+* when using HTML5, admins get warnings about videos with bad mime type as they browse the site.
+* logged in admins see warnings above MP4 videos with bad mime type
+
+What's coming:
+* better detection of bad mime type for all your videos
+* suggestion for fixing of slow loading videos
+
+= 2.1.2 - 2013/05/10 =
 * fix for player alignment (center by default)
 * fix for volume bar alignment (was not working properly when using obsolete &lt;center&gt; tags)
 
-= 2.1.1 =
+= 2.1.1 - 2013/05/08 =
 * fix for browser caching
 * upgrade to latest core Flowplayer (5.4.1)
 * additional fixes for smooth install (more compatible default settings)
 * lightening of branding
 * apologies to anyone who faced difficulties with the initial 2.1 version: FV Flowplayer 5 should work for you now
 
-= 2.1 =
+= 2.1 - 2013/05/02 =
 * small interface changes
 
-= 2.0 =
+= 2.0 - 2013/05/02 =
 * upgrade to Flowplayer 5
 * fixes in the shortcode editor
 
@@ -346,8 +355,6 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 * Colors of all the parts of flowplayer instances on page/post (controlbar, canvas, sliders, buttons, mouseover buttons, time and total time, progress and buffer sliders).
 
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
-
-== Upgrade Notice ==
 
 = 2.1.3 =
 * Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set).
