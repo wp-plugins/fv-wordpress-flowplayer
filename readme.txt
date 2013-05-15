@@ -349,6 +349,8 @@ On the right side of this screen, you can see the current visual configuration o
 
 == Upgrade Notice ==
 
-= 2.1.4 =
-* Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set)
+= 2.1.3 =
+* Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set).
 
+= 2.0 =
+* Brand new version of Flowplayer! HTML5 compatible video player. Please check your videos thoroughly.
