@@ -347,3 +347,8 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
 
+== Upgrade Notice ==
+
+= 2.1.4 =
+* Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set)
+
