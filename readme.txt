@@ -76,8 +76,6 @@ It seems HTML5 is more picky about what video it can play.
 
 = My video doesn't play in Internet Explorer 9 and 10 =
 
-**Update**: In version 2.1.3 we force IE9 and IE10 to use Flash by default, so videos should play just fine. You can still switch to full HTML5 if you are sure your mime type is correct.
-
 Please first read the first question to learn more about video formats and codecs.
 
 For Internet Explorer, it's not recommended to use MPEG-4 Visual or MPEG-4 Part 2 video stream codecs.
@@ -194,6 +192,9 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 4. Configuration menu for administrators.
 
 == Changelog ==
+
+= 2.1.4 - 2013/05/16 =
+* quick fix for shortcode parsing when there is a newline after src parameter
 
 = 2.1.3 - 2013/05/15 =
 * Flowplayer now by default uses Flash (for better compatibility)
@@ -357,6 +358,11 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 * Colors of all the parts of flowplayer instances on page/post (controlbar, canvas, sliders, buttons, mouseover buttons, time and total time, progress and buffer sliders).
 
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
+
+== Upgrade Notice ==
+
+= 2.1.4 =
+* Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set).
 
 = 2.1.3 =
 * Flowplayer now defaults to using Flash for Internet Explorer 9 and 10 (due to server compatibility issues when bad mime type is set).
