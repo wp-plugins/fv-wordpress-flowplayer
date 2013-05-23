@@ -209,7 +209,11 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 = What's coming =
 * improved checking of videos
 * suggestion for fixing of slow loading videos
+* fix for popup and redirection in Flash player
 * other bugfixes
+
+= 2.1.8 - 2013/05/23 =
+* quick bugfix for Flowplayer script loading
 
 = 2.1.7 - 2013/05/22 =
 * support for responsive layout enabled by default
@@ -388,6 +392,8 @@ Once the plugin is uploaded and activated, there will be a submenu of settings m
 On the right side of this screen, you can see the current visual configuration of flowplayer. If you click Apply Changes button, this player's looks refreshes.
 
 == Upgrade Notice ==
+
+= Quick fix for jQuery loading.
 
 = 2.1.5 =
 * Default player font face set to Tahoma, Geneva, sans-serif. Change 'Player font face' setting to 'inherit from template' if you have your own CSS.
