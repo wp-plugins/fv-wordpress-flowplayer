@@ -6,16 +6,12 @@
 
 <?php 
 	if(isset($_POST['submit'])) {
-		/**
-		 *  Write the configuration into file, if the form was submitted.
-		 */
-		$fp->_set_conf();
-    $fp = new flowplayer();
-    /**
-		 *  Refresh the page.
-		 */
-		?>
-		<?php
+		global $fp;
+  	if( method_exists($fp,'_set_conf') ) {
+			$fp->_set_conf();    
+		} else {
+			echo 'Error saving FV Flowplayer options.';
+		}
 	}
 ?>
 
