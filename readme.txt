@@ -3,7 +3,7 @@ Contributors: FolioVision
 Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer, mobile, mobile video, html5
 Requires at least: 3.5
-Tested up to: 3.5.1
+Tested up to: 3.5.2
 Stable tag: trunk
 
 Embed videos (FLV, H.264, and MP4) into posts or pages.
@@ -239,6 +239,12 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 * support for subtitles
 * other bugfixes
 
+= 2.1.16 - 2013/06/25 =
+* Fix - video checker now requires a comment for the video issue submission
+* Bugfix - video checker styling in older templates (no #content element)
+* Bugfix - video checker URL parsing
+* Bugfix - main plugin variable renamed, avoiding weird conflicts with some plugins
+
 = 2.1.15 - 2013/06/24 =
 * Bugfix - "Check template" bugfixes and improvements for WP Minify
 * Bugfix - Fix for fix of Flowplayer preventing window.onload from firing on iPad
@@ -465,16 +471,11 @@ On the right side of this screen, you can see the current visual configuration o
 
 == Upgrade Notice ==
 
-= 2.1.15 =
+= 2.1.16 =
 * Feature - Added support for audio! Just put your MP3, OGG, or WAV into your shortcode.
 * Feature - Added a function to report video not playing to Foliovision. Thank you for letting us know what videos don't play for you in our player.
 * Styling - added some spacing below the video player
 * Various bug fixes, check changelog
-
-= 2.1.14 =
-* Feature - Added support for audio! Just put your MP3, OGG, or WAV into your shortcode.
-* Feature - Added a function to report video not playing to Foliovision. Thank you for letting us know what videos don't play for you in our player.
-* Styling - added some spacing below the video player
 
 = 2.1.13 =
 * Admin front-end video checker is not much smaller and can be disabled in options
