@@ -52,6 +52,22 @@ function flowplayer_content_handle( $atts, $content = null, $tag ) {
       $atts['popup'] = preg_replace( '/^\s*?popup=[\'"](.*)[\'"]\s*?$/mi', '$1', $popup );
     }
     
+    //	same for ad code
+    if( !isset( $atts['ad'] ) ) {
+      $ad = array();
+      $is_ad = false;
+      foreach( $atts AS $key => $att ) {
+        if( !is_numeric( $key ) ) continue;
+        if( ( stripos( $att, 'ad=' ) !== FALSE || $is_ad ) && stripos( $att, 'src=' ) === FALSE && stripos( $att, 'splash=' ) === FALSE) {
+          $ad[] = $att;
+          $is_ad = true;
+          unset( $atts[$key] ); // = ''; //  let's remove it, so it won't confuse the rest of workaround
+        }
+      }
+      $ad = implode( ' ', $ad );
+      $atts['ad'] = preg_replace( '/^\s*?ad=[\'"](.*)[\'"]\s*?$/mi', '$1', $ad );
+    }    
+    
   }
   /// End of addition                                  
   
@@ -59,6 +75,7 @@ function flowplayer_content_handle( $atts, $content = null, $tag ) {
     'src' => '',
     'src1' => '',
     'src2' => '',
+    'mobile' => '',
     'width' => '',
     'height' => '',
     'autoplay' => '',
@@ -70,7 +87,11 @@ function flowplayer_content_handle( $atts, $content = null, $tag ) {
     'loop' => '',
     'engine' => '',
     'embed' => '',
-    'subtitles' => ''
+    'subtitles' => '',
+    'ad' => '',
+    'ad_width' => '',
+    'ad_height' => '',
+    'ad_skip' => ''
   ), $atts ) );
   
 	$arguments['width'] = preg_replace('/\,/', '', $width);
@@ -79,6 +100,7 @@ function flowplayer_content_handle( $atts, $content = null, $tag ) {
 	$arguments['splash'] = preg_replace('/\,/', '', $splash);
   $arguments['src1'] = preg_replace('/\,/', '', $src1);
   $arguments['src2'] = preg_replace('/\,/', '', $src2);
+  $arguments['mobile'] = preg_replace('/\,/', '', $mobile);  
   $arguments['splashend'] = preg_replace('/\,/', '', $splashend);
   $arguments['popup'] = $popup;
 	$arguments['controlbar'] = preg_replace('/\,/', '', $controlbar);
@@ -87,6 +109,10 @@ function flowplayer_content_handle( $atts, $content = null, $tag ) {
   $arguments['engine'] = preg_replace('/\,/', '', $engine);
   $arguments['embed'] = preg_replace('/\,/', '', $embed);
   $arguments['subtitles'] = preg_replace('/\,/', '', $subtitles);
+  $arguments['ad'] = preg_replace('/\,/', '', $ad);  
+  $arguments['ad_width'] = preg_replace('/\,/', '', $ad_width);  
+  $arguments['ad_height'] = preg_replace('/\,/', '', $ad_height);   
+  $arguments['ad_skip'] = preg_replace('/\,/', '', $ad_skip);     
     
 	$src = preg_replace('/\,/', '', $src); 
 	if (trim($src) != '') {

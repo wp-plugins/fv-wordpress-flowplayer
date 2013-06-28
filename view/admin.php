@@ -45,6 +45,9 @@ div.green { background-color: #e0ffe0; border-color: #88AA88; }
 				</div>
 		</div>
   <?php endif; ?>	
+  <style>
+  #wpfp_options .postbox h3 { cursor: default; }
+  </style>
   <form id="wpfp_options" method="post" action="">
   	<div id="poststuff" class="ui-sortable">            
 			<div class="postbox">
@@ -173,10 +176,26 @@ div.green { background-color: #e0ffe0; border-color: #88AA88; }
 						<td><label for="rtmp">Amazon CloudFront domain:</label></td>
 						<td><input type="text" size="40" name="rtmp" id="rtmp" value="<?php echo trim($fv_fp->conf['rtmp']); ?>" /></td>
 					</tr>	
+					<tr>
+						<td colspan="2"><p><strong>Ads</strong></p></td>
+					</tr>					
+					<tr>
+						<td colspan="2">
+							<label for="ad">Default Ad Code:</label><br />
+							<textarea id="ad" name="ad" class="large-text code"><?php if( isset($fv_fp->conf['ad']) ) echo trim($fv_fp->conf['ad']); ?></textarea>			
+						</td>
+					</tr>
+					<tr>
+					  <td><label for="width">Default ad size [px]:</label></td>
+						<td style="text-align:right"> 					
+							<label for="ad_width">W:</label>&nbsp;<input type="text" size="4" name="ad_width" id="ad_width" value="<?php echo trim($fv_fp->conf['ad_width']); ?>" />  
+							<label for="ad_height">H:</label>&nbsp;<input type="text" size="4" name="ad_height" id="ad_height" value="<?php echo trim($fv_fp->conf['ad_height']); ?>" />							
+						</td>
+					</tr>					
 				</table>
 				<table class="form-table2" style="margin: 5px; ">
 					<tr>
-						<td colspan="4"><strong>Colors</strong></td>
+						<td colspan="4"><p><strong>Colors</strong></p></td>
 					</tr>
 					<?php include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 					<tr>
@@ -214,54 +233,68 @@ div.green { background-color: #e0ffe0; border-color: #88AA88; }
 						</td>
 					</tr>   
 					<tr>          
-						<td><label for="interface[popup]">Show HTML popup:</label></td>
+						<td><label for="interface[popup]">HTML popup:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[popup]" value="false" />
 							<input type="checkbox" name="interface[popup]" id="interface[popup]" value="true" <?php if( isset($fv_fp->conf['interface']['popup']) && $fv_fp->conf['interface']['popup'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>    
 					<tr>          
-						<td style="width: 330px;"><label for="interface[redirect]">Show Redirect:</label></td>
+						<td style="width: 330px;"><label for="interface[redirect]">Redirect:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[redirect]" value="false" />
 							<input type="checkbox" name="interface[redirect]" id="interface[redirect]" value="true" <?php if( isset($fv_fp->conf['interface']['redirect']) && $fv_fp->conf['interface']['redirect'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>                        
 					<tr>          
-						<td style="width: 330px;"><label for="interface[autoplay]">Show AutoPlay:</label></td>
+						<td style="width: 330px;"><label for="interface[autoplay]">AutoPlay:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[autoplay]" value="false" />
 							<input type="checkbox" name="interface[autoplay]" id="interface[autoplay]" value="true" <?php if( isset($fv_fp->conf['interface']['autoplay']) && $fv_fp->conf['interface']['autoplay'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>
 					<tr>          
-						<td style="width: 330px;"><label for="interface[loop]">Show Loop:</label></td>
+						<td style="width: 330px;"><label for="interface[loop]">Loop:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[loop]" value="false" />
 							<input type="checkbox" name="interface[loop]" id="interface[loop]" value="true" <?php if( isset($fv_fp->conf['interface']['loop']) && $fv_fp->conf['interface']['loop'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>
 					<tr>          
-						<td style="width: 330px;"><label for="interface[splashend]">Show Splash end:</label></td>
+						<td style="width: 330px;"><label for="interface[splashend]">Splash end:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[splashend]" value="false" />
 							<input type="checkbox" name="interface[splashend]" id="interface[splashend]" value="true" <?php if( isset($fv_fp->conf['interface']['splashend']) && $fv_fp->conf['interface']['splashend'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>     
 					<tr>          
-						<td style="width: 330px;"><label for="interface[embed]">Show Embed:</label></td>
+						<td style="width: 330px;"><label for="interface[embed]">Embed:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[embed]" value="false" />
 							<input type="checkbox" name="interface[embed]" id="interface[embed]" value="true" <?php if( isset($fv_fp->conf['interface']['embed']) && $fv_fp->conf['interface']['embed'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
 					</tr>    
 					<tr>          
-						<td style="width: 330px;"><label for="interface[embed]">Show Subtitles:</label></td>
+						<td style="width: 330px;"><label for="interface[subtitles]">Subtitles:</label></td>
 						<td style="text-align:right;">
               <input type="hidden" name="interface[subtitles]" value="false" />
 							<input type="checkbox" name="interface[subtitles]" id="interface[subtitles]" value="true" <?php if( isset($fv_fp->conf['interface']['subtitles']) && $fv_fp->conf['interface']['subtitles'] == 'true' ) echo 'checked="checked"'; ?> />
 						</td>
-					</tr>                    
+					</tr>  
+					<tr>          
+						<td style="width: 330px;"><label for="interface[ads]">Ads: <span style="color: #e00; font-weight: bold">NEW</span></label></td>
+						<td style="text-align:right;">
+              <input type="hidden" name="interface[ads]" value="false" />
+							<input type="checkbox" name="interface[ads]" id="interface[ads]" value="true" <?php if( isset($fv_fp->conf['interface']['ads']) && $fv_fp->conf['interface']['ads'] == 'true' ) echo 'checked="checked"'; ?> />
+						</td>
+					</tr>   	
+					<tr>          
+						<td style="width: 330px;"><label for="interface[mobile]">Mobile video: <span style="color: #e00; font-weight: bold">NEW</span></label></td>
+						<td style="text-align:right;">
+              <input type="hidden" name="interface[mobile]" value="false" />
+							<input type="checkbox" name="interface[mobile]" id="interface[mobile]" value="true" <?php if( isset($fv_fp->conf['interface']['mobile']) && $fv_fp->conf['interface']['mobile'] == 'true' ) echo 'checked="checked"'; ?> />
+						</td>
+					</tr>   					
 					<tr>    		
 						<td colspan="4">
 							<input type="submit" name="fv-wp-flowplayer-submit" class="button-primary" value="Apply Changes" style="margin-top: 2ex;"/>

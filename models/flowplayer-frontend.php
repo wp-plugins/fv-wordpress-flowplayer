@@ -30,7 +30,8 @@ class flowplayer_frontend extends flowplayer
 		if (isset($args['height'])&&!empty($args['height'])) $height = trim($args['height']);		
         
     $src1 = ( isset($args['src1']) && !empty($args['src1']) ) ? trim($args['src1']) : false;
-    $src2 = ( isset($args['src2']) && !empty($args['src2']) ) ? trim($args['src2']) : false;    
+    $src2 = ( isset($args['src2']) && !empty($args['src2']) ) ? trim($args['src2']) : false;  
+    $mobile = ( isset($args['mobile']) && !empty($args['mobile']) ) ? trim($args['mobile']) : false;  
     
     $autoplay = 'false';
    	if( (isset($this->conf['autoplay']) && $this->conf['autoplay'] == 'true' && $args['autoplay'] != 'false' ) || (isset($args['autoplay']) && $args['autoplay'] == 'true') ) {
@@ -69,7 +70,10 @@ class flowplayer_frontend extends flowplayer
 			}
 			if (!empty($src2)) {
 				$src2 = $this->get_video_url($src2);
-			}    
+			} 
+			if (!empty($mobile)) {
+				$mobile = $this->get_video_url($mobile);
+			}			
 			
 			$popup = '';
 			$controlbar = 'hide';
@@ -161,6 +165,34 @@ class flowplayer_frontend extends flowplayer
 					";                   
 				}
 			}
+	
+			$show_ad = false;
+			// if allowed by configuration file, set the popup box js code and content
+			if(
+				(
+					( isset($this->conf['ad']) ) && strlen(trim($this->conf['ad'])) ||
+					( isset($args['ad']) && !empty($args['ad']) )
+				) 
+				&&
+				!strlen($args['ad_skip'])				
+			) {
+				if (isset($args['ad']) && !empty($args['ad'])) {
+					$ad = html_entity_decode( str_replace('&#039;',"'", trim($args['ad']) ) );
+					$ad_width = ( isset($args['ad_width']) ) ? $args['ad_width'].'px' : '60%';	
+					$ad_height = ( isset($args['ad_height']) ) ? $args['ad_height'].'px' : '';					
+				}
+				else {
+					$ad = trim($this->conf['ad']);			
+					$ad_width = ( isset($this->conf['ad_width']) && $this->conf['ad_width'] ) ? $this->conf['ad_width'].'px' : '60%';	
+					$ad_height = ( isset($this->conf['ad_height']) && $this->conf['ad_height'] ) ? $this->conf['ad_height'].'px' : '';
+				}
+				
+				$ad = apply_filters( 'fv_flowplayer_ad_html', $ad);
+				if( strlen(trim($ad)) > 0 ) {			
+					$show_ad = true;
+					$ad_contents = "\t<div id='wpfp_".$hash."_ad' class='wpfp_custom_ad'>\n\t\t<div class='wpfp_custom_ad_content' style='background: ".trim($this->conf['backgroundColor'])."; max-width: $ad_width; max-height: $ad_height; margin: 0 auto; position: relative'>\n\t\t<div class='fv_fp_close'><a href='#' onclick='jQuery(\"#wpfp_".$hash."_ad\").fadeOut(); return false'></a></div>\n\t\t\t".$ad."\n\t\t</div>\n\t</div>\n";                  
+				}
+			}			
 			
 			$show_splashend = false;
 			if (isset($args['splashend']) && $args['splashend'] == 'show' && isset($args['splash']) && !empty($args['splash'])) {      
@@ -352,6 +384,10 @@ class flowplayer_frontend extends flowplayer
 			if (!empty($src2)) {
 				$ret['html'] .= "\t"."\t".$this->get_video_src($src2, $mobileUserAgent)."\n";
 			}
+			if (!empty($mobile)) {
+				$ret['script'] .= "\nfv_flowplayer_mobile_switch('wpfp_$hash')\n";
+				$ret['html'] .= "\t"."\t".$this->get_video_src($mobile, $mobileUserAgent, 'wpfp_'.$hash.'_mobile')."<!--mobile-->\n";
+			}			
 	
 			if( isset($rtmp) ) {
 				$rtmp_url = parse_url($rtmp);
@@ -376,6 +412,9 @@ class flowplayer_frontend extends flowplayer
 			if( isset($popup_contents) ) {
 				$ret['html'] .= $popup_contents;  
 			}
+			if( isset($ad_contents) ) {
+				$ret['html'] .= $ad_contents;  
+			}			
 			$ret['html'] .= '</div>'."\n";      
     
     } else {	//	$player_type == 'video' ends
@@ -419,14 +458,15 @@ class flowplayer_frontend extends flowplayer
     return $media;
   }
   
-  function get_video_src($media, $mobileUserAgent) {
+  function get_video_src($media, $mobileUserAgent, $id = '') {
   	if( $media ) { 
 			$extension = $this->get_file_extension($media);
 			//do not use https on mobile devices
 			if (strpos($media, 'https') !== false && $mobileUserAgent) {
 				$media = str_replace('https', 'http', $media);
 			} 
-			return '<source src="'.trim($media).'" type="video/'.$extension.'" />';  
+			$id = ($id) ? 'id="'.$id.'" ' : '';
+			return '<source '.$id.'src="'.trim($media).'" type="video/'.$extension.'" />';  
     }
     return null;
   }

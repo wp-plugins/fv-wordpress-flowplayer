@@ -30,15 +30,12 @@ global $fv_wp_flowplayer_ver;
 	.flowplayer { background-color: <?php echo trim($this->conf['canvas']); ?> !important; }
 	.flowplayer .fp-duration { color: <?php echo trim($this->conf['durationColor']); ?> !important; }
 	.flowplayer .fp-elapsed { color: <?php echo trim($this->conf['timeColor']); ?> !important; }
-	.flowplayer .fp-volume { text-align: left; }
 	.flowplayer .fp-volumelevel { background-color: <?php echo trim($this->conf['progressColor']); ?> !important; }  
 	.flowplayer .fp-volumeslider { background-color: <?php echo trim($this->conf['bufferColor']); ?> !important; }
 	.flowplayer .fp-timeline { background-color: <?php echo trim($this->conf['timelineColor']); ?> !important; }
 	.flowplayer .fp-progress { background-color: <?php echo trim($this->conf['progressColor']); ?> !important; }
 	.flowplayer .fp-buffer { background-color: <?php echo trim($this->conf['bufferColor']); ?> !important; }
-	#content .flowplayer a, .flowplayer a, .flowplayer a:hover { text-decoration: none; border-bottom: none; }
 	#content .flowplayer, .flowplayer { font-family: <?php echo trim($this->conf['font-face']); ?>; }
-	#content .flowplayer .fp-embed-code, .flowplayer .fp-embed-code { padding: 3px 7px; }
 	#content .flowplayer .fp-embed-code textarea, .flowplayer .fp-embed-code textarea { line-height: 1.4; white-space: pre-wrap; color: <?php echo trim($this->conf['durationColor']); ?> !important; height: 160px; font-size: 10px; }
 	
 	.fvplayer .mejs-container .mejs-controls { background: <?php echo trim($this->conf['backgroundColor']); ?>!important; } 
@@ -47,6 +44,9 @@ global $fv_wp_flowplayer_ver;
 	.fvplayer .mejs-horizontal-volume-current { background: <?php echo trim($this->conf['progressColor']); ?>!important; } 
 	.fvplayer .me-cannotplay span { padding: 5px; }
 	#content .fvplayer .mejs-container .mejs-controls div { font-family: <?php echo trim($this->conf['font-face']); ?>; }
+
+	.wpfp_custom_ad { position: absolute; bottom: 10%; z-index: 2; width: 100%; color: <?php echo trim($this->conf['timeColor']); ?>; }
+	.wpfp_custom_ad a { color: <?php echo trim($this->conf['durationColor']); ?> }
 	
 	<?php if( current_user_can( 'manage_options' ) ) : ?>
 		#content .fv-wp-flowplayer-notice-small, .fv-wp-flowplayer-notice-small { color: <?php echo trim($this->conf['timeColor']); ?>; position: absolute; top: 1%; left: 1%; z-index: 2;}

@@ -11,6 +11,8 @@
 	} else {
 	  $upload_field_width = '100%';
 	}
+	
+	$helper_tag = ( is_plugin_active('jetpack/jetpack.php') ) ? 'b' : 'span';
 ?>
 <style>
 .fv-wp-flowplayer-notice { background-color: #FFFFE0; border-color: #E6DB55; margin: 5px 0 15px; padding: 0 0.6em; border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; } 
@@ -39,8 +41,8 @@ jQuery(document).ready(function(){
 
 
 var fv_wp_flowplayer_content;
-var fv_wp_flowplayer_re_edit = /\[[^\]]*?<span[^>]*?rel="FCKFVWPFlowplayerPlaceholder"[^>]*?>.*?<\/span>[^\]]*?\]/mi;
-var fv_wp_flowplayer_re_insert = /<span[^>]*?rel="FCKFVWPFlowplayerPlaceholder"[^>]*?>.*?<\/span>/gi;
+var fv_wp_flowplayer_re_edit = /\[[^\]]*?<<?php echo $helper_tag; ?>[^>]*?rel="FCKFVWPFlowplayerPlaceholder"[^>]*?>.*?<\/<?php echo $helper_tag; ?>>[^\]]*?\]/mi;
+var fv_wp_flowplayer_re_insert = /<<?php echo $helper_tag; ?>[^>]*?rel="FCKFVWPFlowplayerPlaceholder"[^>]*?>.*?<\/<?php echo $helper_tag; ?>>/gi;
 var fv_wp_flowplayer_hTinyMCE;
 var fv_wp_flowplayer_oEditor;
 var fv_wp_fp_shortcode_remains;
@@ -93,7 +95,7 @@ function fv_wp_flowplayer_edit() {
 	if( fv_wp_flowplayer_hTinyMCE == undefined || tinyMCE.activeEditor.isHidden() ) {  
     fv_wp_flowplayer_content = fv_wp_flowplayer_oEditor.GetHTML();    
     if (fv_wp_flowplayer_content.match( fv_wp_flowplayer_re_insert ) == null) {
-      fv_wp_flowplayer_oEditor.InsertHtml('<span rel="FCKFVWPFlowplayerPlaceholder">&shy;</span>');
+      fv_wp_flowplayer_oEditor.InsertHtml('<<?php echo $helper_tag; ?> rel="FCKFVWPFlowplayerPlaceholder">&shy;</<?php echo $helper_tag; ?>>');
       fv_wp_flowplayer_content = fv_wp_flowplayer_oEditor.GetHTML();    
     }           
 	}
@@ -102,7 +104,7 @@ function fv_wp_flowplayer_edit() {
     fv_wp_flowplayer_hTinyMCE.settings.validate = false;
     if (fv_wp_flowplayer_content.match( fv_wp_flowplayer_re_insert ) == null) {      
       //fv_wp_flowplayer_hTinyMCE.selection.setContent('<span data-mce-bogus="1" rel="FCKFVWPFlowplayerPlaceholder"></span>');
-      fv_wp_flowplayer_hTinyMCE.execCommand('mceInsertContent', false,'<span data-mce-bogus="1" rel="FCKFVWPFlowplayerPlaceholder"></span>');
+      fv_wp_flowplayer_hTinyMCE.execCommand('mceInsertContent', false,'<<?php echo $helper_tag; ?> data-mce-bogus="1" rel="FCKFVWPFlowplayerPlaceholder"></<?php echo $helper_tag; ?>>');
       fv_wp_flowplayer_content = fv_wp_flowplayer_hTinyMCE.getContent();      
     }
     fv_wp_flowplayer_hTinyMCE.settings.validate = true;		
@@ -121,6 +123,7 @@ function fv_wp_flowplayer_edit() {
   	shortcode = shortcode.replace( /\\'/g,'&#039;' );
   	  
 	  var shortcode_parse_fix = shortcode.replace(/popup='[^']*?'/g, '');
+	  shortcode_parse_fix = shortcode_parse_fix.replace(/ad='[^']*?'/g, '');
     fv_wp_fp_shortcode_remains = shortcode_parse_fix.replace( /^\S+\s*?/, '' );  	
   	
   	var srcurl = shortcode_parse_fix.match( /src=['"]([^']*?)['"]/ );
@@ -156,6 +159,8 @@ function fv_wp_flowplayer_edit() {
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /splash='([^']*)'/, '' );
   	var ssubtitles = shortcode.match( /subtitles='([^']*)'/ );
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /subtitles='([^']*)'/, '' );    
+  	var smobile = shortcode.match( /mobile='([^']*)'/ );
+    fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /mobile='([^']*)'/, '' );        
     var sredirect = shortcode.match( /redirect='([^']*)'/ );
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /redirect='([^']*)'/, '' );
   	if( ssplash == null ) {
@@ -164,10 +169,18 @@ function fv_wp_flowplayer_edit() {
     }			
   	var spopup = shortcode.match( /popup='([^']*)'/ );
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /popup='([^']*)'/, '' );
+    var sad = shortcode.match( /ad='([^']*)'/ );
+    fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /ad='([^']*)'/, '' ); 
+    var iadheight = shortcode_parse_fix.match( /ad_height="?(\d*)"?/ );			
+    fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /ad_height="?(\d*)"?/, '' );
+  	var iadwidth = shortcode_parse_fix.match( /ad_width="?(\d*)"?/ );
+    fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /ad_width="?(\d*)"?/, '' );      
     var sloop = shortcode.match( /loop=([^\s]+)/ );
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /loop=([^\s]+)/, '' );
     var ssplashend = shortcode.match( /splashend=([^\s]+)/ );
     fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /splashend=([^\s]+)/, '' );
+  	var sad_skip = shortcode.match( /ad_skip=([^\s]+)/ );
+    fv_wp_fp_shortcode_remains = fv_wp_fp_shortcode_remains.replace( /ad_skip=([^\s]+)/, '' ); 
     
   	if( srcurl != null && srcurl[1] != null )
   		document.getElementById("fv_wp_flowplayer_field_src").value = srcurl[1];
@@ -198,6 +211,8 @@ function fv_wp_flowplayer_edit() {
       if (sembed[1] == 'false') 
         document.getElementById("fv_wp_flowplayer_field_embed").selectedIndex = 2;
     }    
+  	if( smobile != null && smobile[1] != null )
+  		document.getElementById("fv_wp_flowplayer_field_mobile").value = smobile[1];          
   	if( ssplash != null && ssplash[1] != null )
   		document.getElementById("fv_wp_flowplayer_field_splash").value = ssplash[1];
   	if( ssubtitles != null && ssubtitles[1] != null )
@@ -207,6 +222,17 @@ function fv_wp_flowplayer_edit() {
   		spopup = spopup.replace(/&amp;/g,'&');
   		document.getElementById("fv_wp_flowplayer_field_popup").value = spopup;
   	}
+  	if( sad != null && sad[1] != null ) {
+  		sad = sad[1].replace(/&#039;/g,'\'').replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+  		sad = sad.replace(/&amp;/g,'&');
+  		document.getElementById("fv_wp_flowplayer_field_ad").value = sad;
+  	}  		
+  	if( iadheight != null && iadheight[1] != null )
+  		document.getElementById("fv_wp_flowplayer_field_ad_height").value = iheight[1];
+  	if( iadwidth != null && iadwidth[1] != null )
+  		document.getElementById("fv_wp_flowplayer_field_ad_width").value = iwidth[1];
+    if( sad_skip != null && sad_skip[1] != null && sad_skip[1] == 'yes' )
+  		document.getElementById("fv_wp_flowplayer_field_ad_skip").checked = 1;   		
     if( sredirect != null && sredirect[1] != null )
   		document.getElementById("fv_wp_flowplayer_field_redirect").value = sredirect[1];
     if( sloop != null && sloop[1] != null && sloop[1] == 'true' )
@@ -284,6 +310,9 @@ function fv_wp_flowplayer_submit() {
   if( document.getElementById("fv_wp_flowplayer_field_loop").checked )
 		shortcode += ' loop=true';    
 		
+	if( document.getElementById("fv_wp_flowplayer_field_mobile").value != '' )
+		shortcode += ' mobile=\'' + document.getElementById("fv_wp_flowplayer_field_mobile").value + '\'';    		
+		
 	if( document.getElementById("fv_wp_flowplayer_field_splash").value != '' )
 		shortcode += ' splash=\'' + document.getElementById("fv_wp_flowplayer_field_splash").value + '\'';
     
@@ -306,7 +335,24 @@ function fv_wp_flowplayer_submit() {
 		shortcode += ' popup=\'' + popup +'\''
 	}        
 	
-  shortcode += fv_wp_fp_shortcode_remains;
+  if( document.getElementById("fv_wp_flowplayer_field_ad").value != '' ) {
+		var ad = document.getElementById("fv_wp_flowplayer_field_ad").value;
+		ad = ad.replace(/&/g,'&amp;');
+		ad = ad.replace(/'/g,'\\\'');
+		ad = ad.replace(/"/g,'&quot;');
+		ad = ad.replace(/</g,'&lt;');
+		ad = ad.replace(/>/g,'&gt;');
+		shortcode += ' ad=\'' + ad +'\''
+	}     	
+	
+	if( document.getElementById("fv_wp_flowplayer_field_ad_width").value != '' )
+		shortcode += ' ad_width=' + document.getElementById("fv_wp_flowplayer_field_ad_width").value;
+	if( document.getElementById("fv_wp_flowplayer_field_ad_height").value != '' )
+		shortcode += ' ad_height=' + document.getElementById("fv_wp_flowplayer_field_ad_height").value;		
+	if( document.getElementById("fv_wp_flowplayer_field_ad_skip").checked != '' )
+		shortcode += ' ad_skip=yes';				
+	
+  shortcode += fv_wp_fp_shortcode_remains.trim();
   
 	shortcode += ']';
 	
@@ -385,16 +431,26 @@ function add_format() {
   				<td colspan="2" class="field"><a href="#" class="partial-underline" onclick="add_format()" style="outline: 0"><span id="add-format">+</span>&nbsp;Add another format</a> (i.e. WebM, OGV)</td>
   			</tr>      
   			
+        <tr<?php if( $conf["interface"]["mobile"] !== 'true' ) echo ' style="display: none"'; ?>>
+  				<th scope="row" class="label"><label for="fv_wp_flowplayer_field_mobile" class="alignright">Mobile Video</label></th>
+  				<td class="field" colspan="2"><input type="text" id="fv_wp_flowplayer_field_mobile" name="fv_wp_flowplayer_field_mobile" style="width: <?php echo $upload_field_width; ?>" value=""/>
+  					<?php if ($allow_uploads=='true') { ?>
+              <a class="thickbox button add_media" href="media-upload.php?post_id=<?php echo $post_id; ?>&amp;type=fvplayer_mobile&amp;TB_iframe=true&amp;width=500&amp;height=300"><span class="wp-media-buttons-icon"></span> Add Video</a>
+          	<?php }; //allow uploads splash image ?></td>
+  			</tr>
+  			
         <tr>
   				<th scope="row" class="label"><label for="fv_wp_flowplayer_field_splash" class="alignright">Splash Image</label></th>
-  				<td class="field" colspan="2"><input type="text" id="fv_wp_flowplayer_field_splash" name="fv_wp_flowplayer_field_splash" style="width: <?php echo $upload_field_width; ?>" value=""/>   			<?php if ($allow_uploads=='true') { ?>
+  				<td class="field" colspan="2"><input type="text" id="fv_wp_flowplayer_field_splash" name="fv_wp_flowplayer_field_splash" style="width: <?php echo $upload_field_width; ?>" value=""/>
+  					<?php if ($allow_uploads=='true') { ?>
               <a class="thickbox button add_media" href="media-upload.php?post_id=<?php echo $post_id; ?>&amp;type=fvplayer_splash&amp;TB_iframe=true&amp;width=500&amp;height=300"><span class="wp-media-buttons-icon"></span> Add Image</a>
           	<?php }; //allow uploads splash image ?></td>
   			</tr>
       
         <tr<?php if( $conf["interface"]["subtitles"] !== 'true' ) echo ' style="display: none"'; ?>>
   				<th scope="row" class="label"><label for="fv_wp_flowplayer_field_subtitles" class="alignright">Subtitles</label></th>
-  				<td class="field" colspan="2"><input type="text" id="fv_wp_flowplayer_field_subtitles" name="fv_wp_flowplayer_field_subtitles" style="width: <?php echo $upload_field_width; ?>" value=""/>   			<?php if ($allow_uploads=='true') { ?>
+  				<td class="field" colspan="2"><input type="text" id="fv_wp_flowplayer_field_subtitles" name="fv_wp_flowplayer_field_subtitles" style="width: <?php echo $upload_field_width; ?>" value=""/>
+  					<?php if ($allow_uploads=='true') { ?>
               <a class="thickbox button add_media" href="media-upload.php?post_id=<?php echo $post_id; ?>&amp;type=fvplayer_subtitles&amp;TB_iframe=true&amp;width=500&amp;height=300"><span class="wp-media-buttons-icon"></span> Add Subtitles</a>
           	<?php }; //allow uploads splash image ?></td>
   			</tr>
@@ -455,7 +511,19 @@ function add_format() {
               <option>Off</option>
             </select>
           </td>
-  			</tr>             
+  			</tr>           
+        <tr<?php if( $conf["interface"]["ads"] !== 'true' ) echo ' style="display: none"'; ?>>
+  				<th valign="top" scope="row" class="label" style="width: 18%"><label for="fv_wp_flowplayer_field_ad" class="alignright">Ad code</label></th>
+  				<td>
+  					<textarea type="text" id="fv_wp_flowplayer_field_ad" name="fv_wp_flowplayer_field_ad" style="width: 93%"></textarea>
+  				</td>
+  			</tr> 
+  			<tr<?php if( $conf["interface"]["ads"] !== 'true' ) echo ' style="display: none"'; ?>><th></th>
+  				<td class="field">
+  					<label for="fv_wp_flowplayer_field_ad_width">Width <small>(px)</small></label> <input type="text" id="fv_wp_flowplayer_field_ad_width" name="fv_wp_flowplayer_field_ad_width" style="width: 18%; margin-right: 25px;"  value=""/> <label for="fv_wp_flowplayer_field_ad_height">Height <small>(px)</small></label> <input type="text" id="fv_wp_flowplayer_field_ad_height" name="fv_wp_flowplayer_field_ad_height" style="width: 18%" value=""/><br />
+  					<input type="checkbox" id="fv_wp_flowplayer_field_ad_skip" name="fv_wp_flowplayer_field_ad_skip" /> Skip global ad in this video  					
+  				</td>
+  			</tr>			
   			<tr>
   				<th scope="row" class="label"></th>					
             	<td  style="padding-top: 20px;"><input type="button" value="Insert" name="insert" id="fv_wp_flowplayer_field_insert-button" class="button-primary alignleft" onclick="fv_wp_flowplayer_submit();" />
