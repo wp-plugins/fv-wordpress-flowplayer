@@ -1,4 +1,4 @@
-=== FV Wordpress Flowplayer ===
+=== FV Wordpress Flowplayer === 
 Contributors: FolioVision
 Donate link: http://foliovision.com/donate/
 Tags: video, flash, flowplayer, player, jwplayer, mobile, mobile video, html5
@@ -10,7 +10,7 @@ Embed videos (FLV, H.264, and MP4) into posts or pages.
 
 == Description ==
 
-Custom HTML 5 video on your own site with Flash fallback for legacy browsers is here.
+Custom HTML 5 video on your own site with Flash fallback for legacy browsers is here  .
 
 FV Wordpress Flowplayer WordPress plugin is a free, easy-to-use, and complete solution for embedding FLV or MP4 videos into your posts or pages. With MP4 videos, FV Wordpress Flowplayer offers 98% coverage even on mobile devices.
 
