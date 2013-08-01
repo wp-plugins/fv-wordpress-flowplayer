@@ -26,7 +26,6 @@ class flowplayer_frontend extends flowplayer
     
 		// returned array with new player's html and javascript content
 		$this->ret = array('html' => '', 'script' => '');
-		$scripts_after = '';
       
     
     // set common variables
@@ -46,7 +45,7 @@ class flowplayer_frontend extends flowplayer
     
     //	decide which player to use
     foreach( array( $media, $src1, $src2 ) AS $media_item ) {
-    	if( preg_match( '~\.(mp3|wav|ogg)~', $media_item ) ) {
+    	if( preg_match( '!\.mp3$!', $media_item ) ) {
 				$player_type = 'audio';
 				break;
 			} 
@@ -303,10 +302,10 @@ class flowplayer_frontend extends flowplayer
 			
 			$attributes = array();
 			$attributes['class'] = 'flowplayer';
-			if( $autoplay == 'false' && !( isset($this->conf['auto_buffer']) && $this->conf['auto_buffer'] == 'true' ) ) {
+			if ($autoplay == 'false') {
 				$attributes['class'] .= ' is-splash';
 			}
-			if( $controlbar == 'show' ) {
+			if ($controlbar == 'show') {
 				$attributes['class'] .= ' fixed-controls';
 			} 
 			
@@ -399,28 +398,8 @@ class flowplayer_frontend extends flowplayer
 			if (isset($args['loop']) && $args['loop'] == 'true') {
 				$this->ret['html'] .= ' loop';
 			}     
-			if (isset($this->conf['auto_buffer']) && $this->conf['auto_buffer'] == 'true') {
+			if (isset($this->conf['autobuffer']) && $this->conf['autobuffer'] == 'true') {
 				$this->ret['html'] .= ' preload="auto"';
-				$this->ret['html'] .= ' id="wpfp_'.$this->hash.'_video"';
-				
-				$count = $mp4_position = $webm_position = 0;
-				foreach( array( $media, $src1, $src2 ) AS $media_item ) {
-					$count++;
-					if( preg_match( '~\.(mp4|mov|m4v)~', $media_item ) ) {
-						$mp4_position = $count;
-					} else if( preg_match( '~\.webm~', $media_item ) ) {
-						$webm_position = $count;
-					} 					
-				}					
-				if( $mp4_position > $webm_position ) {
-					$scripts_after .= '<script type="text/javascript">
-						if( /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()) )  {
-							document.getElementById("wpfp_'.$this->hash.'_video").setAttribute("preload", "none");
-						}
-					</script>
-					';
-				}
-				
 			}
 			else
 			if ($autoplay == 'false') {
@@ -472,7 +451,7 @@ class flowplayer_frontend extends flowplayer
 			if( isset($ad_contents) ) {
 				$this->ret['html'] .= $ad_contents;  
 			}			
-			$this->ret['html'] .= '</div>'."\n".$scripts_after;      
+			$this->ret['html'] .= '</div>'."\n";      
     
     } else {	//	$player_type == 'video' ends
     	global $fv_wp_flowplayer_ver;
@@ -488,7 +467,7 @@ class flowplayer_frontend extends flowplayer
     
     	$this->ret['html'] .= '<div id="wpfp_' . $this->hash . '" class="fvplayer fv-mediaelement">'."\n";			
 			$this->ret['html'] .= "\t".'<audio src="'.$media.'" type="audio/'.$this->get_file_extension($media).'" controls="controls" width="'.$width.'"'.$preload.'></audio>'."\n";  
-    	$this->ret['html'] .= '</div>'."\n".$scripts_after; 
+    	$this->ret['html'] .= '</div>'."\n"; 
     }
     
 		return $this->ret;
@@ -589,7 +568,7 @@ class flowplayer_frontend extends flowplayer
     $pathinfo = pathinfo( trim($media) );
 
     $extension = ( isset($pathinfo['extension']) ) ? $pathinfo['extension'] : false;       
-    $extension = preg_replace( '~\?.+$~', '', $extension );
+    $extension = preg_replace( '!\?.+$!', '', $extension );
     
 		if( !$extension ) {
 			return $default;
