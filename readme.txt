@@ -158,6 +158,14 @@ Unfortunatelly HTML5 does not support live broadcasting. Please read about it he
 
 You need to use at least PHP 5, your site is probably still running on old PHP 4. 
 
+= I get "Can't create temporary file for video analysis" in admin video checker =
+
+This temporary file is required as our plugin contains a video checker for admin users - it checks the video format and other information and warns you about potential issues why your video might not play for everybody.
+
+The error message means the Wordpress media uploads directory (by default wp-content/uploads) is not writable by PHP. We use this standard Wordpress path as it should work for nearly all the websites. Most of people use the standard Wordpress Media Library, so this should really work.
+
+You can try to set the permissions of that folder to allow writing for everybody and see if that helps. If you are not sure, ask your web host support about what PHP permission model you use.
+
 = I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
 
 Go to plugin Settings screen and hit "Check template" button. It will check if both jQuery library and Flowplayer JavaScript is loading properly.
@@ -226,7 +234,7 @@ Playlist feature is not supported right now.
 
 = How can I change the play icon? =
 
-You need to copy the CSS from the Flowplayer CSS (default theme) and put it into your theme CSS. Also add some element ID in front of it to make sure it overridsed the default Flowplayer CSS:
+You need to copy the CSS from the Flowplayer CSS (default theme) and put it into your theme CSS. Also add some element ID in front of it to make sure it overrides the default Flowplayer CSS:
 
 `#content .is-paused.flowplayer .fp-ui{background:url({PATH TO YOUR IMAGE}.png) center no-repeat;background-size:12%;}
 #content .is-rtl.is-splash.flowplayer .fp-ui, #content .is-rtl.is-paused.flowplayer .fp-ui{background:url({PATH TO YOUR IMAGE-rtl}.png) center no-repeat;background-size:12%}
@@ -236,6 +244,17 @@ You need to copy the CSS from the Flowplayer CSS (default theme) and put it into
 }`
 
 The image needs to be 100x106px normal version nad 200x212px hi res version. You only have to include the RTL version if your site runs in such language.
+
+= How can I change position of my custom logo? =
+
+You need to put the code below into your theme CSS. Also add some element ID in front of it to make sure it overrides the default Flowplayer CSS, in the following example we use #content which is present in most templates. The code sample puts it into top right corner, but you can move the values around to get the placement you need:
+
+`#content .flowplayer .fp-logo {
+	top: 10px;
+	right: 10px;
+	bottom: auto;
+	left: auto;
+}`
 
 = Volume control in player looks weird =
 
@@ -298,9 +317,17 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 * tools for fixing of slow loading videos (bad meta data location)
 * other bugfixes
 
+= 2.1.48 - 2013/11/14 =
+
+* Fix - playlist editor lets you specify all the required formats for the playlist items
+* Fix - playlist thumbnails are 3:2 aspect ratio by default
+* Fix - upgrade to latest core Flowplayer (5.4.4) fixing a lot of bugs (iOS7, RTMP ghost connections, ...)
+* Bugfix - Post Interface Options saving
+
 = 2.1.47 - 2013/11/05 =
 
-* Fix - licensing changes requested by Wordpress.org (notifications, local hosted embed codes)
+* Fix - licensed users are required to agree on the automatic license key updates (required by Wordpress.org policy)
+* Fix - embed code libraries linked from the site hosting the plugin (required by Wordpress.org policy)
 
 = 2.1.46 - 2013/11/04 =
 
