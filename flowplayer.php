@@ -46,7 +46,7 @@ if( is_admin() ) {
   require_once( dirname( __FILE__ ) . '/controller/shortcodes.php');
 }
 
-$fv_wp_flowplayer_ver = '2.1.48';
+$fv_wp_flowplayer_ver = '2.1.48.1';
 $fv_wp_flowplayer_core_ver = '5.4.4';
 
 ?>
