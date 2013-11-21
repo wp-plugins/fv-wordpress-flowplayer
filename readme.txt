@@ -62,6 +62,8 @@ There aren't any special requirements for FV Wordpress Flowplayer to work, and y
    3. Go into Wordpress plugins setup in Wordpress administration interface and activate FV Wordpress Flowplayer plugin.
    4. Optionally, if you want to embed videos denoted just by their filename, you can create the /videos/ directory located directly in the root of your domain and place your videos there. Otherwise, you would have to type in a complete URL of video files.
    5. Go to plugin Settings screen and click both "Check template" and "Check videos" buttons to check your template and videos mime type.
+   
+Visit [out site](http://wordpress.org/plugins/fv-wordpress-flowplayer/installation/) for a fully featured guide with **screenshots** and more!
 
    
 == Frequently Asked Questions ==
@@ -166,9 +168,11 @@ The error message means the Wordpress media uploads directory (by default wp-con
 
 You can try to set the permissions of that folder to allow writing for everybody and see if that helps. If you are not sure, ask your web host support about what PHP permission model you use.
 
-= I installed the plugin, inserted the video, but it's not working, only a gray box appears. =
+= I installed the plugin, inserted the video, but it's not working - there is no control bar or only a gray box appears. =
 
 Go to plugin Settings screen and hit "Check template" button. It will check if both jQuery library and Flowplayer JavaScript is loading properly.
+
+Also, check "I'm using OptimizePress template" question above.
 
 = You player works just fine, but there are some weird display issues. =
 
@@ -317,11 +321,12 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 * tools for fixing of slow loading videos (bad meta data location)
 * other bugfixes
 
-= 2.1.49 - 2013/11/?? =
+= 2.1.49 - 2013/11/21 =
 
 * Fix - Flash engine set to respect the video aspect ratio when using a different player size
 * Fix - Flowplayer configuration JS moved into footer
 * Bugfix - Playlist - RTMP parsing issues
+* Bugfix - Video Checker - disabled for PHP with Safe Mode On
 
 = 2.1.48 - 2013/11/14 =
 
