@@ -355,7 +355,23 @@ function fv_flowplayer_admin_interface_options() {
 function fv_flowplayer_admin_skin() {
 	global $fv_fp;
 ?>
-					<table class="form-table2" style="width: 100%">	
+<div class="flowplayer-wrapper">
+									<div class="flowplayer is-splash"
+									<?php if ($fv_fp->conf['engine'] == 'flash') echo 'data-engine="flash"'; ?>
+									data-swf="<?php echo FV_FP_RELATIVE_PATH ?>/flowplayer/flowplayer.swf"
+									data-ratio="0.417" 
+									style="max-width:<?php echo $fv_fp->conf['width']; ?>px; max-height:<?php echo $fv_fp->conf['height']; ?>px;"
+									<?php if ($fv_fp->conf['allowfullscreen'] == 'false') echo 'data-fullscreen="false"'; ?>
+									<?php if (isset($fv_fp->conf['key']) && $fv_fp->conf['key'] != 'false' && strlen($fv_fp->conf['key']) > 0) {echo 'data-key="' . $fv_fp->conf['key'] . '"'; $commercial_key = true;} ?>
+									<?php if ( isset($commercial_key) && isset($fv_fp->conf['logo']) && $fv_fp->conf['logo'] != 'false' && strlen($fv_fp->conf['logo']) > 0) echo ' data-logo="' . $fv_fp->conf['logo'] . '"'; ?>
+									<?php if ($fv_fp->conf['scaling'] == "fit") echo 'data-flashfit="true"';; ?>
+									>
+										<video poster="http://foliovision.com/videos/example.jpg"<?php if (isset($fv_fp->conf['autoplay']) && $fv_fp->conf['autoplay'] == 'true') echo ' autoplay'; ?><?php if (isset($fv_fp->conf['auto_buffer']) && $fv_fp->conf['auto_buffer'] == 'true') echo ' preload'; ?>>
+											<source src="http://foliovision.com/videos/example.mp4" type="video/mp4" />
+										</video>
+									</div>
+									</div>
+					<table class="form-table2 flowplayer-settings" style="width: 45%;">	
 						<?php include dirname( __FILE__ ) . '/../view/colours.php'; ?>
 						<tr>
 							<td><label for="font-face">Player font face</label></td>
@@ -372,7 +388,7 @@ function fv_flowplayer_admin_skin() {
 								<input type="submit" name="fv-wp-flowplayer-submit" class="button-primary" value="Save All Changes" style="margin-top: 2ex;"/>
 							</td>
 						</tr>					
-					</table>						
+					</table>    					
 <?php
 }
 
@@ -510,7 +526,7 @@ div.green { background-color: #e0ffe0; border-color: #88AA88; }
   
   <form id="wpfp_options" method="post" action="">  
 		<div id="dashboard-widgets" class="metabox-holder columns-1">
-			<div id='postbox-container-1' class='postbox-container'>    
+			<div id='postbox-container-1' class='postbox-container' style="width: 100%;">    
 				<?php
 				do_meta_boxes('fv_flowplayer_settings', 'normal', false );
 				wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
