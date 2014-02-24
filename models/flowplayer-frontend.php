@@ -233,6 +233,10 @@ class flowplayer_frontend extends flowplayer
 				if( $autoplay == false ) {
 					$attributes['class'] .= ' is-splash';
 				}
+        
+        if( isset($this->aCurArgs['playlist_hide']) && strcmp($this->aCurArgs['playlist_hide'],'true') == 0 ) {
+					$attributes['class'] .= ' playlist-hidden';
+				}
 				
 				if( $controlbar == 'show' ) {
 					$attributes['class'] .= ' fixed-controls';
@@ -308,7 +312,9 @@ class flowplayer_frontend extends flowplayer
 				$playlist = '';
 				$is_preroll = false;
 				if( isset($playlist_items_external_html) ) {
-          $this->sHTMLAfter .= "\t<div class='fp-playlist-external' rel='wpfp_{$this->hash}'>\n".implode( '', $playlist_items_external_html )."\t</div>\n";
+          if( !isset($this->aCurArgs['playlist_hide']) || strcmp($this->aCurArgs['playlist_hide'],'true') != 0 ) {
+            $this->sHTMLAfter .= "\t<div class='fp-playlist-external' rel='wpfp_{$this->hash}'>\n".implode( '', $playlist_items_external_html )."\t</div>\n";
+          }
           $this->aPlaylists["wpfp_{$this->hash}"] = $aPlaylistItems;
 
           $attributes['style'] .= "background-image: url({$splash_img});";
@@ -336,7 +342,7 @@ class flowplayer_frontend extends flowplayer
 				if( count($aPlaylistItems) == 0 ) {	// todo: this stops subtitles, mobile video, preload etc.
 					$this->ret['html'] .= "\t".'<video';      
 					if (isset($splash_img) && !empty($splash_img)) {
-						$this->ret['html'] .= ' poster="'.str_replace(' ','%20',$splash_img).'"';
+						$this->ret['html'] .= ' poster="'.flowplayer::get_encoded_url($splash_img).'"';
 					} 
 					if( $autoplay == true ) {
 						$this->ret['html'] .= ' autoplay';  
@@ -400,8 +406,8 @@ class flowplayer_frontend extends flowplayer
 				if( $ad_contents = $this->get_ad_code() ) {
 					$this->ret['html'] .= $ad_contents;  
 				}
-        if( current_user_can('manage_options') && 1 ) {
-					$this->ret['html'] .= '<div id="wpfp_'.$this->hash.'_admin_error" class="fvfp_admin_error"><div class="fvfp_admin_error_content"><h4>Admin warning:</h4>I\'m sorry, your JavaScript appears to be broken. Please <a href="http://foliovision.com/wordpress/pro-install">order our pro support</a> and we will get it fixed for you.</div></div>';       
+        if( current_user_can('manage_options') && !isset($playlist_items_external_html) ) {
+					$this->ret['html'] .= '<div id="wpfp_'.$this->hash.'_admin_error" class="fvfp_admin_error"><div class="fvfp_admin_error_content"><h4>Admin warning:</h4>I\'m sorry, your JavaScript appears to be broken. Please use "Check template" in plugin settings or <a href="http://foliovision.com/wordpress/pro-install">order our pro support</a> and we will get it fixed for you.</div></div>';       
         }
 				$this->ret['html'] .= '</div>'."\n";
 	
@@ -800,5 +806,3 @@ class flowplayer_frontend extends flowplayer
 	}
       
 }
-
-?>
