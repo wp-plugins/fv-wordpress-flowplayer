@@ -534,6 +534,17 @@ function fv_wp_flowplayer_admin_init() {
 		wp_enqueue_script('postbox');
 	}
     
+
+  if( flowplayer::is_licensed() ) {    
+    if ( false === ( $aCheck = get_transient( 'fv_flowplayer_license' ) ) ) {
+      $aCheck = fv_wp_flowplayer_license_check( array('action' => 'check') );  
+      if( $aCheck ) {
+        set_transient( 'fv_flowplayer_license', $aCheck, 60*60*24 );
+      } else {
+        set_transient( 'fv_flowplayer_license', $aCheck, 60*60 );
+      }
+    }
+  }
 }   
 
 
@@ -1600,14 +1611,13 @@ function fv_wp_flowplayer_install_pro() {
   }
   
   global $hook_suffix;
-  $plugin_type = $_POST['plugin'];
-  $plugin_package = str_replace('_plugin', '_package', $plugin_type);
+  $plugin_package = $_POST['plugin'];
   
   $aPluginInfo = get_transient( 'fv_flowplayer_license' );
-  $plugin_basename = $aPluginInfo->{$plugin_type};  
-  $download_url = $aPluginInfo->{$plugin_package};
-  
-  
+  $plugin_basename = $aPluginInfo->{$plugin_package}->slug; 
+  $download_url = $aPluginInfo->{$plugin_package}->url;
+  var_dump($plugin_basename);
+  var_dump($download_url);
   $url = site_url('wp-admin');
 
   set_current_screen();
@@ -1638,7 +1648,7 @@ function fv_wp_flowplayer_install_pro() {
       $plugin_basename = $objInstaller->plugin_info();
     }
   }
-  
+  var_dump($plugin_basename);
   $activate = activate_plugin( $plugin_basename );
   if ( is_wp_error( $activate ) ) {
     echo "<FVFLOWPLAYER>".json_encode( array( 'message' => $activate->get_error_message(), 'error' => $activate->get_error_message() ) )."</FVFLOWPLAYER>";
