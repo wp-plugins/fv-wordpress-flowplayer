@@ -8,7 +8,7 @@ Stable tag: 2.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Wordpress's most reliable, easy to use and feature-rich video player. Supports responsive design, HTML5, playlists, ads, analytics, Vimeo, YouTube.
+Wordpress's most reliable, easy to use and feature-rich video player. Supports responsive design, HTML5, playlists, ads, stats, Vimeo, YouTube.
 
 == Description ==
 
