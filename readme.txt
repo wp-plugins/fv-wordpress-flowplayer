@@ -309,12 +309,20 @@ Thank you for being part of the HMTL 5 mobile video revolution!
 
 == Changelog ==
 
+= 2.3.10 - 2015/01/21 =
+
+* Fix - admin player preview fixes
+* Fix - code revisions, code optimizations for wp-admin
+* Fix - src attribute parsing when fv_flowplayer_shortcode filter is used
+* Fix - touch devices now use the device native fullscreen playback due to the inperfections in the browser fullscreen modes in different mobile browsers
+
 = 2.3.9 - 2015/01/07 =
 
 * Fix - added "Region" setting for the Amazon S3 buckets. It's required for AWS Signature Version 4 used by Frankfurt region.
 * Bugfix - audio player responsivendess
 * Bugfix - ratio uses coma instead of dot for decimal numbers on some servers - breaking things
 * Bugfix - some PHP warnings
+* Pro - YouTube Android < 4.3 fixes
 
 = 2.3.8 - 2014/12/09 =
 
